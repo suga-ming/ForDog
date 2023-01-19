@@ -11,7 +11,7 @@ const SignUp = () => {
       <div className="flex justify-center font-semibold text-lg py-8">
         회원가입
       </div>
-      <div className="w-full relative bg-yellow-300 max-w-[380px] h-11 rounded-lg text-black flex justify-center items-center font-semibold">
+      <div className="w-full relative bg-yellow-300 max-w-[380px] h-11 rounded-lg text-black flex justify-center items-center font-semibold cursor-pointer">
         <svg
           className="w-5 top-0 bottom-0 left-5 my-auto  absolute"
           xmlns="http://www.w3.org/2000/svg"
