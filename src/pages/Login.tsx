@@ -33,8 +33,12 @@ const Login = () => {
       setRefreshtoken(res?.data.data.data.refreshToken);
       navigate("/");
     } else if (resultCode === 1102) alert("존재하지 않는 계정입니다");
-    else if (resultCode === 1103) alert("비밀번호가 틀렸습니다");
-    else if (resultCode === 1101) alert("로그인에 실패하셨습니다");
+    else if (resultCode === 1103) {
+      alert("비밀번호가 틀렸습니다");
+      reset({
+        password: "",
+      });
+    } else if (resultCode === 1101) alert("로그인에 실패하셨습니다");
   };
   return (
     <div>
