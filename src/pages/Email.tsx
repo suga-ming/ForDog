@@ -1,4 +1,7 @@
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { emailSignUp, SignUpInterface } from "../api/user";
 
 const Input = styled.input`
   border: 1px solid gray;
@@ -12,8 +15,35 @@ const Input = styled.input`
 `;
 
 const Email = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SignUpInterface>();
+  const onSubmit = async (data: SignUpInterface) => {
+    const res = await emailSignUp(data);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      reset({
+        email: "",
+        password: "",
+        name: "",
+        phone: "",
+        nickName: "",
+      });
+      alert("회원가입 성공");
+      navigate("/login");
+    } else if (resultCode === 1001) alert("존재하는 계정입니다");
+    else if (resultCode === 1101) alert("회원가입을 실패했습니다");
+  };
+
   return (
-    <form className="flex h-screen flex-col items-center justify-center">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex h-screen flex-col items-center justify-center"
+    >
       <div className="font-semibold text-xl">회원 정보 입력</div>
       <article className="flex flex-col w-72 mt-7">
         <div className="flex items-center">
@@ -29,9 +59,17 @@ const Email = () => {
             />
           </svg>
         </div>
-        <Input placeholder="ex) love1234@naver.com" />
+        <Input
+          {...register("email", {
+            required: "아이디를 입력해주세요",
+          })}
+          placeholder="ex) love1234@naver.com"
+        />
+        <span className="mt-1 ml-1 text-xs text-red-500">
+          {errors?.email?.message}
+        </span>
       </article>
-      <article className="flex flex-col w-72 mt-5">
+      <article className="flex flex-col w-72 mt-3">
         <div className="flex items-center">
           <label>비밀번호</label>
           <svg
@@ -45,9 +83,19 @@ const Email = () => {
             />
           </svg>
         </div>
-        <Input placeholder="비밀번호를 입력해주세요." />
+        <Input
+          {...register("password", {
+            required: "비밀번호를 입력해주세요",
+            minLength: { value: 5, message: "5글자이상 입력해주세요" },
+          })}
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
+        />
+        <span className="mt-1 ml-1 text-xs text-red-500">
+          {errors?.password?.message}
+        </span>
       </article>
-      <article className="flex flex-col w-72 mt-5">
+      <article className="flex flex-col w-72 mt-3">
         <div className="flex items-center">
           <label>이름</label>
           <svg
@@ -61,9 +109,18 @@ const Email = () => {
             />
           </svg>
         </div>
-        <Input placeholder="이름을 입력해주세요" />
+        <Input
+          {...register("name", {
+            required: "이름을 입력해주세요",
+            minLength: { value: 2, message: "2글자이상 입력해주세요" },
+          })}
+          placeholder="이름을 입력해주세요"
+        />
+        <span className="mt-1 ml-1 text-xs text-red-500">
+          {errors?.name?.message}
+        </span>
       </article>
-      <article className="flex flex-col w-72 mt-5">
+      <article className="flex flex-col w-72 mt-3">
         <div className="flex items-center">
           <label>핸드폰번호</label>
           <svg
@@ -77,7 +134,16 @@ const Email = () => {
             />
           </svg>
         </div>
-        <Input placeholder="핸드폰번호를 입력해주세요" />
+        <Input
+          {...register("phone", {
+            required: "핸드폰 번호를 입력해주세요",
+            minLength: { value: 10, message: "10글자이상 입력해주세요" },
+          })}
+          placeholder="ex) 01012345678"
+        />
+        <span className="mt-1 ml-1 text-xs text-red-500">
+          {errors?.phone?.message}
+        </span>
       </article>
       <div className="h-px w-72 mt-5 bg-gray-300" />
       <article className="flex flex-col w-72 mt-5">
@@ -94,11 +160,19 @@ const Email = () => {
             />
           </svg>
         </div>
-        <Input placeholder="사용하실 닉네임을 입력해주세요" />
+        <Input
+          {...register("nickName", {
+            required: "닉네임을 입력해주세요",
+          })}
+          placeholder="사용하실 닉네임을 입력해주세요"
+        />
+        <span className="mt-1 ml-1 text-xs text-red-500">
+          {errors?.nickName?.message}
+        </span>
       </article>
-      <div className="mt-6 w-72 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold">
+      <button className="mt-6 w-72 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold">
         가입하기
-      </div>
+      </button>
     </form>
   );
 };
