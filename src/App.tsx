@@ -4,6 +4,7 @@ import Router from "./Router";
 import GlobalStyle from "./styles/GlobalStyles";
 import { lightTheme } from "./theme";
 import "./styles/GlobalStyle.css";
+import Spalsh from "./pages/Spalsh";
 
 function App() {
   return (
