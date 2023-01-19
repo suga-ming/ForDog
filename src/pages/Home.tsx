@@ -1,7 +1,9 @@
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 
-const PostIt = styled.div`
+const PostIt = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,6 +12,11 @@ const PostIt = styled.div`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
+  const boxVariants = {
+    hover: { scale: 1.2 },
+    click: { opacity: 0.8 },
+  };
   return (
     <div className="h-screen bg-white flex flex-col justify-end items-center">
       <div className="flex flex-col justify-center items-center">
@@ -21,7 +28,12 @@ const Home = () => {
       </div>
       <div className="flex justify-around w-3/5 mt-20">
         <div>
-          <PostIt>
+          <PostIt
+            onClick={() => navigate("/dog")}
+            variants={boxVariants}
+            whileHover="hover"
+            whileTap="click"
+          >
             <svg
               className="w-16 h-16 mb-3"
               xmlns="http://www.w3.org/2000/svg"
@@ -34,9 +46,13 @@ const Home = () => {
             </svg>
             <div className="text-white font-semibold">자랑하기</div>
           </PostIt>
-          {/* <div className="bg-red-200 h-8 w-full" /> */}
         </div>
-        <PostIt>
+        <PostIt
+          onClick={() => navigate("/comunity")}
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+        >
           <svg
             className="w-16 h-16 mb-3"
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +65,12 @@ const Home = () => {
           </svg>
           <div className="text-white font-semibold">커뮤니티</div>
         </PostIt>
-        <PostIt>
+        <PostIt
+          onClick={() => navigate("/calender")}
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+        >
           <svg
             className="w-[60px] h-[60px] mb-3"
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +83,12 @@ const Home = () => {
           </svg>
           <div className="text-white font-semibold">캘린더</div>
         </PostIt>
-        <PostIt>
+        <PostIt
+          onClick={() => navigate("/rank")}
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+        >
           <svg
             className="w-16 h-16 mb-3"
             xmlns="http://www.w3.org/2000/svg"
