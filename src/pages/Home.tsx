@@ -11,6 +11,21 @@ const PostIt = styled(motion.div)`
   padding: 40px 50px 160px 50px;
 `;
 
+const postitVariants = {
+  initial: {
+    y: 0,
+    scale: 0,
+  },
+  visible: {
+    y: 300,
+    scale: 1,
+    transition: {
+      delay: 1,
+      type: "tween",
+    },
+  },
+};
+
 const Home = () => {
   const navigate = useNavigate();
   const boxVariants = {
