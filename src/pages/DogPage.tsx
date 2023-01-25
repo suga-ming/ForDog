@@ -21,20 +21,17 @@ const Down = styled.svg`
 const Bold = styled.div<{ isActive: boolean }>`
   font-weight: ${(props) => (props.isActive ? "600" : "300")};
 `;
-// const Bold = styled.div`
-//   font-weight: 500;
-// `;
 
-const MyPage = () => {
+const DogPage = () => {
   const navigate = useNavigate();
-  const myPageMatch = useMatch("/myPage");
+  const dogPageMatch = useMatch("/dogPage");
   const goMyPage = () => {
     navigate("/myPage");
   };
   const goDogPage = () => {
     navigate("/dogPage");
   };
-  console.log(myPageMatch);
+  console.log(dogPageMatch);
   return (
     <div className="pt-16 flex justify-center px-40">
       <div className="w-5/1 mr-10">
@@ -62,7 +59,7 @@ const MyPage = () => {
             onClick={goMyPage}
             className="py-4 flex justify-between px-5 cursor-pointer"
           >
-            <Bold isActive={myPageMatch !== null}>회원정보 수정</Bold>
+            <div>회원정보 수정</div>
             <Down xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </Down>
@@ -71,7 +68,7 @@ const MyPage = () => {
             onClick={goDogPage}
             className="py-4 flex justify-between px-5 cursor-pointer"
           >
-            <div>반려견 정보</div>
+            <Bold isActive={dogPageMatch !== null}>반려견 정보</Bold>
             <Down xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </Down>
@@ -79,9 +76,7 @@ const MyPage = () => {
         </div>
       </div>
       <div className="w-3/5 bg-white rounded-xl my-8">
-        <Solid className="font-semibold text-xl pb-5 pl-7">
-          회원 정보 수정
-        </Solid>
+        <Solid className="font-semibold text-xl pb-5 pl-7">반려견 정보</Solid>
         <div className="flex mt-8 mb-5">
           <div className="w-[72px] h-[72px] rounded-full ml-8 bg-we_pink" />
           <div className="ml-6">
@@ -157,4 +152,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default DogPage;

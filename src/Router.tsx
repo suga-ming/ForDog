@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Calender from "./pages/Calender";
 import Comunity from "./pages/Comunity";
 import Dog from "./pages/Dog";
+import DogPage from "./pages/DogPage";
 import Email from "./pages/Email";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -22,7 +23,7 @@ const Router = () => {
         <Route path="/signUp/email" element={<Email />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/myPage" element={<MyPage />}></Route>
-        <Route path="/dog" element={<Dog />}></Route>
+        <Route path="/dogPage" element={<DogPage />}></Route>
         <Route path="/comunity" element={<Comunity />}></Route>
         <Route path="/calender" element={<Calender />}></Route>
         <Route path="/rank" element={<Rank />}></Route>
