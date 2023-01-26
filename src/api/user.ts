@@ -73,3 +73,15 @@ export const userInfoEdit = async (
     console.log(err);
   }
 };
+
+export const deleteUser = async (accessToken: string) => {
+  try {
+    return await api.delete("/user/delete", {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

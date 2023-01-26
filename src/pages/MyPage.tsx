@@ -2,15 +2,16 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
+  deleteUser,
   InfoEditInterface,
   userInfo,
   userInfoEdit,
   UserInfoInterface,
 } from "../api/user";
-import { isAccessToken } from "../store/recoil";
+import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -41,6 +42,9 @@ const MyPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
+  const isLoginReset = useResetRecoilState(isLogin);
+  const isAccessTokenReset = useResetRecoilState(isAccessToken);
+  const isRefreshTokenReset = useResetRecoilState(isRefreshToken);
   const myPageMatch = useMatch("/myPage");
   const goMyPage = () => {
     navigate("/myPage");
@@ -79,6 +83,21 @@ const MyPage = () => {
         password: "",
       });
     } else if (resultCode === 1021) alert("정보 수정 실패");
+  };
+
+  const deleteInfo = async (accessToken: string) => {
+    const res = await deleteUser(accessToken);
+    console.log(res);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode == 1) {
+      alert("탈퇴되셨습니다");
+      isLoginReset();
+      isAccessTokenReset();
+      isRefreshTokenReset();
+      navigate("/home");
+    } else if (resultCode == 1031) {
+      alert("탈퇴 실패");
+    }
   };
   return (
     <form
@@ -215,7 +234,10 @@ const MyPage = () => {
           <button className="w-full mb-5 bg-pet_pink max-w-[650px] h-11 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
             변경 정보 저장하기
           </button>
-          <div className="w-full mb-10 bg-gray-500 max-w-[650px] h-11 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
+          <div
+            onClick={() => deleteInfo(accessToken)}
+            className="w-full mb-10 bg-gray-500 max-w-[650px] h-11 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer"
+          >
             회원 탈퇴하기
           </div>
         </div>
