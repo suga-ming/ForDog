@@ -24,6 +24,13 @@ export interface UserInfoInterface {
   };
 }
 
+export interface InfoEditInterface {
+  password: string;
+  name: string;
+  nickName: string;
+  phone: string;
+}
+
 export const emailSignUp = async (body: SignUpInterface) => {
   try {
     return await api.post("/user/signUp/email", body);
@@ -43,6 +50,21 @@ export const emailSignIn = async (body: SignInInterface) => {
 export const userInfo = async (accessToken: string) => {
   try {
     return await api.get("/user/info", {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const userInfoEdit = async (
+  body: InfoEditInterface,
+  accessToken: string
+) => {
+  try {
+    return await api.patch("/user/update", body, {
       headers: {
         "x-access-auth": accessToken,
       },
