@@ -36,7 +36,7 @@ const MyPage = () => {
   };
   console.log(myPageMatch);
   return (
-    <div className="pt-16 flex justify-center px-40">
+    <div className="bg-gray-200 pt-16 flex justify-center px-40">
       <div className="w-5/1 mr-10">
         <div className="bg-pet_pink h-20  my-8 flex justify-center items-center px-7 rounded-xl">
           <svg
@@ -57,7 +57,7 @@ const MyPage = () => {
             </div>
           </div>
         </div>
-        <div className="bg-red-100 rounded-lg">
+        <div className="bg-white rounded-lg">
           <Solid
             onClick={goMyPage}
             className="py-4 flex justify-between px-5 cursor-pointer"
@@ -79,7 +79,7 @@ const MyPage = () => {
         </div>
       </div>
       <div className="w-3/5 bg-white rounded-xl my-8">
-        <Solid className="font-semibold text-xl pb-5 pl-7">
+        <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
           회원 정보 수정
         </Solid>
         <div className="flex mt-8 mb-5">
@@ -92,14 +92,14 @@ const MyPage = () => {
             <div>핸드폰 번호</div>
           </div>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center px-8">
           <Solid2 className="w-full mb-3 h-11 rounded-lg  max-w-[650px] flex justify-center items-center text-sm font-medium">
             휴대전화 인증으로 개인 정보 수정/입력
           </Solid2>
         </div>
         <div className="flex flex-col ml-8">
-          <div className="flex items-center pt-4 mb-7 text-sm text-gray-600">
-            <div>비밀번호 변경하기</div>
+          <div className="flex items-center pt-4 mb-5 text-sm text-gray-600">
+            <div>개인정보 수정하기</div>
             <svg
               className="w-3 ml-1"
               xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ const MyPage = () => {
             placeholder="영문자, 숫자, 특수문자로 이루어진 8~20자"
           />
         </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center px-8">
           <button className="w-full mb-5 bg-pet_pink max-w-[650px] h-11 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
             변경 정보 저장하기
           </button>

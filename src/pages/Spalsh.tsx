@@ -36,7 +36,7 @@ const Spalsh = () => {
   const navigate = useNavigate();
   useEffect(() => {
     let timer = setTimeout(() => {
-      navigate("/home");
+      navigate("/aHome");
     }, 2300);
   });
 

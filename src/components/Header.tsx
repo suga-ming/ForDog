@@ -12,7 +12,7 @@ const Header = () => {
     navigate("/signUp");
   };
   const goHome = () => {
-    navigate("/");
+    navigate("/home");
   };
   const goMyPage = () => {
     navigate("/myPage");

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useMatch } from "react-router-dom";
 import Header from "./components/Header";
+import AHome from "./pages/AHome";
 import Calender from "./pages/Calender";
 import Comunity from "./pages/Comunity";
 import Dog from "./pages/Dog";
@@ -19,6 +20,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Spalsh />}></Route>
         <Route path="/home" element={<Home />}></Route>
+        <Route path="/aHome" element={<AHome />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route path="/signUp/email" element={<Email />}></Route>
         <Route path="/login" element={<Login />}></Route>

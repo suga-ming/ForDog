@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
@@ -9,11 +10,30 @@ const PostIt = styled(motion.div)`
   align-items: center;
   background-color: rgba(237, 127, 148);
   padding: 40px 50px 160px 50px;
-  cursor: pointer;
 `;
 
-const Home = () => {
+const postitVariants = {
+  initial: {
+    y: 0,
+    scale: 0,
+  },
+  visible: {
+    y: 300,
+    scale: 1,
+    transition: {
+      delay: 1,
+      type: "tween",
+    },
+  },
+};
+
+const AHome = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      navigate("/home");
+    }, 2000);
+  });
   const boxVariants = {
     hover: { scale: 1.2 },
     click: { opacity: 0.8 },
@@ -22,31 +42,51 @@ const Home = () => {
     <div className="h-screen bg-white flex flex-col justify-end items-center">
       <div className="flex flex-col justify-center items-center">
         <img src={logo} className="w-32 h-32 mb-5" />
-        <div className="font-bold text-3xl mb-3 text-black">For Dog</div>
-        <div className="text-black font-semibold">
+        <motion.div
+          transition={{ delay: 0.2 }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1, rotateZ: 360 }}
+          className="font-bold text-3xl mb-3 text-black"
+        >
+          For Dog
+        </motion.div>
+        <motion.div
+          transition={{ delay: 0.4 }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="text-black font-semibold"
+        >
           오직 강아지를 위한 필요한것들이 다 모여있다!
-        </div>
+        </motion.div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
-        <PostIt
-          onClick={() => navigate("/dog")}
-          variants={boxVariants}
-          whileHover="hover"
-          whileTap="click"
-        >
-          <svg
-            className="w-16 h-16 mb-3"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
+        <div>
+          <PostIt
+            transition={{ delay: 1, type: "tween" }}
+            initial={{ scale: 0, y: 300 }}
+            animate={{ scale: 1, y: 0 }}
+            onClick={() => navigate("/dog")}
+            variants={boxVariants}
+            whileHover="hover"
+            whileTap="click"
           >
-            <path
-              fill="white"
-              d="M309.6 158.5L332.7 19.8C334.6 8.4 344.5 0 356.1 0c7.5 0 14.5 3.5 19 9.5L392 32h52.1c12.7 0 24.9 5.1 33.9 14.1L496 64h56c13.3 0 24 10.7 24 24v24c0 44.2-35.8 80-80 80H464 448 426.7l-5.1 30.5-112-64zM416 256.1L416 480c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V364.8c-24 12.3-51.2 19.2-80 19.2s-56-6.9-80-19.2V480c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V249.8c-28.8-10.9-51.4-35.3-59.2-66.5L1 167.8c-4.3-17.1 6.1-34.5 23.3-38.8s34.5 6.1 38.8 23.3l3.9 15.5C70.5 182 83.3 192 98 192h30 16H303.8L416 256.1zM464 80c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16z"
-            />
-          </svg>
-          <div className="text-white font-semibold">자랑하기</div>
-        </PostIt>
+            <svg
+              className="w-16 h-16 mb-3"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 576 512"
+            >
+              <path
+                fill="white"
+                d="M309.6 158.5L332.7 19.8C334.6 8.4 344.5 0 356.1 0c7.5 0 14.5 3.5 19 9.5L392 32h52.1c12.7 0 24.9 5.1 33.9 14.1L496 64h56c13.3 0 24 10.7 24 24v24c0 44.2-35.8 80-80 80H464 448 426.7l-5.1 30.5-112-64zM416 256.1L416 480c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V364.8c-24 12.3-51.2 19.2-80 19.2s-56-6.9-80-19.2V480c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V249.8c-28.8-10.9-51.4-35.3-59.2-66.5L1 167.8c-4.3-17.1 6.1-34.5 23.3-38.8s34.5 6.1 38.8 23.3l3.9 15.5C70.5 182 83.3 192 98 192h30 16H303.8L416 256.1zM464 80c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16z"
+              />
+            </svg>
+            <div className="text-white font-semibold">자랑하기</div>
+          </PostIt>
+        </div>
         <PostIt
+          transition={{ delay: 1.2, type: "tween" }}
+          initial={{ scale: 0, y: 300 }}
+          animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/comunity")}
           variants={boxVariants}
           whileHover="hover"
@@ -65,6 +105,9 @@ const Home = () => {
           <div className="text-white font-semibold">커뮤니티</div>
         </PostIt>
         <PostIt
+          transition={{ delay: 1.4, type: "tween" }}
+          initial={{ scale: 0, y: 300 }}
+          animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/calender")}
           variants={boxVariants}
           whileHover="hover"
@@ -83,6 +126,9 @@ const Home = () => {
           <div className="text-white font-semibold">캘린더</div>
         </PostIt>
         <PostIt
+          transition={{ delay: 1.6, type: "tween" }}
+          initial={{ scale: 0, y: 300 }}
+          animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/rank")}
           variants={boxVariants}
           whileHover="hover"
@@ -105,4 +151,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AHome;
