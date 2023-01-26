@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { userInfo, UserInfoInterface } from "../api/user";
+import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -26,7 +30,11 @@ const Bold = styled.div<{ isActive: boolean }>`
 const MyPage = () => {
   const navigate = useNavigate();
   const [infoEdit, setInfoEdit] = useState(false);
-  console.log(infoEdit);
+  const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const accessToken = useRecoilValue(isAccessToken);
   const myPageMatch = useMatch("/myPage");
   const goMyPage = () => {
     navigate("/myPage");
@@ -35,6 +43,18 @@ const MyPage = () => {
     navigate("/dogPage");
   };
 
+  if (accessToken !== "") {
+    userInfo(accessToken).then((res) => {
+      const resultCode = res?.data?.data.resultCode;
+      if (resultCode == 1) {
+        const data = res?.data?.data?.data;
+        setName(data?.name);
+        setNickName(data?.nickName);
+        setEmail(data?.email);
+        setPhone(data?.phone);
+      }
+    });
+  }
   return (
     <div className="bg-gray-200 pt-16 flex justify-center px-40 h-screen overflow-y-scroll">
       <div className="w-5/1 mr-10">
@@ -52,7 +72,7 @@ const MyPage = () => {
           <div className="text-white">
             <div className="font-semibold mb-1">안녕하세요.</div>
             <div className="flex">
-              <div className="font-bold">김보영</div>
+              <div className="font-bold">{name}</div>
               <div className="font-medium">님</div>
             </div>
           </div>
@@ -86,12 +106,12 @@ const MyPage = () => {
           <div className="w-[72px] h-[72px] rounded-full ml-8 bg-we_pink" />
           <div className="ml-6">
             <div className="flex items-center">
-              <div className="text-xl font-semibold">김보영</div>
+              <div className="text-xl font-semibold">{name}</div>
               <div className="w-[2px] h-5 bg-gray-300 mx-2" />
-              <div className="text-base font-semibold">슈가밍</div>
+              <div className="text-base font-semibold">{nickName}</div>
             </div>
-            <div className="font-semibold text-gray-600 my-1">이메일</div>
-            <div>핸드폰 번호</div>
+            <div className="font-semibold text-gray-600 my-1">{email}</div>
+            <div>{phone}</div>
           </div>
         </div>
         <div className="flex justify-center items-center px-8">
@@ -120,25 +140,22 @@ const MyPage = () => {
             <div className="px-8">
               <div className="mb-2">이름</div>
               <Input
-                // value={name}
                 className="w-full h-10 rounded-lg pl-2 placeholder:text-sm mb-4"
-                placeholder="이름"
+                placeholder={name}
               ></Input>
             </div>
             <div className="px-8">
               <div className="mb-2">폰 번호</div>
               <Input
-                // value={phone}
                 className="w-full h-10 rounded-lg pl-2 placeholder:text-sm mb-4"
-                placeholder="폰번호"
+                placeholder={phone}
               />
             </div>
             <div className="px-8">
               <div className="mb-2">닉네임</div>
               <Input
-                // value={gender}
                 className="w-full h-10 rounded-lg pl-2 placeholder:text-sm mb-4"
-                placeholder="닉네임"
+                placeholder={nickName}
               />
             </div>
             <div className="px-8 mb-8">

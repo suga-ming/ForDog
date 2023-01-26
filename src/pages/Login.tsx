@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { emailSignIn, SignInInterface } from "../api/user";
-import { isAccessToken, isLogin } from "../store/recoil";
+import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(203 213 225);
@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const setLogin = useSetRecoilState(isLogin);
   const setAccesstoken = useSetRecoilState(isAccessToken);
-  const setRefreshtoken = useSetRecoilState(isAccessToken);
+  const setRefreshtoken = useSetRecoilState(isRefreshToken);
   const goSignUp = () => {
     navigate("/signUp");
   };
@@ -31,7 +31,7 @@ const Login = () => {
       setLogin(true);
       setAccesstoken(res?.data.data.data.accessToken);
       setRefreshtoken(res?.data.data.data.refreshToken);
-      navigate("/");
+      navigate("/home");
     } else if (resultCode === 1102) alert("존재하지 않는 계정입니다");
     else if (resultCode === 1103) {
       alert("비밀번호가 틀렸습니다");

@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { isLogin } from "../store/recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
 
 const Header = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useRecoilState(isLogin);
+  const accessToken = useRecoilValue(isAccessToken);
+  const isLoginReset = useResetRecoilState(isLogin);
+  const isAccessTokenReset = useResetRecoilState(isAccessToken);
+  const isRefreshTokenReset = useResetRecoilState(isRefreshToken);
+
   const goLogin = () => {
     navigate("/login");
   };
@@ -16,6 +21,12 @@ const Header = () => {
   };
   const goMyPage = () => {
     navigate("/myPage");
+  };
+  const goLogOut = () => {
+    isLoginReset();
+    isAccessTokenReset();
+    isRefreshTokenReset();
+    navigate("/home");
   };
 
   return (
@@ -46,7 +57,7 @@ const Header = () => {
               마이페이지
             </div>
             <div className="w-px h-3 mx-2 bg-black" />
-            <div onClick={() => setLogin(false)} className="cursor-pointer">
+            <div onClick={goLogOut} className="cursor-pointer">
               로그아웃
             </div>
           </div>
