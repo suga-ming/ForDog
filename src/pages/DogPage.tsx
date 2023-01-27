@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -26,8 +26,26 @@ const Modal = styled.div`
   z-index: 99;
 `;
 
-const BorderBox = styled.div`
-  border: 1px solid rgb(209 213 219);
+const MaleBox = styled.div<{ gender: string }>`
+  border: ${(props) =>
+    props.gender == "male"
+      ? "1px solid rgba(237, 127, 148)"
+      : "1px solid rgb(209 213 219)"};
+  color: ${(props) =>
+    props.gender == "male" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
+  padding: 5px 20px;
+  border-radius: 5px;
+  width: 90px;
+  text-align: center;
+`;
+
+const FemaleBox = styled.div<{ gender: string }>`
+  border: ${(props) =>
+    props.gender == "female"
+      ? "1px solid rgba(237, 127, 148)"
+      : "1px solid rgb(209 213 219)"};
+  color: ${(props) =>
+    props.gender == "female" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
   padding: 5px 20px;
   border-radius: 5px;
   width: 90px;
@@ -44,17 +62,76 @@ const Input = styled.input`
 `;
 
 const DogPage = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
   const dogPageMatch = useMatch("/dogPage");
   const [modal, setModal] = useState(false);
+  const [file, setFile] = useState("");
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [breed, setBreed] = useState("");
+  const [birthYear, setBirthYear] = useState("");
+  const [birthMonth, setBirthMonth] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [togetherYear, setTogetherYear] = useState("");
+  const [togetherMonth, setTogetherMonth] = useState("");
+  const [togetherDate, setTogetherDate] = useState("");
   const goMyPage = () => {
     navigate("/myPage");
   };
   const goDogPage = () => {
     navigate("/dogPage");
   };
+
+  const onChangeBreed = (value: string) => {
+    if (value === "") {
+      alert("견종을 선택해 주세요");
+    } else {
+      setBreed(value);
+    }
+  };
+  const onChangeFile = (e: any) => {
+    console.log(e.target.files);
+    setFile(e.target.files[0]);
+  };
+
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    setName(value);
+  };
+  const onSubmits = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+  const onSubmit = () => {
+    console.log("birthYear", birthYear);
+    const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
+    const togetherDates =
+      togetherYear + "-" + togetherMonth + "-" + togetherDate;
+    // api
+    // const bodyData = {
+    //   gender: gender,
+    //   birthDay: new Date(birthDates), // 1996-10-07 00:00:00TZ
+    //   togetherDay: new Date(togetherDates), // 1996-10-07 00:00:00TZ
+    // };
+    const formData = new FormData();
+    formData.append("profile", file);
+    formData.append("name", name); // name
+    formData.append("breed", breed);
+    formData.append("gender", gender);
+    formData.append("birthDay", birthDates);
+    formData.append("togetherDay", togetherDates);
+    console.log(file);
+    console.log(name);
+    console.log(breed);
+    console.log(gender);
+    console.log(birthDates);
+    console.log(togetherDates);
+  };
+
   return (
-    <div>
+    <form onSubmit={onSubmits}>
       {modal ? (
         <ModalArea className="absolute w-full h-screen">
           <Modal className="bg-white w-2/5 rounded-lg">
@@ -68,7 +145,17 @@ const DogPage = () => {
               </div>
             </Solid>
             <div className="flex flex-col justify-center items-center mt-8">
-              <div className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full bg-gray-200">
+              <input
+                className="hidden"
+                type="file"
+                accept="image/*"
+                ref={inputRef}
+                onChange={onChangeFile}
+              />
+              <div
+                className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full bg-gray-200"
+                onClick={() => inputRef.current?.click()}
+              >
                 <svg
                   className="w-9"
                   xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +192,11 @@ const DogPage = () => {
                     />
                   </svg>
                   <div className="mr-10">반려견 이름</div>
-                  <input placeholder="이름을 입력해주세요" />
+                  <input
+                    onChange={onChange}
+                    value={name}
+                    placeholder="이름을 입력해주세요"
+                  />
                 </div>
                 <div className="flex py-4">
                   <svg
@@ -119,12 +210,16 @@ const DogPage = () => {
                     />
                   </svg>
                   <div className="mr-10">반려견 견종</div>
-                  <select name="breed" className="pr-2">
+                  <select
+                    name="breed"
+                    className="pr-2"
+                    onChange={(e) => onChangeBreed(e.target.value)}
+                  >
                     <option className="text-gray-300" value="">
                       --선택--
                     </option>
-                    <option value="1">푸들</option>
-                    <option value="2">말티즈</option>
+                    <option value="푸들">푸들</option>
+                    <option value="말티즈">말티즈</option>
                   </select>
                 </div>
                 <div className="flex items-center py-2">
@@ -140,12 +235,20 @@ const DogPage = () => {
                   </svg>
                   <div className="mr-[87px]">성별</div>
                   <div className="flex">
-                    <BorderBox className="mr-3 text-gray-400 text-sm">
+                    <MaleBox
+                      gender={gender}
+                      className="mr-3 text-gray-400 text-sm"
+                      onClick={() => setGender("male")}
+                    >
                       남아
-                    </BorderBox>
-                    <BorderBox className="text-gray-400 text-sm">
+                    </MaleBox>
+                    <FemaleBox
+                      gender={gender}
+                      className="text-gray-400 text-sm"
+                      onClick={() => setGender("female")}
+                    >
                       여아
-                    </BorderBox>
+                    </FemaleBox>
                   </div>
                 </div>
                 <div className="flex items-center py-3">
@@ -182,9 +285,12 @@ const DogPage = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full mt-10 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer">
+            <button
+              onClick={onSubmit}
+              className="w-full mt-10 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
+            >
               반려견 등록하기
-            </div>
+            </button>
           </Modal>
         </ModalArea>
       ) : null}
@@ -247,7 +353,7 @@ const DogPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
