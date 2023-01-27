@@ -141,8 +141,17 @@ const DogPage = () => {
     //   console.log(entries);
     // }
     console.log("확인");
-    const res = await api.post("/pet", formData, accessToken);
-    console.log(res);
+    const res = await api.post("/pet", formData, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+    const resultCode = res?.data.data.resultCode;
+    console.log(resultCode);
+    if (resultCode == 1) {
+      alert("등록이 완료되었습니다.");
+      setModal(false);
+    }
     return res;
   };
 
