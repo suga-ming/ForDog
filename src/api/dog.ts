@@ -1,9 +1,13 @@
 import { api } from "./axios";
 
-export interface petResiterInterFace {
-  name: string;
-  breed: string;
-  gender: string;
-  birthDay: string;
-  togetherDay: string;
-}
+export const dogInfo = async (accessToken: string) => {
+  try {
+    return await api.get("/pet", {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
