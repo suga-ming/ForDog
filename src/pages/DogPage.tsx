@@ -141,7 +141,6 @@ const DogPage = () => {
   const { isLoading, data } = useQuery<DogInfoInterface>([`info`], () =>
     dogInfo(accessToken)
   );
-  console.log(data);
 
   return (
     <form onSubmit={onSubmits}>
@@ -419,7 +418,6 @@ const DogPage = () => {
                     imagePath={item?.imagePath}
                   />
                 ))
-                // <DogList />
               )}
             </div>
           )}

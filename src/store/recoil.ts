@@ -20,3 +20,9 @@ export const isRefreshToken = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+// export const isModal = atom({
+//   key: "modal",
+//   default: false,
+//   effects_UNSTABLE: [persistAtom],
+// });

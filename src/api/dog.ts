@@ -30,6 +30,7 @@ export const dogResiter = async (
   body: DogResiterInterface,
   accessToken: string
 ) => {
+  console.log("body", body);
   const formData = new FormData();
   formData.append("profile", body?.file);
   formData.append("name", body?.name); // name

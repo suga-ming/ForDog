@@ -31,31 +31,8 @@ const DogList = ({
   imagePath,
   myPetId,
 }: DogInfoProps) => {
-  //   const accessToken = useRecoilValue(isAccessToken);
-  //   const [name, setName] = useState("");
-  //   const [gender, setGender] = useState("");
-  //   const [breed, setBreed] = useState("");
-  //   const [birthDay, setBirthDay] = useState("");
-  //   const [togetherDay, setTogetherDay] = useState(0);
-
-  //   useEffect(() => {
-  //     if (accessToken !== "") {
-  //       dogInfo(accessToken).then((res) => {
-  //         const resultCode = res?.data?.data.resultCode;
-  //         if (resultCode == 1) {
-  //           const data = res?.data?.data?.data.items[0];
-  //           setName(data?.name);
-  //           setGender(data?.gender);
-  //           setBreed(data?.breed);
-  //           setBirthDay(data?.birthDay);
-  //           setTogetherDay(data?.togetherDay);
-  //         }
-  //       });
-  //     }
-  //   }, []);
-
   return (
-    <div className="w-full h-fit rounded-xl py-6 px-8 flex items-center justify-between">
+    <div className="w-full h-fit rounded-xl py-6 px-8 flex items-center justify-between cursor-pointer">
       <div className="flex">
         <div className="flex items-center justify-center w-20 h-20 rounded-full mr-5 bg-pet_pink">
           <svg
