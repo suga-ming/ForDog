@@ -1,17 +1,18 @@
 import axios from "axios";
 import { useState, useRef } from "react";
+import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { api } from "../api/axios";
-import { dogInfo } from "../api/dog";
+import {
+  dogInfo,
+  DogInfoInterface,
+  dogResiter,
+  DogResiterInterface,
+} from "../api/dog";
 import { isAccessToken } from "../store/recoil";
 import DogList from "./DogList";
-
-// export interface formDataInterFace {
-//   file: string;
-//   name:sti
-// }
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -86,9 +87,11 @@ const DogPage = () => {
   const [birthYear, setBirthYear] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [birthDay, setBirthDay] = useState("");
   const [togetherYear, setTogetherYear] = useState("");
   const [togetherMonth, setTogetherMonth] = useState("");
   const [togetherDate, setTogetherDate] = useState("");
+  const [togetherDay, setTogetherDay] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
 
   const goMyPage = () => {
@@ -114,40 +117,31 @@ const DogPage = () => {
     e.preventDefault();
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (body: DogResiterInterface, accessToken: string) => {
     const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
+    setBirthDay(birthDates);
     const togetherDates =
       togetherYear + "-" + togetherMonth + "-" + togetherDate;
+    setTogetherDay(togetherDates);
     // api
     // const bodyData = {
     //   gender: gender,
     //   birthDay: new Date(birthDates), // 1996-10-07 00:00:00TZ
     //   togetherDay: new Date(togetherDates), // 1996-10-07 00:00:00TZ
     // };
-    const formData = new FormData();
-    formData.append("profile", file);
-    formData.append("name", name); // name
-    formData.append("breed", breed);
-    formData.append("gender", gender);
-    formData.append("birthDay", birthDates);
-    formData.append("togetherDay", togetherDates);
+
     // for (var entries of formData.keys()) {
     //   console.log(entries);
     // }
-    console.log("확인");
-    const res = await api.post("/pet", formData, {
-      headers: {
-        "x-access-auth": accessToken,
-      },
-    });
-    const resultCode = res?.data.data.resultCode;
-    console.log(resultCode);
-    if (resultCode == 1) {
-      alert("등록이 완료되었습니다.");
-      setModal(false);
-    }
-    return res;
+
+    const res = await dogResiter(body, accessToken);
+    setModal(!modal);
   };
+
+  const { isLoading, data } = useQuery<DogInfoInterface>([`info`], () =>
+    dogInfo(accessToken)
+  );
+  console.log(data);
 
   return (
     <form onSubmit={onSubmits}>
@@ -328,7 +322,19 @@ const DogPage = () => {
               </div>
             </div>
             <button
-              onClick={onSubmit}
+              onClick={() =>
+                onSubmit(
+                  {
+                    file,
+                    name,
+                    breed,
+                    gender,
+                    birthDay,
+                    togetherDay,
+                  },
+                  accessToken
+                )
+              }
               className="w-full mt-10 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
             >
               반려견 등록하기
@@ -382,7 +388,7 @@ const DogPage = () => {
           <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
             반려견 정보
           </Solid>
-          {!modal ? (
+          {!data ? (
             <div className="w-full rounded-xl">
               <div className="flex flex-col items-center">
                 <div className="pt-24 mb-5">
@@ -397,7 +403,25 @@ const DogPage = () => {
               </div>
             </div>
           ) : (
-            <DogList />
+            <div>
+              {isLoading ? (
+                <div>loading...</div>
+              ) : (
+                data?.data.items.map((item) => (
+                  <DogList
+                    key={item?.myPetId}
+                    myPetId={item?.myPetId}
+                    name={item?.name}
+                    breed={item?.breed}
+                    gender={item?.gender}
+                    birthDay={item?.birthDay}
+                    togetherDay={item?.togetherDay}
+                    imagePath={item?.imagePath}
+                  />
+                ))
+                // <DogList />
+              )}
+            </div>
           )}
         </div>
       </div>

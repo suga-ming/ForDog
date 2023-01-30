@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { dogInfo } from "../api/dog";
+import { dogInfo, DogInfoInterface } from "../api/dog";
 import { isAccessToken } from "../store/recoil";
 
 const Middle = styled.div`
@@ -12,28 +12,48 @@ const Middle = styled.div`
   z-index: 1;
 `;
 
-const DogList = () => {
-  const accessToken = useRecoilValue(isAccessToken);
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
-  const [breed, setBreed] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [togetherDay, setTogetherDay] = useState("");
+export interface DogInfoProps {
+  myPetId: number;
+  name: string;
+  gender: string;
+  breed: string;
+  birthDay: string;
+  togetherDay: number;
+  imagePath: string;
+}
 
-  //   if (accessToken !== "") {
-  //     dogInfo(accessToken).then((res) => {
-  //       const resultCode = res?.data?.data.resultCode;
-  //       if (resultCode == 1) {
-  //         const data = res?.data?.data?.data.items[0];
-  //         setName(data?.name);
-  //         setGender(data?.gender);
-  //         setBreed(data?.breed);
-  //         setBirthDay(data?.birthDay);
-  //         setTogetherDay(data?.togetherDay);
-  //         console.log("타입", typeof togetherDay);
-  //       }
-  //     });
-  //   }
+const DogList = ({
+  name,
+  breed,
+  gender,
+  birthDay,
+  togetherDay,
+  imagePath,
+  myPetId,
+}: DogInfoProps) => {
+  //   const accessToken = useRecoilValue(isAccessToken);
+  //   const [name, setName] = useState("");
+  //   const [gender, setGender] = useState("");
+  //   const [breed, setBreed] = useState("");
+  //   const [birthDay, setBirthDay] = useState("");
+  //   const [togetherDay, setTogetherDay] = useState(0);
+
+  //   useEffect(() => {
+  //     if (accessToken !== "") {
+  //       dogInfo(accessToken).then((res) => {
+  //         const resultCode = res?.data?.data.resultCode;
+  //         if (resultCode == 1) {
+  //           const data = res?.data?.data?.data.items[0];
+  //           setName(data?.name);
+  //           setGender(data?.gender);
+  //           setBreed(data?.breed);
+  //           setBirthDay(data?.birthDay);
+  //           setTogetherDay(data?.togetherDay);
+  //         }
+  //       });
+  //     }
+  //   }, []);
+
   return (
     <div className="w-full h-fit rounded-xl py-6 px-8 flex items-center justify-between">
       <div className="flex">
@@ -56,7 +76,7 @@ const DogList = () => {
               {gender == "female" ? "공주" : "왕자"}
             </div>
           </div>
-          <div className="text-sm font-medium">토이푸들</div>
+          <div className="text-sm font-medium">{breed}</div>
           <div className="text-sm">{birthDay}</div>
         </div>
       </div>
@@ -74,7 +94,7 @@ const DogList = () => {
             />
           </svg>
           <Middle className="font-semibold text-xl text-white">
-            {/* {Math.floor(togetherDay)} */}
+            {Math.floor(togetherDay)}
           </Middle>
         </div>
       </div>
