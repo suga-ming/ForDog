@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { isAccessToken } from "../store/recoil";
+import { isAccessToken, isEditModal } from "../store/recoil";
 
 const ModalArea = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -10,7 +10,7 @@ const ModalArea = styled.div`
 
 const Modal = styled.div`
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
@@ -51,8 +51,16 @@ const Input = styled.input`
   margin-right: 8px;
 `;
 
-const Solid = styled.div`
+const BottomSolid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
+`;
+
+const Solid = styled.span`
+  border: 1px solid rgb(209 213 219);
+  background-color: rgb(107 114 128);
+  color: white;
+  border-radius: 20px;
+  padding: 8px 30px;
 `;
 
 const DogEdit = () => {
@@ -70,6 +78,7 @@ const DogEdit = () => {
   const [togetherDate, setTogetherDate] = useState("");
   const [togetherDay, setTogetherDay] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
+  const [editModal, setEditModal] = useRecoilState(isEditModal);
 
   const onChangeBreed = (value: string) => {
     if (value === "") {
@@ -105,15 +114,15 @@ const DogEdit = () => {
   return (
     <ModalArea className="absolute w-full h-screen">
       <Modal className="bg-white w-2/5 rounded-lg">
-        <Solid className="flex justify-between items-center w-full py-4 px-7">
-          <div className="text-lg font-semibold">신규 반려견 추가</div>
+        <BottomSolid className="flex justify-between items-center w-full py-4 px-7">
+          <div className="text-lg font-semibold">반려견 수정</div>
           <div
-            // onClick={() => setModal(false)}
+            onClick={() => setEditModal(false)}
             className="text-xl cursor-pointer p-1 text-gray-500"
           >
             x
           </div>
-        </Solid>
+        </BottomSolid>
         <div className="flex flex-col justify-center items-center mt-8">
           <input
             className="hidden"
@@ -278,6 +287,9 @@ const DogEdit = () => {
             </div>
           </div>
         </div>
+        <div className="flex justify-center">
+          <Solid className="font-semibold mt-5 text-sm">반려견 삭제하기</Solid>
+        </div>
         <button
           //   onClick={() =>
           //     onSubmit(
@@ -292,9 +304,9 @@ const DogEdit = () => {
           //       accessToken
           //     )
           //   }
-          className="w-full mt-10 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
+          className="w-full mt-5 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
         >
-          반려견 등록하기
+          반려견 수정하기
         </button>
       </Modal>
     </ModalArea>

@@ -7,6 +7,7 @@ import Dog from "./pages/Dog";
 import DogPage from "./pages/DogPage";
 import Email from "./pages/Email";
 import Home from "./pages/Home";
+import Kakao from "./pages/Kakao";
 import Login from "./pages/Login";
 import MyPage from "./pages/MyPage";
 import Rank from "./pages/Rank";
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/aHome" element={<AHome />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route path="/signUp/email" element={<Email />}></Route>
+        <Route path="/signUp/kakao" element={<Kakao />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/myPage" element={<MyPage />}></Route>
         <Route path="/dogPage" element={<DogPage />}></Route>

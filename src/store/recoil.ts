@@ -26,3 +26,9 @@ export const isRefreshToken = atom({
 //   default: false,
 //   effects_UNSTABLE: [persistAtom],
 // });
+
+export const isEditModal = atom({
+  key: "editModal",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});

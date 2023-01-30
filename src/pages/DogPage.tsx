@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { api } from "../api/axios";
 import {
@@ -11,7 +11,8 @@ import {
   dogResiter,
   DogResiterInterface,
 } from "../api/dog";
-import { isAccessToken } from "../store/recoil";
+import { isAccessToken, isEditModal } from "../store/recoil";
+import DogEdit from "./DogEdit";
 import DogList from "./DogList";
 
 const Solid = styled.div`
@@ -80,6 +81,7 @@ const DogPage = () => {
   const navigate = useNavigate();
   const dogPageMatch = useMatch("/dogPage");
   const [modal, setModal] = useState(false);
+  // const [editModal, setEditModal] = useState(false);
   const [file, setFile] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -93,6 +95,7 @@ const DogPage = () => {
   const [togetherDate, setTogetherDate] = useState("");
   const [togetherDay, setTogetherDay] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
+  const [editModal, setEditModal] = useRecoilState(isEditModal);
 
   const goMyPage = () => {
     navigate("/myPage");
@@ -144,6 +147,7 @@ const DogPage = () => {
 
   return (
     <form onSubmit={onSubmits}>
+      {editModal ? <DogEdit /> : null}
       {modal ? (
         <ModalArea className="absolute w-full h-screen">
           <Modal className="bg-white w-2/5 rounded-lg">

@@ -31,6 +31,14 @@ export interface InfoEditInterface {
   phone: string;
 }
 
+export const kakaoSignIn = async () => {
+  try {
+    return await api.get("/auth/kakao").then((res) => console.log(res));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const emailSignUp = async (body: SignUpInterface) => {
   try {
     return await api.post("/user/signUp/email", body);
