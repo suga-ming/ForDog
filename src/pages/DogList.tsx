@@ -66,7 +66,7 @@ const DogList = ({
           </div>
         </div>
         <div className="flex flex-col items-center">
-          {/* <div className="font-semibold">만난지</div> */}
+          {/* <div className="font-semibold">함께한지</div> */}
           <div className="flex relative">
             <svg
               className="w-20"
