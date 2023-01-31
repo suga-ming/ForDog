@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useMatch } from "react-router-dom";
 import Header from "./components/Header";
+import Post from "./components/Post";
 import AHome from "./pages/AHome";
 import Calender from "./pages/Calender";
 import Comunity from "./pages/Comunity";
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/dogPage" element={<DogPage />}></Route>
         <Route path="/dog" element={<Dog />}></Route>
         <Route path="/comunity" element={<Comunity />}></Route>
+        <Route path="/comunity/:postId" element={<Post />}></Route>
         <Route path="/calender" element={<Calender />}></Route>
         <Route path="/rank" element={<Rank />}></Route>
       </Routes>

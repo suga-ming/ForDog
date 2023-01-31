@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { isAccessToken, isEditModal } from "../store/recoil";
+import { EditDogInterface } from "./DogPage";
 
 const ModalArea = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -63,7 +64,7 @@ const Solid = styled.span`
   padding: 8px 30px;
 `;
 
-const DogEdit = () => {
+const DogEdit = (data: EditDogInterface) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState("");
   const [name, setName] = useState("");
@@ -79,6 +80,8 @@ const DogEdit = () => {
   const [togetherDay, setTogetherDay] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
+
+  console.log(data);
 
   const onChangeBreed = (value: string) => {
     if (value === "") {

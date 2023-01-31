@@ -38,7 +38,7 @@ const DogList = ({
   return (
     <div>
       <div
-        onClick={() => setEditModal(true)}
+        // onClick={() => setEditModal(true)}
         className="w-full top-0 h-fit rounded-xl py-6 px-8 flex items-center justify-between cursor-pointer"
       >
         <div className="flex">
@@ -84,6 +84,7 @@ const DogList = ({
           </div>
         </div>
       </div>
+      <div></div>
     </div>
   );
 };

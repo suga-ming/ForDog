@@ -76,6 +76,16 @@ const Input = styled.input`
   margin-right: 8px;
 `;
 
+export interface EditDogInterface {
+  petId: number;
+  name: string;
+  breed: string;
+  gender: string;
+  birthDay: string;
+  editTogetherDay: number;
+  imgagePath: any;
+}
+
 const DogPage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
@@ -94,8 +104,10 @@ const DogPage = () => {
   const [togetherMonth, setTogetherMonth] = useState("");
   const [togetherDate, setTogetherDate] = useState("");
   const [togetherDay, setTogetherDay] = useState("");
+  const [editTogetherDay, setEditTogetherDay] = useState(0);
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
+  const [petId, setPetId] = useState(0);
 
   const goMyPage = () => {
     navigate("/myPage");
@@ -145,9 +157,38 @@ const DogPage = () => {
     dogInfo(accessToken)
   );
 
+  const goEdit = (
+    petId: number,
+    name: string,
+    breed: string,
+    gender: string,
+    birthDay: string,
+    togetherDay: number,
+    imagePath: any
+  ) => {
+    setEditModal(true);
+    setPetId(petId);
+    setName(name);
+    setBreed(breed);
+    setGender(gender);
+    setBirthDay(birthDay);
+    setEditTogetherDay(togetherDay);
+    setFile(imagePath);
+  };
+
   return (
     <form onSubmit={onSubmits}>
-      {editModal ? <DogEdit /> : null}
+      {editModal ? (
+        <DogEdit
+          petId={petId}
+          name={name}
+          breed={breed}
+          gender={gender}
+          birthDay={birthDay}
+          editTogetherDay={editTogetherDay}
+          imgagePath={file}
+        />
+      ) : null}
       {modal ? (
         <ModalArea className="absolute w-full h-screen">
           <Modal className="bg-white w-2/5 rounded-lg">
@@ -411,16 +452,30 @@ const DogPage = () => {
                 <div>loading...</div>
               ) : (
                 data?.data.items.map((item) => (
-                  <DogList
-                    key={item?.myPetId}
-                    myPetId={item?.myPetId}
-                    name={item?.name}
-                    breed={item?.breed}
-                    gender={item?.gender}
-                    birthDay={item?.birthDay}
-                    togetherDay={item?.togetherDay}
-                    imagePath={item?.imagePath}
-                  />
+                  <div
+                    onClick={() =>
+                      goEdit(
+                        item?.myPetId,
+                        item?.name,
+                        item?.breed,
+                        item?.gender,
+                        item?.birthDay,
+                        item?.togetherDay,
+                        item?.imagePath
+                      )
+                    }
+                  >
+                    <DogList
+                      key={item?.myPetId}
+                      myPetId={item?.myPetId}
+                      name={item?.name}
+                      breed={item?.breed}
+                      gender={item?.gender}
+                      birthDay={item?.birthDay}
+                      togetherDay={item?.togetherDay}
+                      imagePath={item?.imagePath}
+                    />
+                  </div>
                 ))
               )}
             </div>

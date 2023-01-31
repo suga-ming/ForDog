@@ -30,7 +30,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex w-full justify-between px-10 py-5 bg-pet_pink fixed">
+    <div className="flex w-full justify-between px-10 py-5 bg-pet_pink fixed z-50">
       <div onClick={goHome} className="font-bold cursor-pointer">
         ForDog
       </div>

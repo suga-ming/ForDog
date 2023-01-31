@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Board from "../components/Board";
 
 const BoderBox = styled.div`
-  /* border: 1px solid rgb(209 213 219); */
   box-shadow: 2px 2px 2px rgb(209 213 219);
   background-color: white;
   border-radius: 5px;
@@ -11,23 +10,10 @@ const BoderBox = styled.div`
   padding: 13px 0;
   width: 18%;
   text-align: center;
+  cursor: pointer;
   margin-right: 12px;
   &:last-child {
     margin: 0;
-  }
-`;
-
-const Post = styled.div`
-  border: 1px solid gray;
-  width: 50%;
-  margin-top: 20px;
-  background-color: white;
-`;
-
-const Solid = styled.div`
-  border-top: 1px solid gray;
-  &:first-child {
-    border-right: 1px solid gray;
   }
 `;
 
