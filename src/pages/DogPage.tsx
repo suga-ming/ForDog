@@ -78,12 +78,6 @@ const Input = styled.input`
 
 export interface EditDogInterface {
   petId: number;
-  name: string;
-  breed: string;
-  gender: string;
-  birthDay: string;
-  editTogetherDay: number;
-  imgagePath: any;
 }
 
 const DogPage = () => {
@@ -157,38 +151,14 @@ const DogPage = () => {
     dogInfo(accessToken)
   );
 
-  const goEdit = (
-    petId: number,
-    name: string,
-    breed: string,
-    gender: string,
-    birthDay: string,
-    togetherDay: number,
-    imagePath: any
-  ) => {
+  const goEdit = (petId: number) => {
     setEditModal(true);
     setPetId(petId);
-    setName(name);
-    setBreed(breed);
-    setGender(gender);
-    setBirthDay(birthDay);
-    setEditTogetherDay(togetherDay);
-    setFile(imagePath);
   };
 
   return (
     <form onSubmit={onSubmits}>
-      {editModal ? (
-        <DogEdit
-          petId={petId}
-          name={name}
-          breed={breed}
-          gender={gender}
-          birthDay={birthDay}
-          editTogetherDay={editTogetherDay}
-          imgagePath={file}
-        />
-      ) : null}
+      {editModal ? <DogEdit petId={petId} /> : null}
       {modal ? (
         <ModalArea className="absolute w-full h-screen">
           <Modal className="bg-white w-2/5 rounded-lg">
@@ -452,19 +422,7 @@ const DogPage = () => {
                 <div>loading...</div>
               ) : (
                 data?.data.items.map((item) => (
-                  <div
-                    onClick={() =>
-                      goEdit(
-                        item?.myPetId,
-                        item?.name,
-                        item?.breed,
-                        item?.gender,
-                        item?.birthDay,
-                        item?.togetherDay,
-                        item?.imagePath
-                      )
-                    }
-                  >
+                  <div onClick={() => goEdit(item?.myPetId)}>
                     <DogList
                       key={item?.myPetId}
                       myPetId={item?.myPetId}

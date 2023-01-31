@@ -64,7 +64,7 @@ const Solid = styled.span`
   padding: 8px 30px;
 `;
 
-const DogEdit = (data: EditDogInterface) => {
+const DogEdit = ({ petId }: EditDogInterface) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState("");
   const [name, setName] = useState("");
@@ -81,7 +81,7 @@ const DogEdit = (data: EditDogInterface) => {
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
 
-  console.log(data);
+  console.log(petId);
 
   const onChangeBreed = (value: string) => {
     if (value === "") {
