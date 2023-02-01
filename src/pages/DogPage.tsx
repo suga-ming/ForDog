@@ -398,7 +398,7 @@ const DogPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-3/5 h-fit bg-white rounded-xl my-8">
+        <div className="w-3/5 h-fit bg-white rounded-xl my-8 overflow-y-scroll max-h-[600px]">
           <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
             반려견 정보
           </Solid>

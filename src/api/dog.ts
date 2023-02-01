@@ -26,11 +26,27 @@ export interface DogInfoInterface {
     ];
   };
 }
+export interface DogEditInterface {
+  resultCode: number;
+  data: {
+    myPetId: number;
+    name: string;
+    breed: string;
+    gender: string;
+    imagePath: string;
+    birthYear: string;
+    birthMonth: string;
+    birthDate: string;
+    togetherYear: string;
+    togetherMonth: string;
+    togetherDate: string;
+  };
+}
+
 export const dogResiter = async (
   body: DogResiterInterface,
   accessToken: string
 ) => {
-  console.log("body", body);
   const formData = new FormData();
   formData.append("profile", body?.file);
   formData.append("name", body?.name); // name
@@ -58,6 +74,32 @@ export const dogInfo = async (accessToken: string) => {
         },
       })
       .then((res) => res.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const dogEditInfo = async (accessToken: string, petId: number) => {
+  try {
+    return await api
+      .get(`/pet/${petId}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteDog = async (accessToken: string, petId: number) => {
+  try {
+    return await api.delete(`/pet/${petId}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
   } catch (err) {
     console.log(err);
   }

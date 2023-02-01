@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
+import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { deleteDog, dogEditInfo, DogEditInterface } from "../api/dog";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import { EditDogInterface } from "./DogPage";
 
@@ -81,7 +83,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
 
-  console.log(petId);
+  // console.log(petId);
 
   const onChangeBreed = (value: string) => {
     if (value === "") {
@@ -93,6 +95,17 @@ const DogEdit = ({ petId }: EditDogInterface) => {
   const onChangeFile = (e: any) => {
     console.log(e.target.files);
     setFile(e.target.files[0]);
+  };
+
+  const { isLoading, data } = useQuery<DogEditInterface>([`editInfo`], () =>
+    dogEditInfo(accessToken, petId)
+  );
+
+  const editInfo = data?.data;
+
+  const onDeletePet = async (accessToken: string, petId: number) => {
+    const res = await deleteDog(accessToken, petId);
+    console.log("res", res);
   };
   //   const onSubmit = async (body: DogResiterInterface, accessToken: string) => {
   //     const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
@@ -176,7 +189,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <div className="mr-10">반려견 이름</div>
               <input
                 onChange={(e) => setName(e.target.value)}
-                placeholder="이름을 입력해주세요"
+                placeholder={editInfo?.name}
               />
             </div>
             <div className="flex py-4">
@@ -247,17 +260,17 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <Input
                 onChange={(e) => setBirthYear(e.target.value)}
                 className="text-sm"
-                placeholder="년도"
+                placeholder={editInfo?.birthYear}
               />
               <Input
                 onChange={(e) => setBirthMonth(e.target.value)}
                 className="text-sm"
-                placeholder="월"
+                placeholder={editInfo?.birthMonth}
               />
               <Input
                 onChange={(e) => setBirthDate(e.target.value)}
                 className="text-sm"
-                placeholder="일"
+                placeholder={editInfo?.birthDate}
               />
             </div>
             <div className="flex items-center py-3">
@@ -275,23 +288,28 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <Input
                 onChange={(e) => setTogetherYear(e.target.value)}
                 className="text-sm"
-                placeholder="년도"
+                placeholder={editInfo?.togetherYear}
               />
               <Input
                 onChange={(e) => setTogetherMonth(e.target.value)}
                 className="text-sm"
-                placeholder="월"
+                placeholder={editInfo?.togetherMonth}
               />
               <Input
                 onChange={(e) => setTogetherDate(e.target.value)}
                 className="text-sm"
-                placeholder="일"
+                placeholder={editInfo?.togetherDate}
               />
             </div>
           </div>
         </div>
         <div className="flex justify-center">
-          <Solid className="font-semibold mt-5 text-sm">반려견 삭제하기</Solid>
+          <Solid
+            onClick={() => onDeletePet(accessToken, petId)}
+            className="font-semibold mt-5 text-sm cursor-pointer"
+          >
+            반려견 삭제하기
+          </Solid>
         </div>
         <button
           //   onClick={() =>
