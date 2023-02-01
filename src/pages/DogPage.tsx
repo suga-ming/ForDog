@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { api } from "../api/axios";
 import {
   dogInfo,
   DogInfoInterface,
@@ -144,12 +143,18 @@ const DogPage = () => {
     // }
 
     const res = await dogResiter(body, accessToken);
-    setModal(!modal);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode == 1) {
+      setModal(!modal);
+      alert("펫이 등록되었습니다.");
+    }
   };
 
   const { isLoading, data } = useQuery<DogInfoInterface>([`info`], () =>
     dogInfo(accessToken)
   );
+
+  const petList = data?.data.items;
 
   const goEdit = (petId: number) => {
     setEditModal(true);
@@ -246,6 +251,7 @@ const DogPage = () => {
                     </option>
                     <option value="푸들">푸들</option>
                     <option value="말티즈">말티즈</option>
+                    <option value="웰시코기">웰시코기</option>
                   </select>
                 </div>
                 <div className="flex items-center py-2">
@@ -402,7 +408,7 @@ const DogPage = () => {
           <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
             반려견 정보
           </Solid>
-          {!data ? (
+          {!petList?.length ? (
             <div className="w-full rounded-xl">
               <div className="flex flex-col items-center">
                 <div className="pt-24 mb-5">
@@ -436,6 +442,14 @@ const DogPage = () => {
                   </div>
                 ))
               )}
+              <div className="flex justify-center">
+                <div
+                  onClick={() => setModal(!modal)}
+                  className="w-full mt-5 mb-5 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold cursor-pointer"
+                >
+                  추가 반려견 등록하기
+                </div>
+              </div>
             </div>
           )}
         </div>

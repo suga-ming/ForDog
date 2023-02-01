@@ -79,7 +79,7 @@ const DogList = ({
               />
             </svg>
             <Middle className="font-semibold text-xl text-white">
-              {Math.floor(togetherDay)}
+              {Math.ceil(togetherDay)}
             </Middle>
           </div>
         </div>

@@ -2,7 +2,13 @@ import { useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { deleteDog, dogEditInfo, DogEditInterface } from "../api/dog";
+import {
+  deleteDog,
+  dogEditInfo,
+  DogEditInterface,
+  DogResiterInterface,
+  editDog,
+} from "../api/dog";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import { EditDogInterface } from "./DogPage";
 
@@ -105,28 +111,36 @@ const DogEdit = ({ petId }: EditDogInterface) => {
 
   const onDeletePet = async (accessToken: string, petId: number) => {
     const res = await deleteDog(accessToken, petId);
-    console.log("res", res);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode == 1) {
+      alert("펫이 삭제되었습니다.");
+      setEditModal(false);
+    }
   };
-  //   const onSubmit = async (body: DogResiterInterface, accessToken: string) => {
-  //     const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
-  //     setBirthDay(birthDates);
-  //     const togetherDates =
-  //       togetherYear + "-" + togetherMonth + "-" + togetherDate;
-  //     setTogetherDay(togetherDates);
-  //     // api
-  //     // const bodyData = {
-  //     //   gender: gender,
-  //     //   birthDay: new Date(birthDates), // 1996-10-07 00:00:00TZ
-  //     //   togetherDay: new Date(togetherDates), // 1996-10-07 00:00:00TZ
-  //     // };
 
-  //     // for (var entries of formData.keys()) {
-  //     //   console.log(entries);
-  //     // }
+  const onSubmit = async (
+    body: DogResiterInterface,
+    accessToken: string,
+    petId: number
+  ) => {
+    const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
+    setBirthDay(birthDates);
+    const togetherDates =
+      togetherYear + "-" + togetherMonth + "-" + togetherDate;
+    setTogetherDay(togetherDates);
 
-  //     const res = await dogResiter(body, accessToken);
-  //     setModal(!modal);
-  //   };
+    // for (var entries of formData.keys()) {
+    //   console.log(entries);
+    // }
+
+    const res = await editDog(body, accessToken, petId);
+    console.log(res);
+    const resultCode = data?.resultCode;
+    if (resultCode == 1) {
+      setEditModal(!editModal);
+      alert("수정이 완료되었습니다.");
+    }
+  };
   return (
     <ModalArea className="absolute w-full h-screen">
       <Modal className="bg-white w-2/5 rounded-lg">
@@ -312,19 +326,20 @@ const DogEdit = ({ petId }: EditDogInterface) => {
           </Solid>
         </div>
         <button
-          //   onClick={() =>
-          //     onSubmit(
-          //       {
-          //         file,
-          //         name,
-          //         breed,
-          //         gender,
-          //         birthDay,
-          //         togetherDay,
-          //       },
-          //       accessToken
-          //     )
-          //   }
+          onClick={() =>
+            onSubmit(
+              {
+                file,
+                name,
+                breed,
+                gender,
+                birthDay,
+                togetherDay,
+              },
+              accessToken,
+              petId
+            )
+          }
           className="w-full mt-5 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
         >
           반려견 수정하기

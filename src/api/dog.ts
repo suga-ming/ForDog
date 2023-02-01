@@ -93,6 +93,22 @@ export const dogEditInfo = async (accessToken: string, petId: number) => {
   }
 };
 
+export const editDog = async (
+  body: DogResiterInterface,
+  accessToken: string,
+  petId: number
+) => {
+  try {
+    return await api.patch(`/pet/${petId}`, body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const deleteDog = async (accessToken: string, petId: number) => {
   try {
     return await api.delete(`/pet/${petId}`, {
