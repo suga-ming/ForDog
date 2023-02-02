@@ -49,7 +49,7 @@ export const dogResiter = async (
 ) => {
   console.log("body", body);
   const formData = new FormData();
-  formData.append("profile", body?.file);
+  formData.append("profile", body?.file[0]);
   formData.append("name", body?.name); // name
   formData.append("breed", body?.breed);
   formData.append("gender", body?.gender);
