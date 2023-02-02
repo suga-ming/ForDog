@@ -14,6 +14,7 @@ import MyPage from "./pages/MyPage";
 import Rank from "./pages/Rank";
 import SignUp from "./pages/SignUp";
 import Spalsh from "./pages/Spalsh";
+import WritePost from "./pages/WritePost";
 
 const Router = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
         <Route path="/dogPage" element={<DogPage />}></Route>
         <Route path="/dog" element={<Dog />}></Route>
         <Route path="/comunity" element={<Comunity />}></Route>
+        <Route path="/comunity/post" element={<WritePost />}></Route>
         <Route path="/comunity/:postId" element={<Post />}></Route>
         <Route path="/calender" element={<Calender />}></Route>
         <Route path="/rank" element={<Rank />}></Route>

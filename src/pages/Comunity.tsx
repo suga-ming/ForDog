@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Board from "../components/Board";
+import WritePost from "./WritePost";
 
 const BoderBox = styled.div`
   box-shadow: 2px 2px 2px rgb(209 213 219);
@@ -18,6 +21,11 @@ const BoderBox = styled.div`
 `;
 
 const Comunity = () => {
+  const [modal, setModal] = useState(true);
+  const navigate = useNavigate();
+  const goPost = () => {
+    navigate("/comunity/post");
+  };
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
       <div className="flex w-full justify-center mt-5 mb-5">
@@ -31,7 +39,10 @@ const Comunity = () => {
           <Board />
           <Board />
           <Board />
-          <div className="fixed bottom-24 right-32 flex flex-col justify-center items-center w-16 h-16 rounded-full bg-pet_pink">
+          <div
+            onClick={goPost}
+            className="fixed bottom-24 right-32 flex flex-col justify-center items-center w-16 h-16 rounded-full bg-pet_pink cursor-pointer"
+          >
             <svg
               className="w-5 mb-px"
               xmlns="http://www.w3.org/2000/svg"
