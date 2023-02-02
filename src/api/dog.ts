@@ -98,6 +98,7 @@ export const editDog = async (
   accessToken: string,
   petId: number
 ) => {
+  console.log(body);
   try {
     return await api.patch(`/pet/${petId}`, body, {
       headers: {

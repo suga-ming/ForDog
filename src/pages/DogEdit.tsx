@@ -124,7 +124,9 @@ const DogEdit = ({ petId }: EditDogInterface) => {
     petId: number
   ) => {
     const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
+    console.log("birthDates", birthDates);
     setBirthDay(birthDates);
+    console.log("birthDay in", birthDay);
     const togetherDates =
       togetherYear + "-" + togetherMonth + "-" + togetherDate;
     setTogetherDay(togetherDates);
@@ -141,6 +143,8 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       alert("수정이 완료되었습니다.");
     }
   };
+  console.log("birthDay out", birthDay);
+
   return (
     <ModalArea className="absolute w-full h-screen">
       <Modal className="bg-white w-2/5 rounded-lg">

@@ -404,54 +404,56 @@ const DogPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-3/5 h-fit bg-white rounded-xl my-8 overflow-y-scroll max-h-[600px]">
+        <div className="w-3/5 h-fit bg-white rounded-xl my-8 ">
           <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
             반려견 정보
           </Solid>
-          {!petList?.length ? (
-            <div className="w-full rounded-xl">
-              <div className="flex flex-col items-center">
-                <div className="pt-24 mb-5">
-                  아직 등록하신 반려견이 없습니다.
-                </div>
-                <div
-                  onClick={() => setModal(!modal)}
-                  className="w-full mb-32 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold cursor-pointer"
-                >
-                  반려견 등록하기
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div>
-              {isLoading ? (
-                <div>loading...</div>
-              ) : (
-                data?.data.items.map((item) => (
-                  <div onClick={() => goEdit(item?.myPetId)}>
-                    <DogList
-                      key={item?.myPetId}
-                      myPetId={item?.myPetId}
-                      name={item?.name}
-                      breed={item?.breed}
-                      gender={item?.gender}
-                      birthDay={item?.birthDay}
-                      togetherDay={item?.togetherDay}
-                      imagePath={item?.imagePath}
-                    />
+          <div className="overflow-y-scroll max-h-[500px]">
+            {!petList?.length ? (
+              <div className="w-full rounded-xl">
+                <div className="flex flex-col items-center">
+                  <div className="pt-24 mb-5">
+                    아직 등록하신 반려견이 없습니다.
                   </div>
-                ))
-              )}
-              <div className="flex justify-center">
-                <div
-                  onClick={() => setModal(!modal)}
-                  className="w-full mt-5 mb-5 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold cursor-pointer"
-                >
-                  추가 반려견 등록하기
+                  <div
+                    onClick={() => setModal(!modal)}
+                    className="w-full mb-32 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold cursor-pointer"
+                  >
+                    반려견 등록하기
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <div>
+                {isLoading ? (
+                  <div>loading...</div>
+                ) : (
+                  data?.data.items.map((item) => (
+                    <div onClick={() => goEdit(item?.myPetId)}>
+                      <DogList
+                        key={item?.myPetId}
+                        myPetId={item?.myPetId}
+                        name={item?.name}
+                        breed={item?.breed}
+                        gender={item?.gender}
+                        birthDay={item?.birthDay}
+                        togetherDay={item?.togetherDay}
+                        imagePath={item?.imagePath}
+                      />
+                    </div>
+                  ))
+                )}
+                <div className="flex justify-center">
+                  <div
+                    onClick={() => setModal(!modal)}
+                    className="w-full mt-5 mb-5 bg-pet_pink max-w-[318px] h-11 rounded-lg text-white flex justify-center items-center font-semibold cursor-pointer"
+                  >
+                    추가 반려견 등록하기
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </form>
