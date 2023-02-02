@@ -109,7 +109,7 @@ export const editDog = async (
   formData.append("birthDay", body?.birthDay);
   formData.append("togetherDay", body?.togetherDay);
   try {
-    return await api.patch(`/pet/${petId}`, body, {
+    return await api.patch(`/pet/${petId}`, formData, {
       headers: {
         "x-access-auth": accessToken,
       },

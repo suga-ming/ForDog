@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -106,13 +106,22 @@ const DogEdit = ({ petId }: EditDogInterface) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const { isLoading, data } = useQuery<DogEditInterface>([`editInfo`], () =>
-    dogEditInfo(accessToken, petId)
-  );
+  useEffect(() => {
+    dogEditInfo(accessToken, petId).then((res) => {
+      setFileImage(res?.data.imagePath);
+      setName(res?.data.name);
+      setGender(res?.data.gender);
+      setBreed(res?.data.breed);
+      setBirthYear(res?.data.birthYear);
+      setBirthMonth(res?.data.birthMonth);
+      setBirthDate(res?.data.birthDate);
+      setTogetherYear(res?.data.togetherYear);
+      setTogetherMonth(res?.data.togetherMonth);
+      setTogetherDate(res?.data.togetherDate);
+    });
+  }, []);
 
-  const editInfo = data?.data;
-
-  const onDeletePet = async (accessToken: string, petId: number) => {
+  const onDeletePet = async () => {
     const res = await deleteDog(accessToken, petId);
     const resultCode = res?.data.data.resultCode;
     if (resultCode == 1) {
@@ -121,7 +130,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
     }
   };
 
-  const onSubmit = async (petId: number) => {
+  const onSubmit = async () => {
     const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
     const togetherDates =
       togetherYear + "-" + togetherMonth + "-" + togetherDate;
@@ -131,14 +140,14 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       name: name,
       breed: breed,
       gender: gender,
-      birthDay: birthDates == "--" ? "" : birthDates,
-      togetherDay: togetherDates == "--" ? "" : togetherDates,
+      birthDay: birthDates === "--" ? "" : birthDates,
+      togetherDay: togetherDates === "--" ? "" : togetherDates,
     };
 
     console.log(apiData);
     const res = await editDog(apiData, accessToken, petId);
     const resultCode = res?.data.data.resultCode;
-    if (resultCode == 1) {
+    if (resultCode === 1) {
       setEditModal(!editModal);
       alert("수정이 완료되었습니다.");
     }
@@ -164,7 +173,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
             ref={inputRef}
             onChange={onChangeFile}
           />
-          {editInfo?.imagePath ? (
+          {fileImage ? (
             <div className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full">
               {fileImage ? (
                 <img
@@ -174,7 +183,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
                 />
               ) : (
                 <img
-                  src={editInfo?.imagePath}
+                  src={fileImage}
                   className="w-[80px] h-[80px] rounded-full"
                   onClick={() => inputRef.current?.click()}
                 />
@@ -246,7 +255,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <div className="mr-10">반려견 이름</div>
               <input
                 onChange={(e) => setName(e.target.value)}
-                placeholder={editInfo?.name}
+                placeholder={name}
               />
             </div>
             <div className="flex py-4">
@@ -264,6 +273,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <select
                 name="breed"
                 className="pr-2"
+                value={breed}
                 onChange={(e) => onChangeBreed(e.target.value)}
               >
                 <option className="text-gray-300" value="">
@@ -271,6 +281,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
                 </option>
                 <option value="푸들">푸들</option>
                 <option value="말티즈">말티즈</option>
+                <option value="웰시코기">웰시코기</option>
               </select>
             </div>
             <div className="flex items-center py-2">
@@ -317,17 +328,17 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <Input
                 onChange={(e) => setBirthYear(e.target.value)}
                 className="text-sm"
-                placeholder={editInfo?.birthYear}
+                placeholder={birthYear}
               />
               <Input
                 onChange={(e) => setBirthMonth(e.target.value)}
                 className="text-sm"
-                placeholder={editInfo?.birthMonth}
+                placeholder={birthMonth}
               />
               <Input
                 onChange={(e) => setBirthDate(e.target.value)}
                 className="text-sm"
-                placeholder={editInfo?.birthDate}
+                placeholder={birthDate}
               />
             </div>
             <div className="flex items-center py-3">
@@ -345,31 +356,31 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               <Input
                 onChange={(e) => setTogetherYear(e.target.value)}
                 className="text-sm"
-                placeholder={editInfo?.togetherYear}
+                placeholder={togetherYear}
               />
               <Input
                 onChange={(e) => setTogetherMonth(e.target.value)}
                 className="text-sm"
-                placeholder={editInfo?.togetherMonth}
+                placeholder={togetherMonth}
               />
               <Input
                 onChange={(e) => setTogetherDate(e.target.value)}
                 className="text-sm"
-                placeholder={editInfo?.togetherDate}
+                placeholder={togetherDate}
               />
             </div>
           </div>
         </div>
         <div className="flex justify-center">
           <Solid
-            onClick={() => onDeletePet(accessToken, petId)}
+            onClick={onDeletePet}
             className="font-semibold mt-5 text-sm cursor-pointer"
           >
             반려견 삭제하기
           </Solid>
         </div>
         <button
-          onClick={() => onSubmit(petId)}
+          onClick={onSubmit}
           className="w-full mt-5 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
         >
           반려견 수정하기
