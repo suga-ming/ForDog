@@ -5,7 +5,7 @@ import styled from "styled-components";
 const PostArea = styled.div`
   /* border: 1px solid gray; */
   border-radius: 10px;
-  width: 50%;
+  /* width: 50%; */
   margin-bottom: 20px;
   background-color: white;
   box-shadow: 2px 2px 2px rgb(209 213 219);

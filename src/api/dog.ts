@@ -47,6 +47,7 @@ export const dogResiter = async (
   body: DogResiterInterface,
   accessToken: string
 ) => {
+  console.log("body", body);
   const formData = new FormData();
   formData.append("profile", body?.file);
   formData.append("name", body?.name); // name
@@ -54,6 +55,7 @@ export const dogResiter = async (
   formData.append("gender", body?.gender);
   formData.append("birthDay", body?.birthDay);
   formData.append("togetherDay", body?.togetherDay);
+  console.log("formData", formData);
   try {
     return await api.post("/pet", formData, {
       headers: {
@@ -87,7 +89,7 @@ export const dogEditInfo = async (accessToken: string, petId: number) => {
           "x-access-auth": accessToken,
         },
       })
-      .then((res) => res.data.data);
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }

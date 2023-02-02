@@ -101,6 +101,7 @@ const DogPage = () => {
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
   const [petId, setPetId] = useState(0);
+  const [fileImage, setFileImage] = useState("");
 
   const goMyPage = () => {
     navigate("/myPage");
@@ -117,32 +118,32 @@ const DogPage = () => {
     }
   };
   const onChangeFile = (e: any) => {
-    console.log(e.target.files);
+    console.log("확인", e.target.files);
     setFile(e.target.files[0]);
+    setFileImage(URL.createObjectURL(e.target.files[0]));
+    console.log("확인");
+    console.log("fileImage", fileImage);
   };
 
   const onSubmits = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
-  const onSubmit = async (body: DogResiterInterface, accessToken: string) => {
+  const onSubmit = async () => {
     const birthDates = birthYear + "-" + birthMonth + "-" + birthDate;
-    setBirthDay(birthDates);
     const togetherDates =
       togetherYear + "-" + togetherMonth + "-" + togetherDate;
-    setTogetherDay(togetherDates);
-    // api
-    // const bodyData = {
-    //   gender: gender,
-    //   birthDay: new Date(birthDates), // 1996-10-07 00:00:00TZ
-    //   togetherDay: new Date(togetherDates), // 1996-10-07 00:00:00TZ
-    // };
 
-    // for (var entries of formData.keys()) {
-    //   console.log(entries);
-    // }
+    const apiData = {
+      file: file,
+      name: name,
+      breed: breed,
+      gender: gender,
+      birthDay: birthDates == "--" ? "" : birthDates,
+      togetherDay: togetherDates == "--" ? "" : togetherDates,
+    };
 
-    const res = await dogResiter(body, accessToken);
+    const res = await dogResiter(apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode == 1) {
       setModal(!modal);
@@ -161,6 +162,12 @@ const DogPage = () => {
     setPetId(petId);
   };
 
+  const closeModal = () => {
+    setModal(false);
+    setFileImage("");
+    setGender("");
+  };
+
   return (
     <form onSubmit={onSubmits}>
       {editModal ? <DogEdit petId={petId} /> : null}
@@ -170,7 +177,7 @@ const DogPage = () => {
             <Solid className="flex justify-between items-center w-full py-4 px-7">
               <div className="text-lg font-semibold">신규 반려견 추가</div>
               <div
-                onClick={() => setModal(false)}
+                onClick={closeModal}
                 className="text-xl cursor-pointer p-1 text-gray-500"
               >
                 x
@@ -184,33 +191,41 @@ const DogPage = () => {
                 ref={inputRef}
                 onChange={onChangeFile}
               />
-              <div
-                className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full bg-gray-200"
-                onClick={() => inputRef.current?.click()}
-              >
-                <svg
-                  className="w-9"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
+              {fileImage ? (
+                <img
+                  src={fileImage}
+                  className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full"
+                  onClick={() => inputRef.current?.click()}
+                />
+              ) : (
+                <div
+                  className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full bg-gray-200"
+                  onClick={() => inputRef.current?.click()}
                 >
-                  <path
-                    fill="rgb(156 163 175)"
-                    d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"
-                  />
-                </svg>
-                <div className="w-6 h-6 flex justify-center items-center absolute bg-gray-400 bottom-0 right-0 rounded-full">
                   <svg
-                    className="w-3"
+                    className="w-9"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
                   >
                     <path
-                      fill="white"
-                      d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 384c-53 0-96-43-96-96s43-96 96-96s96 43 96 96s-43 96-96 96z"
+                      fill="rgb(156 163 175)"
+                      d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"
                     />
                   </svg>
+                  <div className="w-6 h-6 flex justify-center items-center absolute bg-gray-400 bottom-0 right-0 rounded-full">
+                    <svg
+                      className="w-3"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                    >
+                      <path
+                        fill="white"
+                        d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 384c-53 0-96-43-96-96s43-96 96-96s96 43 96 96s-43 96-96 96z"
+                      />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="flex flex-col items-start">
                 <div className="flex py-4">
                   <svg
@@ -342,19 +357,7 @@ const DogPage = () => {
               </div>
             </div>
             <button
-              onClick={() =>
-                onSubmit(
-                  {
-                    file,
-                    name,
-                    breed,
-                    gender,
-                    birthDay,
-                    togetherDay,
-                  },
-                  accessToken
-                )
-              }
+              onClick={onSubmit}
               className="w-full mt-10 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-7 cursor-pointer"
             >
               반려견 등록하기
