@@ -142,7 +142,7 @@ const DogPage = () => {
       birthDay: birthDates == "--" ? "" : birthDates,
       togetherDay: togetherDates == "--" ? "" : togetherDates,
     };
-
+    console.log(apiData);
     const res = await dogResiter(apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode == 1) {
@@ -155,7 +155,7 @@ const DogPage = () => {
     dogInfo(accessToken)
   );
 
-  const petList = data?.data.items;
+  // const petList = data?.data.items;
 
   const goEdit = (petId: number) => {
     setEditModal(true);
@@ -412,7 +412,7 @@ const DogPage = () => {
             반려견 정보
           </Solid>
           <div className="overflow-y-scroll max-h-[500px]">
-            {!petList?.length ? (
+            {modal ? (
               <div className="w-full rounded-xl">
                 <div className="flex flex-col items-center">
                   <div className="pt-24 mb-5">

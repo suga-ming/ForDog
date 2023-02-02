@@ -49,7 +49,7 @@ export const dogResiter = async (
 ) => {
   console.log("body", body);
   const formData = new FormData();
-  formData.append("profile", body?.file[0]);
+  formData.append("profile", body?.file);
   formData.append("name", body?.name); // name
   formData.append("breed", body?.breed);
   formData.append("gender", body?.gender);
@@ -100,7 +100,14 @@ export const editDog = async (
   accessToken: string,
   petId: number
 ) => {
-  console.log(body);
+  console.log("body", body?.file);
+  const formData = new FormData();
+  formData.append("profile", body?.file);
+  formData.append("name", body?.name); // name
+  formData.append("breed", body?.breed);
+  formData.append("gender", body?.gender);
+  formData.append("birthDay", body?.birthDay);
+  formData.append("togetherDay", body?.togetherDay);
   try {
     return await api.patch(`/pet/${petId}`, body, {
       headers: {
