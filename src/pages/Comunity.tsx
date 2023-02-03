@@ -7,12 +7,54 @@ import Board from "../components/Board";
 import { isAccessToken } from "../store/recoil";
 import WritePost from "./WritePost";
 
-const BoderBox = styled.div`
+const BoderBox1 = styled.div<{ type: string }>`
   box-shadow: 2px 2px 2px rgb(209 213 219);
   background-color: white;
   border-radius: 5px;
-  color: rgb(107 114 128);
+  color: ${(props) =>
+    props.type === "일상생활" ? "white" : "rgb(107 114 128)"};
   font-size: 13px;
+  background-color: ${(props) =>
+    props.type === "일상생활" ? "rgba(237, 127, 148)" : "white"};
+  font-weight: ${(props) => (props.type === "일상생활" ? "600" : "300")};
+  padding: 13px 0;
+  width: 18%;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 12px;
+  &:last-child {
+    margin: 0;
+  }
+`;
+const BoderBox2 = styled.div<{ type: string }>`
+  box-shadow: 2px 2px 2px rgb(209 213 219);
+  background-color: white;
+  border-radius: 5px;
+  color: ${(props) =>
+    props.type === "정보공유" ? "white" : "rgb(107 114 128)"};
+  font-size: 13px;
+  background-color: ${(props) =>
+    props.type === "정보공유" ? "rgba(237, 127, 148)" : "white"};
+  font-weight: ${(props) => (props.type === "정보공유" ? "600" : "300")};
+  padding: 13px 0;
+  width: 18%;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 12px;
+  &:last-child {
+    margin: 0;
+  }
+`;
+const BoderBox3 = styled.div<{ type: string }>`
+  box-shadow: 2px 2px 2px rgb(209 213 219);
+  background-color: white;
+  border-radius: 5px;
+  color: ${(props) =>
+    props.type === "궁금해요" ? "white" : "rgb(107 114 128)"};
+  font-size: 13px;
+  background-color: ${(props) =>
+    props.type === "궁금해요" ? "rgba(237, 127, 148)" : "white"};
+  font-weight: ${(props) => (props.type === "궁금해요" ? "600" : "300")};
   padding: 13px 0;
   width: 18%;
   text-align: center;
@@ -47,9 +89,15 @@ const Comunity = () => {
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
       <div className="flex w-full justify-center mt-5 mb-5">
-        <BoderBox onClick={() => setType("일상생활")}>일상생활</BoderBox>
-        <BoderBox onClick={() => setType("정보공유")}>정보공유</BoderBox>
-        <BoderBox onClick={() => setType("궁금해요")}>궁금해요</BoderBox>
+        <BoderBox1 type={type} onClick={() => setType("일상생활")}>
+          일상생활
+        </BoderBox1>
+        <BoderBox2 type={type} onClick={() => setType("정보공유")}>
+          정보공유
+        </BoderBox2>
+        <BoderBox3 type={type} onClick={() => setType("궁금해요")}>
+          궁금해요
+        </BoderBox3>
       </div>
       <div className="flex flex-col items-center w-full relative">
         <div className="flex flex-col w-1/2 relative">
