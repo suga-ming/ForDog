@@ -46,7 +46,14 @@ const WritePost = () => {
     <div className="flex w-full flex-col justify-center items-center pt-16 h-screen bg-gray-100">
       <PostArea>
         <div className="max-h-[550px] overflow-y-scroll">
-          <Solid className="flex py-4 px-8">
+          <Solid className="flex items-center py-4 px-8 mt-1">
+            <svg
+              className="w-4 rotate-90 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+            </svg>
             <div className="text-2xl font-semibold">게시물 작성하기</div>
           </Solid>
           <div className="px-7 flex flex-col justify-center my-4">
