@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,7 +7,6 @@ const PostArea = styled.div`
   flex-direction: column;
   border-radius: 10px;
   width: 50%;
-  margin-bottom: 20px;
   background-color: white;
   /* box-shadow: 2px 2px 2px rgb(209 213 219); */
 `;
@@ -20,21 +19,28 @@ const Solid2 = styled.select`
   border: 1px solid rgb(229 231 235);
 `;
 
-const Solid3 = styled.div`
-  border-top: 1px solid rgb(229 231 235);
-`;
-
-const Path = styled.path<{ like: boolean }>`
-  fill: ${(props) => (props.like ? "rgba(237, 127, 148)" : "rgb(209 213 219)")};
-`;
-
-const Text = styled.div<{ like: boolean }>`
-  color: ${(props) => (props.like ? "rgba(237, 127, 148)" : "black")};
-  font-weight: ${(props) => (props.like ? "600" : "300")};
+const ImgBox = styled.img`
+  width: 18.7%;
+  background-color: skyblue;
+  margin-right: 1.5%;
+  ::after {
+    display: block;
+    content: "";
+    padding-bottom: 100%;
+  }
+  &:last-child {
+    margin: 0;
+  }
 `;
 
 const WritePost = () => {
   const [type, setType] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [board, setBoard] = useState<string[]>([]);
+  const [preview, setPreview] = useState([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const navigate = useNavigate();
   const onChangeBreed = (value: string) => {
     if (value === "") {
@@ -47,10 +53,39 @@ const WritePost = () => {
   const goComunity = () => {
     navigate("/comunity");
   };
+
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files!;
+    if (!files[0]) return;
+    if (board.length + files.length > 5) {
+      return alert("최대 5개 사진만 첨부할 수 있습니다.");
+    }
+    const readAndPreview = (file: any) => {
+      if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+        const reader = new FileReader();
+        reader.onload = () =>
+          setBoard((prev) => [...prev, reader.result as string]);
+        reader.readAsDataURL(file);
+      }
+    };
+    if (files) {
+      [].forEach.call(files, readAndPreview);
+    }
+  };
+
+  // const handleDeleteImage = (id) => {
+  //   setBoard(board.filter((_, index) => index !== id));
+  // };
+
+  // console.log(type);
+  // console.log(title);
+  // console.log(content);
+  console.log(board);
+
   return (
     <div className="flex w-full flex-col justify-center items-center pt-16 h-screen bg-gray-100">
       <PostArea>
-        <div className="max-h-[550px] overflow-y-scroll">
+        <div className="max-h-[550px] overflow-y-scroll w-full">
           <Solid className="flex items-center py-4 px-8 mt-1">
             <svg
               onClick={goComunity}
@@ -60,7 +95,7 @@ const WritePost = () => {
             >
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </svg>
-            <div className="text-2xl font-semibold">게시물 작성하기</div>
+            <div className="text-2xl font-semibold">게시글 작성하기</div>
           </Solid>
           <div className="px-7 flex flex-col justify-center my-4">
             <Solid2
@@ -77,6 +112,7 @@ const WritePost = () => {
             </Solid2>
             <Solid>
               <input
+                onChange={(e) => setTitle(e.target.value)}
                 className="py-2 pl-3 w-full text-lg font-semibold"
                 placeholder="제목을 입력해주세요"
               />
@@ -84,10 +120,22 @@ const WritePost = () => {
           </div>
           <div className="px-7 w-full relative">
             <textarea
+              onChange={(e) => setContent(e.target.value)}
               placeholder="내용을 입력해주세요"
-              className="mb-3 w-full h-60 pl-3 py-3 bg-gray-100 rounded-lg resize-none"
+              className="mb-3 w-full h-52 pl-3 py-3 bg-gray-100 rounded-lg resize-none"
             />
-            <div className="flex justify-center items-center w-10 h-10 bg-gray-500 rounded-full absolute bottom-6 left-10">
+            <input
+              className="hidden"
+              type="file"
+              multiple
+              accept="image/*"
+              ref={inputRef}
+              onChange={onChangeFile}
+            />
+            <div
+              onClick={() => inputRef.current?.click()}
+              className="flex justify-center items-center w-10 h-10 bg-gray-500 rounded-full absolute bottom-6 left-10"
+            >
               <svg
                 className="w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +147,14 @@ const WritePost = () => {
                 />
               </svg>
             </div>
+          </div>
+          <div className="px-7 flex w-full">
+            {board.map((image, id) => (
+              <>
+                <ImgBox src={image} alt={`${image}-${id}`} />
+                {/* <div onClick={() => handleDeleteImage(id)}>x</div> */}
+              </>
+            ))}
           </div>
         </div>
         <div className="px-7 my-5 text-white flex justify-center items-center">
