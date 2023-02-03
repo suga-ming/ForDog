@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { postInfo } from "../api/comunity";
 import Board from "../components/Board";
+import { isAccessToken } from "../store/recoil";
 import WritePost from "./WritePost";
 
 const BoderBox = styled.div`
@@ -21,12 +24,26 @@ const BoderBox = styled.div`
 `;
 
 const Comunity = () => {
-  const [type, setType] = useState("");
-  const [limit, setLimit] = useState("");
+  const [type, setType] = useState("일상생활");
+  const [limit, setLimit] = useState(4);
+  const accessToken = useRecoilValue(isAccessToken);
+
   const navigate = useNavigate();
   const goPost = () => {
     navigate("/comunity/post");
   };
+
+  useEffect(() => {
+    postInfo({ type, limit }, accessToken).then((res) => {
+      console.log(res);
+      const resultCode = res?.data.data.resultCode;
+      const data = res?.data.data.data;
+      if (resultCode == 1) {
+      }
+    });
+  }, [type, limit]);
+  console.log(type);
+
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
       <div className="flex w-full justify-center mt-5 mb-5">
@@ -40,6 +57,14 @@ const Comunity = () => {
           <Board />
           <Board />
           <Board />
+          <div className="flex justify-center w-full mt-3 mb-5">
+            <div
+              onClick={() => setLimit(limit + 4)}
+              className="bg-pet_pink text-white font-semibold w-1/2 text-center py-3 rounded-lg cursor-pointer"
+            >
+              더보기
+            </div>
+          </div>
           <div
             onClick={goPost}
             className="fixed bottom-24 right-32 flex flex-col justify-center items-center w-16 h-16 rounded-full bg-pet_pink cursor-pointer"
