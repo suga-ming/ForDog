@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { comunityResiter } from "../api/comunity";
+import { isAccessToken } from "../store/recoil";
 
 const PostArea = styled.div`
   display: flex;
@@ -38,11 +41,11 @@ const WritePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [board, setBoard] = useState<string[]>([]);
-  const [preview, setPreview] = useState([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const accessToken = useRecoilValue(isAccessToken);
 
   const navigate = useNavigate();
-  const onChangeBreed = (value: string) => {
+  const onChangeCategory = (value: string) => {
     if (value === "") {
       alert("카테고리를 선택해 주세요");
     } else {
@@ -73,17 +76,32 @@ const WritePost = () => {
     }
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const apiData = {
+      type: type,
+      title: title,
+      content: content,
+      board: board,
+    };
+    console.log(apiData);
+    const res = await comunityResiter(apiData, accessToken);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("게시글이 작성되었습니다.");
+      navigate("/comunity");
+    }
+  };
+
   // const handleDeleteImage = (id) => {
   //   setBoard(board.filter((_, index) => index !== id));
   // };
 
-  // console.log(type);
-  // console.log(title);
-  // console.log(content);
-  console.log(board);
-
   return (
-    <div className="flex w-full flex-col justify-center items-center pt-16 h-screen bg-gray-100">
+    <form
+      onSubmit={onSubmit}
+      className="flex w-full flex-col justify-center items-center pt-16 h-screen bg-gray-100"
+    >
       <PostArea>
         <div className="max-h-[550px] overflow-y-scroll w-full">
           <Solid className="flex items-center py-4 px-8 mt-1">
@@ -99,9 +117,9 @@ const WritePost = () => {
           </Solid>
           <div className="px-7 flex flex-col justify-center my-4">
             <Solid2
-              name="breed"
+              name="category"
               className="w-full mb-3 py-2 px-2 rounded-md"
-              onChange={(e) => onChangeBreed(e.target.value)}
+              onChange={(e) => onChangeCategory(e.target.value)}
             >
               <option className="text-gray-400" value="">
                 카테고리를 선택해주세요.
@@ -163,7 +181,7 @@ const WritePost = () => {
           </button>
         </div>
       </PostArea>
-    </div>
+    </form>
   );
 };
 
