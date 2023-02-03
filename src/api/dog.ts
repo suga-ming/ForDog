@@ -56,6 +56,9 @@ export const dogResiter = async (
   formData.append("birthDay", body?.birthDay);
   formData.append("togetherDay", body?.togetherDay);
   console.log("formData", formData);
+  for (const entries of formData.entries()) {
+    console.log("entries", entries);
+  }
   try {
     return await api.post("/pet", formData, {
       headers: {
