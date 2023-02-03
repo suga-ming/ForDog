@@ -84,7 +84,6 @@ const WritePost = () => {
       content: content,
       board: board,
     };
-    console.log(apiData);
     const res = await comunityResiter(apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {

@@ -34,7 +34,6 @@ const Text = styled.div<{ like: boolean }>`
 const Board = () => {
   const navigate = useNavigate();
   const [like, setLike] = useState(false);
-  console.log(like);
 
   const goPost = () => {
     navigate("/comunity/:postId");

@@ -20,7 +20,6 @@ const Login = () => {
   const { register, handleSubmit, reset } = useForm<SignInInterface>();
   const onSubmit = async (data: SignInInterface) => {
     const res = await emailSignIn(data);
-    console.log(res?.data.data.data);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       reset({

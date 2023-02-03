@@ -90,8 +90,6 @@ const DogEdit = ({ petId }: EditDogInterface) => {
   const [editModal, setEditModal] = useRecoilState(isEditModal);
   const [fileImage, setFileImage] = useState("");
 
-  // console.log(petId);
-
   const onChangeBreed = (value: string) => {
     if (value === "") {
       alert("견종을 선택해 주세요");
@@ -100,9 +98,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
     }
   };
   const onChangeFile = (e: any) => {
-    console.log("사진", e.target.files[0]);
     setFile(e.target.files[0]);
-    console.log("file", file);
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
@@ -144,7 +140,6 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       togetherDay: togetherDates === "--" ? "" : togetherDates,
     };
 
-    console.log(apiData);
     const res = await editDog(apiData, accessToken, petId);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {

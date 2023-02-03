@@ -68,7 +68,6 @@ const MyPage = () => {
 
   const { register, handleSubmit, reset } = useForm<InfoEditInterface>();
   const onSubmit = async (data: InfoEditInterface) => {
-    console.log("data", data);
     const res = await userInfoEdit(data, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
@@ -87,7 +86,6 @@ const MyPage = () => {
 
   const deleteInfo = async (accessToken: string) => {
     const res = await deleteUser(accessToken);
-    console.log(res);
     const resultCode = res?.data.data.resultCode;
     if (resultCode == 1) {
       alert("탈퇴되셨습니다");

@@ -21,7 +21,8 @@ const BoderBox = styled.div`
 `;
 
 const Comunity = () => {
-  const [modal, setModal] = useState(true);
+  const [type, setType] = useState("");
+  const [limit, setLimit] = useState("");
   const navigate = useNavigate();
   const goPost = () => {
     navigate("/comunity/post");
@@ -29,9 +30,9 @@ const Comunity = () => {
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
       <div className="flex w-full justify-center mt-5 mb-5">
-        <BoderBox>일상생활</BoderBox>
-        <BoderBox>정보공유</BoderBox>
-        <BoderBox>궁금해요</BoderBox>
+        <BoderBox onClick={() => setType("일상생활")}>일상생활</BoderBox>
+        <BoderBox onClick={() => setType("정보공유")}>정보공유</BoderBox>
+        <BoderBox onClick={() => setType("궁금해요")}>궁금해요</BoderBox>
       </div>
       <div className="flex flex-col items-center w-full relative">
         <div className="flex flex-col w-1/2 relative">

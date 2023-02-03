@@ -11,7 +11,6 @@ export const comunityResiter = async (
   body: boardResiter,
   accessToken: string
 ) => {
-  console.log("body", body);
   const formData = new FormData();
 
   //   body?.board.forEach((image) => formData.append("board", image));
@@ -23,10 +22,6 @@ export const comunityResiter = async (
   formData.append("type", body?.type);
   formData.append("title", body?.title);
   formData.append("content", body?.content);
-
-  for (const entries of formData.entries()) {
-    console.log("entries", entries);
-  }
 
   try {
     return await api.post("/board", formData, {

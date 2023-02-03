@@ -82,11 +82,8 @@ const DogResister = () => {
     }
   };
   const onChangeFile = (e: any) => {
-    console.log("사진", e.target.files);
     setFile(e.target.files[0]);
     setFileImage(URL.createObjectURL(e.target.files[0]));
-    console.log("확인");
-    console.log("fileImage", fileImage);
   };
 
   return (

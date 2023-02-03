@@ -118,11 +118,8 @@ const DogPage = () => {
     }
   };
   const onChangeFile = (e: any) => {
-    console.log("확인", e.target.files);
     setFile(e.target.files[0]);
     setFileImage(URL.createObjectURL(e.target.files[0]));
-    console.log("확인");
-    console.log("fileImage", fileImage);
   };
 
   const onSubmits = (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,7 +139,7 @@ const DogPage = () => {
       birthDay: birthDates == "--" ? "" : birthDates,
       togetherDay: togetherDates == "--" ? "" : togetherDates,
     };
-    console.log(apiData);
+
     const res = await dogResiter(apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode == 1) {

@@ -35,8 +35,6 @@ const DogList = ({
   // const [editModal, setEditModal] = useState(false);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
 
-  // console.log(imagePath);
-
   return (
     <div>
       <div
