@@ -35,6 +35,7 @@ const Text = styled.div<{ like: boolean }>`
 
 const WritePost = () => {
   const [type, setType] = useState("");
+  const navigate = useNavigate();
   const onChangeBreed = (value: string) => {
     if (value === "") {
       alert("카테고리를 선택해 주세요");
@@ -42,13 +43,18 @@ const WritePost = () => {
       setType(value);
     }
   };
+
+  const goComunity = () => {
+    navigate("/comunity");
+  };
   return (
     <div className="flex w-full flex-col justify-center items-center pt-16 h-screen bg-gray-100">
       <PostArea>
         <div className="max-h-[550px] overflow-y-scroll">
           <Solid className="flex items-center py-4 px-8 mt-1">
             <svg
-              className="w-4 rotate-90 mr-2"
+              onClick={goComunity}
+              className="w-4 rotate-90 mr-2 cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
