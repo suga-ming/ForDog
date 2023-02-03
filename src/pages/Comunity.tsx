@@ -68,6 +68,13 @@ const BoderBox3 = styled.div<{ type: string }>`
 const Comunity = () => {
   const [type, setType] = useState("일상생활");
   const [limit, setLimit] = useState(4);
+  const [data, setData] = useState([]);
+  const [boardId, setBoardId] = useState(0);
+  const [content, setContent] = useState("");
+  const [createdAt, setCreatedAt] = useState("");
+  const [image, setImage] = useState("");
+  const [title, setTitle] = useState("");
+  const [writer, setWriter] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
 
   const navigate = useNavigate();
@@ -79,12 +86,13 @@ const Comunity = () => {
     postInfo({ type, limit }, accessToken).then((res) => {
       console.log(res);
       const resultCode = res?.data.data.resultCode;
-      const data = res?.data.data.data;
+      const data = res?.data.data.data.items;
+      setData(data);
       if (resultCode == 1) {
       }
     });
   }, [type, limit]);
-  console.log(type);
+  console.log("data", data);
 
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
@@ -101,10 +109,12 @@ const Comunity = () => {
       </div>
       <div className="flex flex-col items-center w-full relative">
         <div className="flex flex-col w-1/2 relative">
-          <Board />
-          <Board />
-          <Board />
-          <Board />
+          {data?.map((data) => (
+            <>
+              <Board />
+            </>
+          ))}
+
           <div className="flex justify-center w-full mt-3 mb-5">
             <div
               onClick={() => setLimit(limit + 4)}
