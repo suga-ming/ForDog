@@ -69,12 +69,7 @@ const Comunity = () => {
   const [type, setType] = useState("일상생활");
   const [limit, setLimit] = useState(4);
   const [data, setData] = useState([]);
-  const [boardId, setBoardId] = useState(0);
-  const [content, setContent] = useState("");
-  const [createdAt, setCreatedAt] = useState("");
-  const [image, setImage] = useState("");
-  const [title, setTitle] = useState("");
-  const [writer, setWriter] = useState("");
+  const [maxResult, setMaxResult] = useState(0);
   const accessToken = useRecoilValue(isAccessToken);
 
   const navigate = useNavigate();
@@ -86,9 +81,11 @@ const Comunity = () => {
     postInfo({ type, limit }, accessToken).then((res) => {
       const resultCode = res?.data.data.resultCode;
       const data = res?.data.data.data.items;
+      const count = res?.data.data.data.count;
       if (resultCode == 1) {
         setLimit(4);
         setData(data);
+        setMaxResult(count);
       }
     });
   }, [type]);
@@ -97,21 +94,13 @@ const Comunity = () => {
     postInfo({ type, limit }, accessToken).then((res) => {
       const resultCode = res?.data.data.resultCode;
       const data = res?.data.data.data.items;
+      const count = res?.data.data.data.count;
       if (resultCode == 1) {
         setData(data);
-        // if(limit==)
+        setMaxResult(count);
       }
     });
   }, [limit]);
-
-  console.log(data);
-
-  console.log(limit);
-
-  const goAdd = () => {
-    setLimit(limit + 4);
-    // if()
-  };
 
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
@@ -145,12 +134,14 @@ const Comunity = () => {
           ))}
 
           <div className="flex justify-center w-full mt-3 mb-5">
-            <div
-              onClick={goAdd}
-              className="bg-pet_pink text-white font-semibold w-1/2 text-center py-3 rounded-lg cursor-pointer"
-            >
-              더보기
-            </div>
+            {maxResult >= limit ? (
+              <div
+                onClick={() => setLimit(limit + 4)}
+                className="bg-pet_pink text-white font-semibold w-1/2 text-center py-3 rounded-lg cursor-pointer"
+              >
+                더보기
+              </div>
+            ) : null}
           </div>
           <div
             onClick={goPost}

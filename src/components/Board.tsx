@@ -82,6 +82,9 @@ const Board = ({
           </div>
         </div>
         <div>{content}</div>
+        {image ? (
+          <img className="w-full h-32 mt-5 mb-8" src={image}></img>
+        ) : null}
         <div className="flex mt-4">
           <div className="flex mr-3 mb-6">
             <div>공감:</div>

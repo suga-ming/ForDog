@@ -40,7 +40,8 @@ const WritePost = () => {
   const [type, setType] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [board, setBoard] = useState<string[]>([]);
+  const [board, setBoard] = useState<File[]>([]);
+  const [preview, setPreview] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const accessToken = useRecoilValue(isAccessToken);
 
@@ -65,9 +66,10 @@ const WritePost = () => {
     }
     const readAndPreview = (file: any) => {
       if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+        setBoard([...board, file]);
         const reader = new FileReader();
         reader.onload = () =>
-          setBoard((prev) => [...prev, reader.result as string]);
+          setPreview((prev) => [...prev, reader.result as string]);
         reader.readAsDataURL(file);
       }
     };
@@ -144,7 +146,7 @@ const WritePost = () => {
             <input
               className="hidden"
               type="file"
-              multiple
+              // multiple
               accept="image/*"
               ref={inputRef}
               onChange={onChangeFile}
@@ -166,7 +168,7 @@ const WritePost = () => {
             </div>
           </div>
           <div className="px-7 flex w-full">
-            {board.map((image, id) => (
+            {preview.map((image, id) => (
               <>
                 <ImgBox src={image} alt={`${image}-${id}`} />
                 {/* <div onClick={() => handleDeleteImage(id)}>x</div> */}

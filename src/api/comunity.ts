@@ -4,7 +4,7 @@ export interface boardResiter {
   type: string;
   title: string;
   content: string;
-  board: string[];
+  board: File[];
 }
 
 export interface postInfoProps {
@@ -31,12 +31,13 @@ export interface postDetailInfoInterface {
     writer: string;
     title: string;
     content: string;
-    images: [];
+    images: [string];
     liked: true;
     likedCount: number;
     commentCount: number;
     createdAt: string;
     type: string;
+    mine: boolean;
   };
 }
 
@@ -46,7 +47,7 @@ export const comunityResiter = async (
 ) => {
   console.log(body);
   const formData = new FormData();
-
+  // body?.board.forEach((image) => formData.append("board", image));
   for (let i = 0; i < body?.board.length; i++) {
     formData.append("board", body?.board[i]);
   }
