@@ -18,7 +18,7 @@ export interface postInfoInterface {
   image: string;
   title: string;
   content: string;
-  liked: boolean;
+  liked: true;
   likedCount: number;
   createdAt: string;
   commentCount: number;
@@ -38,6 +38,12 @@ export interface postDetailInfoInterface {
     createdAt: string;
     type: string;
     mine: boolean;
+  };
+}
+export interface checkLikedInterface {
+  resultCode: number;
+  data: {
+    liked: boolean;
   };
 }
 
@@ -92,6 +98,21 @@ export const postDetailInfo = async (Id: number, accessToken: string) => {
     console.log(err);
   }
 };
+
+export const postLiked = async (Id: number, accessToken: string) => {
+  try {
+    return await api
+      .get(`/board/${Id}/like`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const postDelete = async (Id: number, accessToken: string) => {
   try {
     return await api.delete(`/board/${Id}`, {
