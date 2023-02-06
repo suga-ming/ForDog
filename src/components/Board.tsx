@@ -50,6 +50,7 @@ const Board = ({
   createdAt,
   liked,
   likedCount,
+  commentCount,
 }: postInfoInterface) => {
   // console.log("boardId", boardId);
   // console.log("writer", writer);
@@ -96,7 +97,7 @@ const Board = ({
           </div>
           <div className="flex">
             <div>댓글:</div>
-            <div className="text-gray-500  ml-1">0</div>
+            <div className="text-gray-500  ml-1">{commentCount}</div>
           </div>
         </div>
       </div>

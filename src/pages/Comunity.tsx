@@ -105,8 +105,6 @@ const Comunity = () => {
     });
   }, [limit]);
 
-  console.log("data", data);
-
   return (
     <div className="pt-16 flex flex-col items-center bg-gray-100">
       <div className="flex w-full justify-center mt-5 mb-5">
@@ -132,6 +130,7 @@ const Comunity = () => {
                 content={data?.content}
                 liked={data?.liked}
                 likedCount={data?.likedCount}
+                commentCount={data?.commentCount}
                 createdAt={data?.createdAt}
               />
             </>

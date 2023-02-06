@@ -21,6 +21,7 @@ export interface postInfoInterface {
   liked: boolean;
   likedCount: number;
   createdAt: string;
+  commentCount: number;
 }
 
 export const comunityResiter = async (
