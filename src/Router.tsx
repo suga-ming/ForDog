@@ -33,7 +33,7 @@ const Router = () => {
         <Route path="/dog" element={<Dog />}></Route>
         <Route path="/comunity" element={<Comunity />}></Route>
         <Route path="/comunity/post" element={<WritePost />}></Route>
-        <Route path="/comunity/:postId" element={<Post />}></Route>
+        <Route path="/comunity/:boardId" element={<Post />}></Route>
         <Route path="/calender" element={<Calender />}></Route>
         <Route path="/rank" element={<Rank />}></Route>
       </Routes>

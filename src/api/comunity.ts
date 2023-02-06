@@ -24,10 +24,27 @@ export interface postInfoInterface {
   commentCount: number;
 }
 
+export interface postDetailInfoInterface {
+  resultCode: number;
+  data: {
+    boardId: number;
+    writer: string;
+    title: string;
+    content: string;
+    images: [];
+    liked: true;
+    likedCount: number;
+    commentCount: number;
+    createdAt: string;
+    type: string;
+  };
+}
+
 export const comunityResiter = async (
   body: boardResiter,
   accessToken: string
 ) => {
+  console.log(body);
   const formData = new FormData();
 
   for (let i = 0; i < body?.board.length; i++) {
@@ -36,6 +53,7 @@ export const comunityResiter = async (
   formData.append("type", body?.type);
   formData.append("title", body?.title);
   formData.append("content", body?.content);
+  for (const value of formData.values()) console.log(value);
 
   try {
     return await api.post("/board", formData, {
@@ -49,13 +67,26 @@ export const comunityResiter = async (
 };
 
 export const postInfo = async (body: postInfoProps, accessToken: string) => {
-  console.log("body", body);
   try {
     return await api.post("/board/list", body, {
       headers: {
         "x-access-auth": accessToken,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postDetailInfo = async (Id: number, accessToken: string) => {
+  try {
+    return await api
+      .get(`/board/${Id}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
