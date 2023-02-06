@@ -32,3 +32,9 @@ export const isEditModal = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const isType = atom({
+  key: "type",
+  default: "일상생활",
+  effects_UNSTABLE: [persistAtom],
+});

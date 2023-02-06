@@ -61,7 +61,7 @@ const Board = ({
 }: postInfoInterface) => {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(isAccessToken);
-  const [like, setLike] = useState(liked);
+  const [like, setLike] = useState(false);
 
   const goPost = () => {
     navigate(`/comunity/${boardId}`);
@@ -70,21 +70,13 @@ const Board = ({
   // const { isLoading, data } = useQuery<checkLikedInterface>([`info`], () =>
   //   postLiked(boardId, accessToken)
   // );
-  // useEffect(() => {
-  //   // ! 화면이 맨 처음 렌더링 될때 안에 있
-  //   postLiked(boardId, accessToken).then((res) => {
-  //     res?.data
-
-  //   });
-
-  // }, [like]);
-
-  // const changeLiked = async () => {
-  //   // ! 좋아요 누르는 api 선언
-  //   const res = await postLiked(boardId, accessToken);
-  //   setLike(res.data.liked);
-  //   console.log(like);
-  // };
+  useEffect(() => {}, [like]);
+  const changeLiked = async () => {
+    // ! 좋아요 누르는 api 선언
+    const res = await postLiked(boardId, accessToken);
+    setLike(res.data.liked);
+    console.log(like);
+  };
 
   // const list = data?.data
   // console.log();
