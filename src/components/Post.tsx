@@ -3,7 +3,11 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { postDetailInfo, postDetailInfoInterface } from "../api/comunity";
+import {
+  postDelete,
+  postDetailInfo,
+  postDetailInfoInterface,
+} from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 const PostArea = styled.div`
@@ -59,7 +63,15 @@ const Post = () => {
   const { isLoading, data } = useQuery<postDetailInfoInterface>([`info`], () =>
     postDetailInfo(Id, accessToken)
   );
-  console.log(data);
+
+  const deletePost = async () => {
+    const res = await postDelete(Id, accessToken);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("게시글이 삭제되었습니다.");
+      navigate("/comunity");
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -106,7 +118,10 @@ const Post = () => {
                     <div className="text-sm"> {data?.data.writer}</div>
                   </div>
                   {data?.data.mine ? (
-                    <Solid4 className="flex justify-center items-center text-sm rounded-full px-2 py-1 w-1/6 h-6 text-gray-400 cursor-pointer">
+                    <Solid4
+                      onClick={deletePost}
+                      className="flex justify-center items-center text-sm rounded-full px-2 py-1 w-1/6 h-6 text-gray-400 cursor-pointer"
+                    >
                       삭제하기
                     </Solid4>
                   ) : null}

@@ -92,3 +92,14 @@ export const postDetailInfo = async (Id: number, accessToken: string) => {
     console.log(err);
   }
 };
+export const postDelete = async (Id: number, accessToken: string) => {
+  try {
+    return await api.delete(`/board/${Id}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
