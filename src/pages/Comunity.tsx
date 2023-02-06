@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { postInfo } from "../api/comunity";
+import { postInfo, postInfoInterface } from "../api/comunity";
 import Board from "../components/Board";
 import { isAccessToken } from "../store/recoil";
 import WritePost from "./WritePost";
@@ -87,11 +87,24 @@ const Comunity = () => {
       console.log(res);
       const resultCode = res?.data.data.resultCode;
       const data = res?.data.data.data.items;
-      setData(data);
       if (resultCode == 1) {
+        setLimit(4);
+        setData(data);
       }
     });
-  }, [type, limit]);
+  }, [type]);
+
+  useEffect(() => {
+    postInfo({ type, limit }, accessToken).then((res) => {
+      console.log(res);
+      const resultCode = res?.data.data.resultCode;
+      const data = res?.data.data.data.items;
+      if (resultCode == 1) {
+        setData(data);
+      }
+    });
+  }, [limit]);
+
   console.log("data", data);
 
   return (
@@ -109,9 +122,18 @@ const Comunity = () => {
       </div>
       <div className="flex flex-col items-center w-full relative">
         <div className="flex flex-col w-1/2 relative">
-          {data?.map((data) => (
+          {data?.map((data: postInfoInterface) => (
             <>
-              <Board />
+              <Board
+                boardId={data?.boardId}
+                writer={data?.writer}
+                image={data?.image}
+                title={data?.title}
+                content={data?.content}
+                liked={data?.liked}
+                likedCount={data?.likedCount}
+                createdAt={data?.createdAt}
+              />
             </>
           ))}
 

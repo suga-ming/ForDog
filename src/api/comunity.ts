@@ -7,9 +7,20 @@ export interface boardResiter {
   board: string[];
 }
 
-export interface postInfoInterface {
+export interface postInfoProps {
   type: string;
   limit: number;
+}
+
+export interface postInfoInterface {
+  boardId: number;
+  writer: string;
+  image: string;
+  title: string;
+  content: string;
+  liked: boolean;
+  likedCount: number;
+  createdAt: string;
 }
 
 export const comunityResiter = async (
@@ -17,8 +28,6 @@ export const comunityResiter = async (
   accessToken: string
 ) => {
   const formData = new FormData();
-
-  //   body?.board.forEach((image) => formData.append("board", image));
 
   for (let i = 0; i < body?.board.length; i++) {
     formData.append("board", body?.board[i]);
@@ -38,10 +47,7 @@ export const comunityResiter = async (
   }
 };
 
-export const postInfo = async (
-  body: postInfoInterface,
-  accessToken: string
-) => {
+export const postInfo = async (body: postInfoProps, accessToken: string) => {
   console.log("body", body);
   try {
     return await api.post("/board/list", body, {
