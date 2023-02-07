@@ -134,7 +134,7 @@ export const postEdit = async (
   formData.append("type", body?.type);
   formData.append("title", body?.title);
   formData.append("content", body?.content);
-  for (let i = 0; i < body?.board.length; i++) {
+  for (let i = 0; i < body?.deleteImages.length; i++) {
     formData.append("deleteImages", body?.deleteImages[i]);
   }
   for (const value of formData.values()) console.log(value);
