@@ -105,7 +105,7 @@ const Comunity = () => {
   }, [limit]);
 
   return (
-    <div className="pt-16 flex flex-col items-center bg-gray-100">
+    <div className="pt-16 flex flex-col min-h-screen items-center bg-gray-100">
       <div className="flex w-full justify-center mt-5 mb-5">
         <BoderBox1 type={type} onClick={() => setType("일상생활")}>
           일상생활
