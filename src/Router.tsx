@@ -6,6 +6,7 @@ import Calender from "./pages/Calender";
 import Comunity from "./pages/Comunity";
 import Dog from "./pages/Dog";
 import DogPage from "./pages/DogPage";
+import EditPost from "./pages/EditPost";
 import Email from "./pages/Email";
 import Home from "./pages/Home";
 import Kakao from "./pages/Kakao";
@@ -34,6 +35,10 @@ const Router = () => {
         <Route path="/comunity" element={<Comunity />}></Route>
         <Route path="/comunity/post" element={<WritePost />}></Route>
         <Route path="/comunity/:boardId" element={<Post />}></Route>
+        <Route
+          path="/comunity/editPost/:boardId"
+          element={<EditPost />}
+        ></Route>
         <Route path="/calender" element={<Calender />}></Route>
         <Route path="/rank" element={<Rank />}></Route>
       </Routes>

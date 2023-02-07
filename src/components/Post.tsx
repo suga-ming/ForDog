@@ -7,6 +7,7 @@ import {
   postDelete,
   postDetailInfo,
   postDetailInfoInterface,
+  postEdit,
 } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
@@ -64,6 +65,10 @@ const Post = () => {
     postDetailInfo(Id, accessToken)
   );
 
+  const goEditPost = () => {
+    navigate(`/comunity/editPost/${boardId}`);
+  };
+
   const deletePost = async () => {
     const res = await postDelete(Id, accessToken);
     const resultCode = res?.data.data.resultCode;
@@ -118,12 +123,20 @@ const Post = () => {
                     <div className="text-sm"> {data?.data.writer}</div>
                   </div>
                   {data?.data.mine ? (
-                    <Solid4
-                      onClick={deletePost}
-                      className="flex justify-center items-center text-sm rounded-full px-2 py-1 w-1/6 h-6 text-gray-400 cursor-pointer"
-                    >
-                      삭제하기
-                    </Solid4>
+                    <div className="flex w-1/4">
+                      <Solid4
+                        onClick={goEditPost}
+                        className="flex justify-center items-center text-sm rounded-full w-full px-2 py-1 mr-2 text-gray-400 cursor-pointer"
+                      >
+                        수정하기
+                      </Solid4>
+                      <Solid4
+                        onClick={deletePost}
+                        className="flex justify-center items-center text-sm rounded-full w-full px-2 py-1  text-gray-400 cursor-pointer"
+                      >
+                        삭제하기
+                      </Solid4>
+                    </div>
                   ) : null}
                 </div>
               </Solid>
