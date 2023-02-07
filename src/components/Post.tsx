@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
@@ -8,6 +8,7 @@ import {
   postDetailInfo,
   postDetailInfoInterface,
   postEdit,
+  postLiked,
 } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
@@ -51,15 +52,30 @@ const Text = styled.div<{ like: boolean }>`
 
 const Post = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const accessToken = useRecoilValue(isAccessToken);
 
-  const [like, setLike] = useState(false);
+  const liked = location.state as { liked: boolean };
+  const likedCount = location.state as { likedCount: number };
+
+  const [like, setLike] = useState<boolean>(liked?.liked);
+  const [likeCount, setLikeCount] = useState<number>(likedCount?.likedCount);
+
+  let { boardId } = useParams();
+  const Id = Number(boardId);
+
+  const changeLiked = async () => {
+    // ! 좋아요 누르는 api 선언
+    const res = await postLiked(Id, accessToken);
+    console.log(res);
+    setLike(res?.data.liked);
+    setLikeCount(res?.data.likedCount);
+    console.log(like);
+  };
 
   const goComunity = () => {
     navigate("/comunity");
   };
-  let { boardId } = useParams();
-  const Id = Number(boardId);
 
   const { isLoading, data } = useQuery<postDetailInfoInterface>([`info`], () =>
     postDetailInfo(Id, accessToken)
@@ -153,14 +169,12 @@ const Post = () => {
                 <div className="flex justify-between items-center mt-8 mb-6">
                   <div className="flex mr-3">
                     <div>공감:</div>
-                    <div className="text-gray-500 ml-1">
-                      {data?.data.likedCount}
-                    </div>
+                    <div className="text-gray-500 ml-1">{likeCount}</div>
                   </div>
                   <Solid2
                     like={like}
                     className="flex py-1 px-1 w-1/5 justify-center cursor-pointer rounded-3xl"
-                    onClick={() => setLike(!like)}
+                    onClick={changeLiked}
                   >
                     <svg
                       className="w-4 mr-2"

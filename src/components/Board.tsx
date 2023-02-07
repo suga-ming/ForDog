@@ -65,7 +65,9 @@ const Board = ({
   const [likeCount, setLikeCount] = useState<number>(likedCount);
 
   const goPost = () => {
-    navigate(`/comunity/${boardId}`);
+    navigate(`/comunity/${boardId}`, {
+      state: { liked: liked, likedCount: likedCount },
+    });
   };
 
   const changeLiked = async () => {
