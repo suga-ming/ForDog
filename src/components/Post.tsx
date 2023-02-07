@@ -84,10 +84,10 @@ const Post = () => {
       ) : (
         <div className="flex flex-col items-center pt-16 h-screen bg-gray-100">
           {" "}
-          <div className="flex w-1/2 text-sm bg-white py-3 rounded-xl mt-5 mb-5">
+          <div className="flex items-center w-1/2 text-sm bg-white py-3 rounded-xl mt-5 mb-5">
             <svg
               onClick={goComunity}
-              className="w-3 rotate-90 ml-3 mr-2 cursor-pointer"
+              className="w-4 py-2 rotate-90 ml-3 mr-2 cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
