@@ -122,6 +122,7 @@ const Comunity = () => {
           {data?.map((data: postInfoInterface) => (
             <>
               <Board
+                key={data?.boardId}
                 boardId={data?.boardId}
                 writer={data?.writer}
                 image={data?.image}

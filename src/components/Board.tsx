@@ -61,25 +61,22 @@ const Board = ({
 }: postInfoInterface) => {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(isAccessToken);
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState<boolean>(liked);
+  const [likeCount, setLikeCount] = useState<number>(likedCount);
 
   const goPost = () => {
     navigate(`/comunity/${boardId}`);
   };
 
-  // const { isLoading, data } = useQuery<checkLikedInterface>([`info`], () =>
-  //   postLiked(boardId, accessToken)
-  // );
-  useEffect(() => {}, [like]);
   const changeLiked = async () => {
     // ! 좋아요 누르는 api 선언
     const res = await postLiked(boardId, accessToken);
-    setLike(res.data.liked);
+    console.log(res);
+    setLike(res?.data.liked);
+    setLikeCount(res?.data.likedCount);
     console.log(like);
   };
 
-  // const list = data?.data
-  // console.log();
   return (
     <PostArea>
       <div className="px-7 cursor-pointer" onClick={goPost}>
@@ -111,7 +108,7 @@ const Board = ({
         <div className="flex mt-4">
           <div className="flex mr-3 mb-6">
             <div>공감:</div>
-            <div className="text-gray-500 ml-1">{likedCount}</div>
+            <div className="text-gray-500 ml-1">{likeCount}</div>
           </div>
           <div className="flex">
             <div>댓글:</div>
