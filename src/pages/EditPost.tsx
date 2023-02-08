@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { comunityResiter, postDetailInfo, postEdit } from "../api/comunity";
-import EditImg from "../components/EditImg";
 import { isAccessToken } from "../store/recoil";
 
 const PostArea = styled.div`
