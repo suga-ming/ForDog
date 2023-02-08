@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
+  postComment,
   postDelete,
   postDetailInfo,
   postDetailInfoInterface,
@@ -60,9 +61,11 @@ const Post = () => {
 
   const [like, setLike] = useState<boolean>(liked?.liked);
   const [likeCount, setLikeCount] = useState<number>(likedCount?.likedCount);
+  const [comment, setComment] = useState("");
 
   let { boardId } = useParams();
   const Id = Number(boardId);
+  const StringID = String(boardId);
 
   const changeLiked = async () => {
     // ! 좋아요 누르는 api 선언
@@ -93,6 +96,17 @@ const Post = () => {
       navigate("/comunity");
     }
   };
+
+  const resisterComment = async () => {
+    const res = await postComment(Id, comment, accessToken);
+    console.log(res);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 작성되었습니다.");
+      setComment("");
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -224,8 +238,16 @@ const Post = () => {
               </Solid>
             </div>
             <Solid3 className="flex justify-between w-full py-3 px-7">
-              <input className="w-5/6 pl-2" placeholder="댓글을 남겨주세요" />
-              <div className="w-1/6 text-center cursor-pointer text-pet_pink font-semibold">
+              <input
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="w-5/6 pl-2"
+                placeholder="댓글을 남겨주세요"
+              />
+              <div
+                onClick={resisterComment}
+                className="w-1/6 text-center cursor-pointer text-pet_pink font-semibold"
+              >
                 입력
               </div>
             </Solid3>

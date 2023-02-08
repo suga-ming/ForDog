@@ -55,6 +55,11 @@ export interface editPostInterface {
   board: File[];
 }
 
+export interface commentProps {
+  Id: number;
+  comment: string;
+}
+
 export const comunityResiter = async (
   body: boardResiter,
   accessToken: string
@@ -152,6 +157,26 @@ export const postEdit = async (
 export const postDelete = async (Id: number, accessToken: string) => {
   try {
     return await api.delete(`/board/${Id}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postComment = async (
+  id: number,
+  comment: string,
+  accessToken: string
+) => {
+  const body = {
+    boardId: id,
+    content: comment,
+  };
+  try {
+    return await api.post("/comment", body, {
       headers: {
         "x-access-auth": accessToken,
       },
