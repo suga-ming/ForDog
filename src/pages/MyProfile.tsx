@@ -46,8 +46,8 @@ const MyProfile = () => {
                 />
               </svg>
               <div className="flex">
-                <div className="mr-1">단이:</div>
-                <div>토이푸들</div>
+                <div className="mr-1">광웰코:</div>
+                <div>웰시코기</div>
               </div>
             </div>
           </div>
