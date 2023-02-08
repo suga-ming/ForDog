@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { comunityResiter, postDetailInfo, postEdit } from "../api/comunity";
+import EditImg from "../components/EditImg";
 import { isAccessToken } from "../store/recoil";
 
 const PostArea = styled.div`
@@ -112,10 +113,6 @@ const EditPost = () => {
     }
   };
 
-  // const handleDeleteImage = (id) => {
-  //   setBoard(board.filter((_, index) => index !== id));
-  // };
-
   return (
     <form
       onSubmit={onSubmit}
@@ -190,10 +187,16 @@ const EditPost = () => {
           </div>
           <div className="px-7 flex w-full">
             {preview.map((image, id) => (
-              <>
-                <ImgBox src={image} alt={`${image}-${id}`} />
-                {/* <div onClick={() => handleDeleteImage(id)}>x</div> */}
-              </>
+              <div className="w-1/5">
+                <EditImg key={id} image={image} id={id} />
+                {/* <ImgBox src={image} alt={`${image}-${id}`} />
+                <div
+                  className="absolute top-0 left-0 text-red-400"
+                  onClick={handleDeleteImage}
+                >
+                  x
+                </div> */}
+              </div>
             ))}
           </div>
         </div>
