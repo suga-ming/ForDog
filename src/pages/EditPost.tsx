@@ -187,16 +187,10 @@ const EditPost = () => {
           </div>
           <div className="px-7 flex w-full">
             {preview.map((image, id) => (
-              <div className="w-1/5">
-                <EditImg key={id} image={image} id={id} />
-                {/* <ImgBox src={image} alt={`${image}-${id}`} />
-                <div
-                  className="absolute top-0 left-0 text-red-400"
-                  onClick={handleDeleteImage}
-                >
-                  x
-                </div> */}
-              </div>
+              <>
+                <ImgBox src={image} alt={`${image}-${id}`} />
+                <div className="absolute top-0 left-0 text-red-400">x</div>
+              </>
             ))}
           </div>
         </div>
