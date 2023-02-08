@@ -1,4 +1,9 @@
+import styled from "styled-components";
 import dane from "../assets/단.png";
+
+const Solid = styled.div`
+  border: 1px solid black;
+`;
 
 const DogProfile = () => {
   return (
@@ -7,7 +12,12 @@ const DogProfile = () => {
         <div className="flex items-center justify-center mb-7">
           <img src={dane} className="w-36 h-36 rounded-full" />
           <div className="flex flex-col items-start">
-            <div className="text-3xl font-semibold px-5">보영쨩</div>
+            <div className="flex items-center px-5">
+              <div className="text-3xl font-semibold mr-5">보영쨩</div>
+              <div className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer">
+                친구 추가
+              </div>
+            </div>
             <div className="flex justify-center">
               <div className="flex items-center px-5 py-3 bg-white">
                 <div className="mr-1 font-medium">게시물:</div>
@@ -46,8 +56,8 @@ const DogProfile = () => {
                 />
               </svg>
               <div className="flex">
-                <div className="mr-1">단이:</div>
-                <div>토이푸들</div>
+                <div className="mr-1">광웰코:</div>
+                <div>웰시코기</div>
               </div>
             </div>
           </div>
