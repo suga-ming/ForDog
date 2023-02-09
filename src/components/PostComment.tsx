@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { editComment } from "../api/comunity";
+import { isAccessToken } from "../store/recoil";
 
 export interface commentEditProps {
   replyId: number;
@@ -30,6 +33,12 @@ const PostComment = ({
 }: commentEditProps) => {
   const [comment, setComment] = useState(content);
   const [edit, setEdit] = useState(false);
+  const accessToken = useRecoilValue(isAccessToken);
+
+  const commentEdit = async () => {
+    const res = await editComment(comment, accessToken, replyId);
+    console.log(res);
+  };
   return (
     <Solid className="pb-4 px-7 mb-3">
       <div className="flex items-center mb-2 relative">
@@ -70,7 +79,10 @@ const PostComment = ({
             onChange={(e) => setComment(e.target.value)}
             value={comment}
           />
-          <div className="font-semibold px-2 py-1 bg-pet_pink text-white rounded-md text-sm">
+          <div
+            onClick={commentEdit}
+            className="font-semibold px-2 py-1 bg-pet_pink text-white rounded-md text-sm cursor-pointer"
+          >
             수정하기
           </div>
         </div>

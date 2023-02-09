@@ -203,7 +203,7 @@ export const postComment = async (
   }
 };
 
-export const editComment = async (Id: number, accessToken: string) => {
+export const editList = async (Id: number, accessToken: string) => {
   try {
     return await api
       .get(`/board/comment/${Id}`, {
@@ -212,6 +212,23 @@ export const editComment = async (Id: number, accessToken: string) => {
         },
       })
       .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const editComment = async (
+  body: string,
+  accessToken: string,
+  commentId: number
+) => {
+  console.log(body, "dd");
+  try {
+    return await api.patch(`/board/comment/${commentId}`, body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
   } catch (err) {
     console.log(err);
   }

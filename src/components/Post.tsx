@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   commentEditInterface,
-  editComment,
+  editList,
   postComment,
   postDelete,
   postDetailInfo,
@@ -112,7 +112,7 @@ const Post = () => {
 
   const { data: editCommentData } = useQuery<commentEditInterface>(
     [`editComment`],
-    () => editComment(Id, accessToken)
+    () => editList(Id, accessToken)
   );
 
   return (
