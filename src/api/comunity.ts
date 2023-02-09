@@ -171,12 +171,14 @@ export const postComment = async (
   comment: string,
   accessToken: string
 ) => {
+  console.log(id, comment, accessToken);
   const body = {
     boardId: id,
     content: comment,
   };
+  console.log(body);
   try {
-    return await api.post("/comment", body, {
+    return await api.post("/board/comment", body, {
       headers: {
         "x-access-auth": accessToken,
       },
