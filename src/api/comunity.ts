@@ -223,8 +223,22 @@ export const editComment = async (
   commentId: number
 ) => {
   console.log(body, "dd");
+  console.log(commentId, "commentId");
   try {
     return await api.patch(`/board/comment/${commentId}`, body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteComment = async (accessToken: string, commentId: number) => {
+  console.log(commentId, "commentId");
+  try {
+    return await api.delete(`/board/comment/${commentId}`, {
       headers: {
         "x-access-auth": accessToken,
       },

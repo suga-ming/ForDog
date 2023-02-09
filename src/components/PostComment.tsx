@@ -37,7 +37,7 @@ const PostComment = ({
 
   const commentEdit = async () => {
     const res = await editComment(comment, accessToken, replyId);
-    console.log(res);
+    console.log("replyId", replyId);
   };
   return (
     <Solid className="pb-4 px-7 mb-3">
