@@ -60,6 +60,21 @@ export interface commentProps {
   comment: string;
 }
 
+export interface commentEditInterface {
+  resultCode: number;
+  data: {
+    items: [
+      {
+        replyId: number;
+        writer: string;
+        content: string;
+        mine: true;
+        createdAt: string;
+      }
+    ];
+  };
+}
+
 export const comunityResiter = async (
   body: boardResiter,
   accessToken: string
@@ -183,6 +198,20 @@ export const postComment = async (
         "x-access-auth": accessToken,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const editComment = async (Id: number, accessToken: string) => {
+  try {
+    return await api
+      .get(`/board/comment/${Id}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
