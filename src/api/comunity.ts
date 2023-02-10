@@ -65,7 +65,7 @@ export interface commentEditInterface {
   data: {
     items: [
       {
-        replyId: number;
+        commentId: number;
         writer: string;
         content: string;
         mine: true;

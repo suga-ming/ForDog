@@ -5,7 +5,7 @@ import { editComment } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 export interface commentEditProps {
-  replyId: number;
+  commentId: number;
   writer: string;
   content: string;
   mine: true;
@@ -25,7 +25,7 @@ const Solid3 = styled.textarea`
 `;
 
 const PostComment = ({
-  replyId,
+  commentId,
   writer,
   content,
   mine,
@@ -37,8 +37,12 @@ const PostComment = ({
   const accessToken = useRecoilValue(isAccessToken);
 
   const commentEdit = async () => {
-    const res = await editComment(comment, accessToken, replyId);
-    console.log("replyId", replyId);
+    const res = await editComment(comment, accessToken, commentId);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 수정되었습니다.");
+      setEdit(false);
+    }
   };
   return (
     <Solid className="pb-4 px-7 mb-3">

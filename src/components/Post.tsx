@@ -224,8 +224,8 @@ const Post = () => {
                 {editCommentData
                   ? editCommentData.data.items.map((item) => (
                       <PostComment
-                        key={item.replyId}
-                        replyId={item.replyId}
+                        key={item.commentId}
+                        commentId={item.commentId}
                         writer={item.writer}
                         content={item.content}
                         mine={item.mine}
