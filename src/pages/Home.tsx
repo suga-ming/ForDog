@@ -35,7 +35,7 @@ const Home = () => {
           whileTap="click"
         >
           <svg
-            className="w-12 h-16 mb-3"
+            className="w-16 h-16 mb-3"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >
