@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { editComment } from "../api/comunity";
+import { deleteComment, editComment } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 export interface commentEditProps {
@@ -44,6 +44,14 @@ const PostComment = ({
       setEdit(false);
     }
   };
+
+  const commentDelete = async () => {
+    const res = await deleteComment(accessToken, commentId);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 삭제되었습니다.");
+    }
+  };
   return (
     <Solid className="pb-4 px-7 mb-3">
       <div className="flex items-center mb-2 relative">
@@ -71,7 +79,10 @@ const PostComment = ({
             >
               수정
             </Solid2>
-            <Solid2 className="cursor-pointer rounded-xl py-px px-2">
+            <Solid2
+              onClick={commentDelete}
+              className="cursor-pointer rounded-xl py-px px-2"
+            >
               삭제
             </Solid2>
           </div>
