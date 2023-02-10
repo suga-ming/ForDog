@@ -84,6 +84,7 @@ const Comunity = () => {
       const resultCode = res?.data.data.resultCode;
       const data = res?.data.data.data.items;
       const count = res?.data.data.data.count;
+      console.log("data", data);
       if (resultCode == 1) {
         setLimit(4);
         setData(data);
