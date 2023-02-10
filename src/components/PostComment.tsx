@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { deleteComment, editComment } from "../api/comunity";
+import { commentReply, deleteComment, editComment } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 export interface commentEditProps {
@@ -34,6 +34,7 @@ const PostComment = ({
   const [comment, setComment] = useState(content);
   const [edit, setEdit] = useState(false);
   const [replyCheck, setReplyCheck] = useState(false);
+  const [reply, setReply] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
 
   const commentEdit = async () => {
@@ -50,6 +51,14 @@ const PostComment = ({
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("댓글이 삭제되었습니다.");
+    }
+  };
+  const replyResister = async () => {
+    const res = await commentReply(accessToken, commentId, reply);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 등록되었습니다.");
+      setReplyCheck(false);
     }
   };
   return (
@@ -105,6 +114,12 @@ const PostComment = ({
       ) : (
         <div>{content}</div>
       )}
+      <div
+        onClick={() => setReplyCheck(!replyCheck)}
+        className="text-xs text-gray-500 mt-2 cursor-pointer"
+      >
+        댓글 쓰기
+      </div>
       {!replyCheck ? (
         <div className="flex ml-5 items-center mt-1">
           <svg
@@ -121,14 +136,7 @@ const PostComment = ({
             대댓글
           </div>
         </div>
-      ) : (
-        <div
-          onClick={() => setReplyCheck(!replyCheck)}
-          className="text-xs text-gray-500 mt-2"
-        >
-          댓글 쓰기
-        </div>
-      )}
+      ) : null}
       {replyCheck ? (
         <div className="flex ml-5 items-center mt-1">
           <svg
@@ -143,11 +151,11 @@ const PostComment = ({
           </svg>
           <Solid3
             className="w-10/12 h-9 py-2 px-2 rounded-lg resize-none mr-3"
-            onChange={(e) => setComment(e.target.value)}
+            onChange={(e) => setReply(e.target.value)}
             placeholder="댓글 달기"
           />
           <div
-            onClick={commentEdit}
+            onClick={replyResister}
             className="font-semibold px-2 py-1 bg-pet_pink text-white rounded-md text-sm cursor-pointer"
           >
             입력하기

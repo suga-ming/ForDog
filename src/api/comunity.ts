@@ -247,3 +247,25 @@ export const deleteComment = async (accessToken: string, commentId: number) => {
     console.log(err);
   }
 };
+
+export const commentReply = async (
+  accessToken: string,
+  commentId: number,
+  reply: string
+) => {
+  console.log(reply, commentId, accessToken);
+  const body = {
+    content: reply,
+    commentId: commentId,
+  };
+  console.log(body);
+  try {
+    return await api.post("/board/comment/reply", body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
