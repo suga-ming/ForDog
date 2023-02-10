@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { commentReply, deleteComment, editComment } from "../api/comunity";
+import {
+  commentReply,
+  deleteComment,
+  editComment,
+  replyDataInterface,
+  replyList,
+} from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 export interface commentEditProps {
@@ -61,6 +68,13 @@ const PostComment = ({
       setReplyCheck(false);
     }
   };
+
+  // const { isLoading, data } = useQuery<replyDataInterface>([`replyData`], () =>
+  //   replyList(commentId, accessToken)
+  // );
+
+  // console.log(data);
+
   return (
     <Solid className="pb-4 px-7 mb-3">
       <div className="flex items-center mb-2 relative">
@@ -120,23 +134,25 @@ const PostComment = ({
       >
         댓글 쓰기
       </div>
-      {!replyCheck ? (
-        <div className="flex ml-5 items-center mt-1">
-          <svg
-            className="w-4 rotate-90 mr-3"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
-          >
-            <path
-              fill="rgb(31 41 55)"
-              d="M32 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c53 0 96-43 96-96l0-306.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3 160 416c0 17.7-14.3 32-32 32l-96 0z"
-            />
-          </svg>
-          <div className="w-10/12 h-9 py-2 px-2 rounded-lg resize-none mr-3">
-            대댓글
-          </div>
+      {/* {isLoading ? (
+        <div>loaing...</div>
+      ) : ( */}
+      <div className="flex ml-5 items-center mt-1">
+        <svg
+          className="w-4 rotate-90 mr-3"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        >
+          <path
+            fill="rgb(31 41 55)"
+            d="M32 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c53 0 96-43 96-96l0-306.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3 160 416c0 17.7-14.3 32-32 32l-96 0z"
+          />
+        </svg>
+        <div className="w-10/12 h-9 py-2 px-2 rounded-lg resize-none mr-3">
+          대댓글
         </div>
-      ) : null}
+      </div>
+      {/* )} */}
       {replyCheck ? (
         <div className="flex ml-5 items-center mt-1">
           <svg

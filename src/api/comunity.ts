@@ -75,6 +75,19 @@ export interface commentEditInterface {
   };
 }
 
+export interface replyDataInterface {
+  resultCode: number;
+  data: {
+    items: {
+      replyId: number;
+      writer: string;
+      content: string;
+      mine: boolean;
+      createdAt: string;
+    };
+  };
+}
+
 export const comunityResiter = async (
   body: boardResiter,
   accessToken: string
@@ -265,6 +278,21 @@ export const commentReply = async (
         "x-access-auth": accessToken,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const replyList = async (commentId: number, accessToken: string) => {
+  console.log(commentId);
+  try {
+    return await api
+      .get(`/board/comment/reply/${commentId}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
