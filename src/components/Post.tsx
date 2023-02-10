@@ -215,7 +215,7 @@ const Post = () => {
                 </div>
               </div>
               <div className="mt-4 mb-20">
-                <Solid className="flex items-center mb-3 text-sm px-7 pb-3">
+                <Solid className="flex items-center text-sm px-7 pb-3">
                   <div className="text-gray-500">댓글</div>
                   <div className="ml-1 text-pet_pink font-semibold">
                     {data?.data.commentCount}

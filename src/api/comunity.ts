@@ -76,16 +76,15 @@ export interface commentEditInterface {
 }
 
 export interface replyDataInterface {
-  resultCode: number;
-  data: {
-    items: {
+  items: [
+    {
       replyId: number;
       writer: string;
       content: string;
       mine: boolean;
       createdAt: string;
-    };
-  };
+    }
+  ];
 }
 
 export const comunityResiter = async (
@@ -231,11 +230,14 @@ export const editList = async (Id: number, accessToken: string) => {
 };
 
 export const editComment = async (
-  body: string,
+  comment: string,
   accessToken: string,
   commentId: number
 ) => {
-  console.log(body, "dd");
+  const body = {
+    content: comment,
+  };
+  console.log(body);
   console.log(commentId, "commentId");
   try {
     return await api.patch(`/board/comment/${commentId}`, body, {
@@ -292,7 +294,7 @@ export const replyList = async (commentId: number, accessToken: string) => {
           "x-access-auth": accessToken,
         },
       })
-      .then((res) => res?.data.data);
+      .then((res) => res?.data.data.data);
   } catch (err) {
     console.log(err);
   }
