@@ -8,6 +8,7 @@ import DogPage from "./pages/DogPage";
 import DogProfile from "./pages/DogProfile";
 import EditPost from "./pages/EditPost";
 import Email from "./pages/Email";
+import FriendRequest from "./pages/FriendRequest";
 import Home from "./pages/Home";
 import Kakao from "./pages/Kakao";
 import Login from "./pages/Login";
@@ -33,6 +34,7 @@ const Router = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/myPage" element={<MyPage />}></Route>
         <Route path="/dogPage" element={<DogPage />}></Route>
+        <Route path="/friendPage" element={<FriendRequest />}></Route>
         <Route path="/myProfile" element={<MyProfile />}></Route>
         <Route path="/lookDog" element={<LookDog />}></Route>
         <Route path="/dogProfile" element={<DogProfile />}></Route>

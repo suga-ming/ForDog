@@ -110,6 +110,10 @@ const DogPage = () => {
     navigate("/dogPage");
   };
 
+  const goFriend = () => {
+    navigate("/friendPage");
+  };
+
   const onChangeBreed = (value: string) => {
     if (value === "") {
       alert("견종을 선택해 주세요");
@@ -400,11 +404,23 @@ const DogPage = () => {
                     <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                   </Down>
                 </Solid>
-                <div
+                <Solid
                   onClick={goDogPage}
                   className="py-4 flex justify-between px-5 cursor-pointer"
                 >
                   <Bold isActive={dogPageMatch !== null}>반려견 정보</Bold>
+                  <Down
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                  </Down>
+                </Solid>
+                <div
+                  onClick={goFriend}
+                  className="py-4 flex justify-between px-5 cursor-pointer"
+                >
+                  <div>펫친 요청</div>
                   <Down
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
