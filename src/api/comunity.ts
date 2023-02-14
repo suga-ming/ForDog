@@ -293,3 +293,35 @@ export const commentReply = async (
     console.log(err);
   }
 };
+
+export const editReply = async (
+  comment: string,
+  accessToken: string,
+  replyId: number
+) => {
+  const body = {
+    content: comment,
+  };
+  console.log(body);
+  try {
+    return await api.patch(`/board/comment/reply/${replyId}`, body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteReply = async (accessToken: string, replyId: number) => {
+  try {
+    return await api.delete(`/board/comment/reply/${replyId}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

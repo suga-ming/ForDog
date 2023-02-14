@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { deleteReply, editReply } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
@@ -10,6 +11,10 @@ const Solid = styled.div`
 
 const Solid2 = styled.div`
   border: 1px solid rgb(229 231 235);
+`;
+
+const Solid3 = styled.textarea`
+  border: 1px solid rgb(209 213 219);
 `;
 
 interface replyProps {
@@ -28,6 +33,25 @@ const ReplyComment = ({
   createdAt,
 }: replyProps) => {
   const accessToken = useRecoilValue(isAccessToken);
+  const [comment, setComment] = useState(content);
+  const [edit, setEdit] = useState(false);
+
+  const replyEdit = async () => {
+    const res = await editReply(comment, accessToken, replyId);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 수정되었습니다.");
+      setEdit(false);
+    }
+  };
+
+  const replyDelete = async () => {
+    const res = await deleteReply(accessToken, replyId);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 삭제되었습니다.");
+    }
+  };
 
   return (
     <div>
@@ -42,7 +66,7 @@ const ReplyComment = ({
             d="M32 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c53 0 96-43 96-96l0-306.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3 160 416c0 17.7-14.3 32-32 32l-96 0z"
           />
         </svg>
-        <div className="">
+        <div className="w-10/12">
           <div className="flex items-center mb-2">
             <div className="flex items-center mr-2">
               <div className="flex items-center justify-center w-5 h-5 rounded-full mr-1 bg-pet_pink">
@@ -60,24 +84,40 @@ const ReplyComment = ({
               <div className="text-gray-600 text-sm">{writer}</div>
             </div>
             <div className="text-gray-500 text-xs">{createdAt}</div>
-            {/* {item?.mine ? (
-                  <div className="absolute flex text-gray-400 text-xs top-4 right-7">
-                    <Solid2
-                      onClick={() => setEdit(!edit)}
-                      className="mr-1 cursor-pointer rounded-xl py-px px-2"
-                    >
-                      수정
-                    </Solid2>
-                    <Solid2
-                      onClick={commentDelete}
-                      className="cursor-pointer rounded-xl py-px px-2"
-                    >
-                      삭제
-                    </Solid2>
-                  </div>
-                ) : null} */}
+            {mine ? (
+              <div className="absolute flex text-gray-400 text-xs top-4 right-7">
+                <Solid2
+                  onClick={() => setEdit(!edit)}
+                  className="mr-1 cursor-pointer rounded-xl py-px px-2"
+                >
+                  수정
+                </Solid2>
+                <Solid2
+                  onClick={replyDelete}
+                  className="cursor-pointer rounded-xl py-px px-2"
+                >
+                  삭제
+                </Solid2>
+              </div>
+            ) : null}
           </div>
-          <div>{content}</div>
+          {edit ? (
+            <div className="w-full flex items-center mb-2">
+              <Solid3
+                className="w-10/12 h-9 py-2 px-2 rounded-lg resize-none mr-3"
+                onChange={(e) => setComment(e.target.value)}
+                value={comment}
+              />
+              <div
+                onClick={replyEdit}
+                className="font-semibold px-2 py-1 bg-pet_pink text-white rounded-md text-sm cursor-pointer"
+              >
+                수정하기
+              </div>
+            </div>
+          ) : (
+            <div>{content}</div>
+          )}
         </div>
       </Solid>
     </div>

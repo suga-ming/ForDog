@@ -48,7 +48,6 @@ const PostComment = ({
   createdAt,
   reply,
 }: commentEditProps) => {
-  console.log("reply", reply);
   const [comment, setComment] = useState(content);
   const [edit, setEdit] = useState(false);
   const [replyCheck, setReplyCheck] = useState(false);

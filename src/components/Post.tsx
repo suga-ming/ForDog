@@ -112,8 +112,6 @@ const Post = () => {
     [`editComment`],
     () => editList(Id, accessToken)
   );
-
-  console.log("editCommentData", editCommentData);
   return (
     <>
       {isLoading ? (
