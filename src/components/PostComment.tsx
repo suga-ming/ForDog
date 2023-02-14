@@ -7,7 +7,6 @@ import {
   deleteComment,
   editComment,
   replyDataInterface,
-  replyList,
 } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 import ReplyComment from "./ReplyComment";
@@ -18,6 +17,15 @@ export interface commentEditProps {
   content: string;
   mine: true;
   createdAt: string;
+  reply: [
+    {
+      replyId: number;
+      writer: string;
+      content: string;
+      mine: boolean;
+      createdAt: string;
+    }
+  ];
 }
 
 const Solid = styled.div`
@@ -38,11 +46,13 @@ const PostComment = ({
   content,
   mine,
   createdAt,
+  reply,
 }: commentEditProps) => {
+  console.log("reply", reply);
   const [comment, setComment] = useState(content);
   const [edit, setEdit] = useState(false);
   const [replyCheck, setReplyCheck] = useState(false);
-  const [reply, setReply] = useState("");
+  const [replyValue, setReplyValue] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
 
   const commentEdit = async () => {
@@ -62,19 +72,13 @@ const PostComment = ({
     }
   };
   const replyResister = async () => {
-    const res = await commentReply(accessToken, commentId, reply);
+    const res = await commentReply(accessToken, commentId, replyValue);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("댓글이 등록되었습니다.");
       setReplyCheck(false);
     }
   };
-
-  const { isLoading, data } = useQuery<replyDataInterface>([`replyData`], () =>
-    replyList(commentId, accessToken)
-  );
-
-  console.log(data);
 
   return (
     <>
@@ -150,7 +154,7 @@ const PostComment = ({
             </svg>
             <Solid3
               className="w-10/12 h-9 py-2 px-2 rounded-lg resize-none mr-3"
-              onChange={(e) => setReply(e.target.value)}
+              onChange={(e) => setReplyValue(e.target.value)}
               placeholder="댓글 달기"
             />
             <div
@@ -162,7 +166,7 @@ const PostComment = ({
           </div>
         ) : null}
       </Solid>
-      {data?.items.map((item) => (
+      {reply.map((item) => (
         <ReplyComment
           key={item?.replyId}
           replyId={item?.replyId}

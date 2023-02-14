@@ -69,6 +69,15 @@ export interface commentEditInterface {
         writer: string;
         content: string;
         mine: true;
+        reply: [
+          {
+            replyId: number;
+            writer: string;
+            content: string;
+            mine: boolean;
+            createdAt: string;
+          }
+        ];
         createdAt: string;
       }
     ];
@@ -280,21 +289,6 @@ export const commentReply = async (
         "x-access-auth": accessToken,
       },
     });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const replyList = async (commentId: number, accessToken: string) => {
-  console.log(commentId);
-  try {
-    return await api
-      .get(`/board/comment/reply/${commentId}`, {
-        headers: {
-          "x-access-auth": accessToken,
-        },
-      })
-      .then((res) => res?.data.data.data);
   } catch (err) {
     console.log(err);
   }

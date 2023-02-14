@@ -10,7 +10,6 @@ import {
   postDelete,
   postDetailInfo,
   postDetailInfoInterface,
-  postEdit,
   postLiked,
 } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
@@ -68,7 +67,6 @@ const Post = () => {
 
   let { boardId } = useParams();
   const Id = Number(boardId);
-  const StringID = String(boardId);
 
   const changeLiked = async () => {
     // ! 좋아요 누르는 api 선언
@@ -231,6 +229,7 @@ const Post = () => {
                         content={item.content}
                         mine={item.mine}
                         createdAt={item.createdAt}
+                        reply={item.reply}
                       />
                     ))
                   : null}

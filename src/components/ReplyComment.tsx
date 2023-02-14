@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { replyDataInterface, replyList } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
