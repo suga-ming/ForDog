@@ -29,7 +29,7 @@ const Home = () => {
       </div>
       <div className="flex justify-around w-3/5 mt-20">
         <PostIt
-          onClick={() => navigate("/myProfile")}
+          onClick={() => navigate("/record")}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
