@@ -34,11 +34,14 @@ export interface InfoEditInterface {
 export interface RandomUserInterface {
   resultCode: number;
   data: {
-    items: {
-      userId: number;
-      feed: string;
-      image: string;
-    };
+    items: [
+      {
+        userId: number;
+        breed: string;
+        image: string;
+        name: string;
+      }
+    ];
   };
 }
 
