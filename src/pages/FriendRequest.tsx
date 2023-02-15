@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { friendRequestList, FriendRequestListInterface } from "../api/user";
 import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
@@ -47,6 +49,14 @@ const FriendRequest = () => {
   const goFriend = () => {
     navigate("/friendPage");
   };
+
+  const { isLoading, data } = useQuery<FriendRequestListInterface>(
+    [`editComment`],
+    () => friendRequestList(accessToken)
+  );
+
+  console.log(data);
+
   return (
     <div className="bg-gray-200 pt-16 flex justify-center px-40 h-screen overflow-y-scroll">
       <div className="w-5/1 mr-10">

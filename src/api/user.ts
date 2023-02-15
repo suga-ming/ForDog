@@ -51,7 +51,7 @@ export interface FriendProfileInterface {
     userId: number;
     nickName: string;
     feedCount: number;
-    freindCount: number;
+    friendCount: number;
     image: string;
     myPets: [
       {
@@ -60,6 +60,17 @@ export interface FriendProfileInterface {
         name: string;
       }
     ];
+  };
+}
+
+export interface FriendRequestListInterface {
+  resultCode: number;
+  data: {
+    items: {
+      friendId: number;
+      image: string;
+      nickName: string;
+    };
   };
 }
 
@@ -137,20 +148,37 @@ export const userRandom = async () => {
 export const friendProfile = async (userId: number) => {
   try {
     return await api
-      .get(`/user/profile/freind/${userId}`)
+      .get(`/user/profile/friend/${userId}`)
       .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
 };
 
-export const friendRequest = async (freindId: number, accessToken: string) => {
+export const friendRequest = async (friendId: number, accessToken: string) => {
+  const body = {
+    friendId: friendId,
+  };
   try {
-    return await api.post(`/freind`, freindId, {
+    return await api.post(`/friend`, body, {
       headers: {
         "x-access-auth": accessToken,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const friendRequestList = async (accessToken: string) => {
+  try {
+    return await api
+      .get(`/friend/request`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
