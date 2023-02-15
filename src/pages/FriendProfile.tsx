@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { friendProfile, FriendProfileInterface } from "../api/user";
 import dane from "../assets/단.png";
 
 const Solid = styled.div`
@@ -11,6 +12,11 @@ const FriendProfile = () => {
   const location = useLocation();
   const userId = location.state as { userId: number };
   console.log(userId);
+
+  // const { isLoading, data } = useQuery<FriendProfileInterface>(
+  //   [`editComment`],
+  //   () => friendProfile(userId)
+  // );
 
   return (
     <div className="pt-16">

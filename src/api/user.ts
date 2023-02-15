@@ -45,6 +45,21 @@ export interface RandomUserInterface {
   };
 }
 
+export interface FriendProfileInterface {
+  resultCode: number;
+  data: {
+    userId: number;
+    nickName: string;
+    feedCount: number;
+    freindCount: number;
+    myPets: {
+      myPetId: number;
+      breed: string;
+      name: string;
+    };
+  };
+}
+
 export const kakaoSignIn = async () => {
   try {
     return await api.get("/auth/kakao").then((res) => console.log(res));
