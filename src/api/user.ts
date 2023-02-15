@@ -76,6 +76,24 @@ export interface FriendRequestListInterface {
   };
 }
 
+export interface myprofileInterface {
+  resultCode: number;
+  data: {
+    userId: number;
+    nickName: string;
+    image: string;
+    feedCount: number;
+    friendCount: number;
+    myPets: [
+      {
+        myPetId: number;
+        breed: string;
+        name: string;
+      }
+    ];
+  };
+}
+
 export const kakaoSignIn = async () => {
   try {
     return await api.get("/auth/kakao").then((res) => console.log(res));
@@ -147,6 +165,20 @@ export const userRandom = async () => {
   }
 };
 
+export const myProfile = async (accessToken: string) => {
+  try {
+    return await api
+      .get(`/user/profile`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const friendProfile = async (userId: number) => {
   try {
     return await api
@@ -192,7 +224,7 @@ export const friendRequestAccept = async (
 ) => {
   console.log(friendId);
   try {
-    return await api.patch(`/friend/confirmed/${friendId}`, {
+    return await api.get(`/friend/confirmed/${friendId}`, {
       headers: {
         "x-access-auth": accessToken,
       },
