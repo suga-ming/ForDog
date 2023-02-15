@@ -52,11 +52,14 @@ export interface FriendProfileInterface {
     nickName: string;
     feedCount: number;
     freindCount: number;
-    myPets: {
-      myPetId: number;
-      breed: string;
-      name: string;
-    };
+    image: string;
+    myPets: [
+      {
+        myPetId: number;
+        breed: string;
+        name: string;
+      }
+    ];
   };
 }
 
@@ -134,7 +137,7 @@ export const userRandom = async () => {
 export const friendProfile = async (userId: number) => {
   try {
     return await api
-      .get(`/user/profile/friend/${userId}`)
+      .get(`/user/profile/freind/${userId}`)
       .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
