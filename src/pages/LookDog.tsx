@@ -1,5 +1,7 @@
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { RandomUserInterface, userRandom } from "../api/user";
 import dane from "../assets/단.png";
 
 const Solid = styled.div`
@@ -51,6 +53,12 @@ const LookDog = () => {
   const goProfile = () => {
     navigate("/dogProfile");
   };
+  const { isLoading, data } = useQuery<RandomUserInterface>([`random`], () =>
+    userRandom()
+  );
+
+  console.log(data);
+
   return (
     <div className="pt-16 bg-gray-100 min-h-screen flex flex-col items-center">
       <div className="font-semibold text-2xl mt-8 mb-10">

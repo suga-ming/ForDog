@@ -48,10 +48,7 @@ const FriendRequest = () => {
     navigate("/friendPage");
   };
   return (
-    <div
-      //   onSubmit={handleSubmit(onSubmit)}
-      className="bg-gray-200 pt-16 flex justify-center px-40 h-screen overflow-y-scroll"
-    >
+    <div className="bg-gray-200 pt-16 flex justify-center px-40 h-screen overflow-y-scroll">
       <div className="w-5/1 mr-10">
         <div className="bg-pet_pink h-20  my-8 flex justify-center items-center px-7 rounded-xl">
           <svg
