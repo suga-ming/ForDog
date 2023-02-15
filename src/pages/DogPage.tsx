@@ -272,6 +272,7 @@ const DogPage = () => {
                         <option value="푸들">푸들</option>
                         <option value="말티즈">말티즈</option>
                         <option value="웰시코기">웰시코기</option>
+                        <option value="포메라니안">포메라니안</option>
                       </select>
                     </div>
                     <div className="flex items-center py-2">

@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dogResiter, DogResiterInterface } from "../api/dog";
 import { isAccessToken } from "../store/recoil";
+// import { breedList } from "../constant/breed";
 
 const ModalArea = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -181,6 +182,7 @@ const DogResister = () => {
                 </option>
                 <option value="푸들">푸들</option>
                 <option value="말티즈">말티즈</option>
+                <option value="말티즈">웰시코기</option>
               </select>
             </div>
             <div className="flex items-center py-2">
