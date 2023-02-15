@@ -1,8 +1,14 @@
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { friendProfile, FriendProfileInterface } from "../api/user";
+import {
+  friendProfile,
+  FriendProfileInterface,
+  friendRequest,
+} from "../api/user";
 import dane from "../assets/단.png";
+import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
   border: 1px solid black;
@@ -10,15 +16,23 @@ const Solid = styled.div`
 
 const FriendProfile = () => {
   const location = useLocation();
-  const userId = location.state as { userId: number };
+  const { userId } = location.state as { userId: number };
+  const accessToken = useRecoilValue(isAccessToken);
   console.log(userId);
 
   const { isLoading, data } = useQuery<FriendProfileInterface>(
     [`editComment`],
-    () => friendProfile(userId.userId)
+    () => friendProfile(userId)
   );
 
-  console.log(data);
+  const requestFriend = async () => {
+    const res = await friendRequest(userId, accessToken);
+    console.log(res);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("친구 요청되었습니다.");
+    }
+  };
 
   return (
     <div className="pt-16">
@@ -30,7 +44,10 @@ const FriendProfile = () => {
               <div className="text-3xl font-semibold mr-5">
                 {data?.data.nickName}
               </div>
-              <div className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer">
+              <div
+                onClick={requestFriend}
+                className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer"
+              >
                 친구 추가
               </div>
             </div>

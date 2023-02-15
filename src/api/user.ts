@@ -143,3 +143,15 @@ export const friendProfile = async (userId: number) => {
     console.log(err);
   }
 };
+
+export const friendRequest = async (freindId: number, accessToken: string) => {
+  try {
+    return await api.post(`/freind`, freindId, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
