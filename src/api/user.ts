@@ -66,11 +66,13 @@ export interface FriendProfileInterface {
 export interface FriendRequestListInterface {
   resultCode: number;
   data: {
-    items: {
-      friendId: number;
-      image: string;
-      nickName: string;
-    };
+    items: [
+      {
+        friendId: number;
+        image: string;
+        nickName: string;
+      }
+    ];
   };
 }
 

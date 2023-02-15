@@ -10,7 +10,16 @@ const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
 `;
 
-const Box = styled.div`
+const BoxImg = styled.img`
+  width: 25%;
+  &::after {
+    display: block;
+    content: "";
+    padding-bottom: 100%;
+  }
+`;
+
+const BoxDiv = styled.div`
   width: 25%;
   &::after {
     display: block;
@@ -102,7 +111,7 @@ const FriendRequest = () => {
             onClick={goFriend}
             className="py-4 flex justify-between px-5 cursor-pointer"
           >
-            <Bold isActive={myPageMatch !== null}>펫친 요청</Bold>
+            <Bold isActive={myPageMatch !== null}>친구 요청</Bold>
             <Down xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </Down>
@@ -111,36 +120,45 @@ const FriendRequest = () => {
       </div>
       <div className="w-3/5 bg-white rounded-xl my-8 h-fit">
         <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
-          펫친 요청
+          친구 요청
         </Solid>
-        <div className="flex justify-between w-full mt-8 mb-5 px-8">
-          <div className="w-1/2 flex items-center">
-            <Box className="flex items-center justify-center rounded-full bg-pet_pink">
-              <svg
-                className="w-7"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="white"
-                  d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+        {data?.data.items.map((r) => (
+          <div className="flex justify-between w-full mt-8 mb-5 px-8">
+            <div className="w-1/2 flex items-center">
+              {r.image ? (
+                <BoxImg
+                  src={r.image}
+                  className="flex items-center justify-center rounded-full"
                 />
-              </svg>
-            </Box>
-            <div className="ml-6 text-xl font-semibold">닉네임</div>
-          </div>
-          <div className="flex w-1/3 justify-center items-center">
-            <div className="w-1/2 mr-3 bg-pet_pink h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
-              수락
+              ) : (
+                <BoxDiv className="flex items-center justify-center rounded-full bg-pet_pink">
+                  <svg
+                    className="w-2/5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      fill="white"
+                      d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                    />
+                  </svg>
+                </BoxDiv>
+              )}
+              <div className="ml-6 text-xl font-semibold">{r.nickName}</div>
             </div>
-            <div
-              // onClick={() => deleteInfo(accessToken)}
-              className="w-1/2 bg-gray-500 h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer"
-            >
-              거절
+            <div className="flex w-1/3 justify-center items-center">
+              <div className="w-1/2 mr-3 bg-pet_pink h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
+                수락
+              </div>
+              <div
+                // onClick={() => deleteInfo(accessToken)}
+                className="w-1/2 bg-gray-500 h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer"
+              >
+                거절
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

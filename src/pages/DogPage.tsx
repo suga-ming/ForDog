@@ -421,7 +421,7 @@ const DogPage = () => {
                   onClick={goFriend}
                   className="py-4 flex justify-between px-5 cursor-pointer"
                 >
-                  <div>펫친 요청</div>
+                  <div>친구 요청</div>
                   <Down
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
