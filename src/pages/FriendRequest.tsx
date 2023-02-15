@@ -123,7 +123,7 @@ const FriendRequest = () => {
           친구 요청
         </Solid>
         {data?.data.items.map((r) => (
-          <div className="flex justify-between w-full mt-8 mb-5 px-8">
+          <div className="flex justify-between items-center w-full mt-8 mb-5 px-8">
             <div className="w-1/2 flex items-center">
               {r.image ? (
                 <BoxImg
@@ -146,16 +146,8 @@ const FriendRequest = () => {
               )}
               <div className="ml-6 text-xl font-semibold">{r.nickName}</div>
             </div>
-            <div className="flex w-1/3 justify-center items-center">
-              <div className="w-1/2 mr-3 bg-pet_pink h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
-                수락
-              </div>
-              <div
-                // onClick={() => deleteInfo(accessToken)}
-                className="w-1/2 bg-gray-500 h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer"
-              >
-                거절
-              </div>
+            <div className="w-1/5 mr-3 bg-pet_pink h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
+              수락
             </div>
           </div>
         ))}
