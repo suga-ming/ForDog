@@ -103,7 +103,7 @@ export const editDog = async (
   accessToken: string,
   petId: number
 ) => {
-  console.log("body", body?.file);
+  console.log("body", body);
   const formData = new FormData();
   formData.append("profile", body?.file);
   formData.append("name", body?.name); // name

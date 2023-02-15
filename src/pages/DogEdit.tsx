@@ -142,11 +142,14 @@ const DogEdit = ({ petId }: EditDogInterface) => {
 
     const res = await editDog(apiData, accessToken, petId);
     const resultCode = res?.data.data.resultCode;
+    console.log(res);
     if (resultCode === 1) {
       setEditModal(!editModal);
       alert("수정이 완료되었습니다.");
     }
   };
+
+  console.log(name);
 
   return (
     <ModalArea className="absolute w-full h-screen">
