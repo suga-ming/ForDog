@@ -115,3 +115,13 @@ export const userRandom = async () => {
     console.log(err);
   }
 };
+
+export const friendProfile = async (userId: number) => {
+  try {
+    return await api
+      .get(`/user/profile/friend/${userId}`)
+      .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};

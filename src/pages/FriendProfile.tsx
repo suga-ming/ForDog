@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import dane from "../assets/단.png";
 
@@ -5,7 +7,11 @@ const Solid = styled.div`
   border: 1px solid black;
 `;
 
-const DogProfile = () => {
+const FriendProfile = () => {
+  const location = useLocation();
+  const userId = location.state as { userId: number };
+  console.log(userId);
+
   return (
     <div className="pt-16">
       <div className="flex flex-col mt-10">
@@ -94,4 +100,4 @@ const DogProfile = () => {
   );
 };
 
-export default DogProfile;
+export default FriendProfile;

@@ -58,8 +58,8 @@ const Grid = styled.div`
 
 const LookDog = () => {
   const navigate = useNavigate();
-  const goProfile = () => {
-    navigate("/dogProfile");
+  const goProfile = (userId: number) => {
+    navigate("/friendProfile", { state: { userId: userId } });
   };
   const { isLoading, data } = useQuery<RandomUserInterface>([`random`], () =>
     userRandom()
@@ -108,7 +108,7 @@ const LookDog = () => {
               <div>{item.breed}</div>
             </Solid3>
             <Solid4
-              onClick={goProfile}
+              onClick={() => goProfile(item.userId)}
               className="w-full text-center px-4 py-2 bg-pet_pink text-white font-semibold text-sm cursor-pointer"
             >
               프로필 보러가기

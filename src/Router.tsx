@@ -5,7 +5,6 @@ import AHome from "./pages/AHome";
 import Calender from "./pages/Calender";
 import Comunity from "./pages/Comunity";
 import DogPage from "./pages/DogPage";
-import DogProfile from "./pages/DogProfile";
 import EditPost from "./pages/EditPost";
 import Email from "./pages/Email";
 import FriendRequest from "./pages/FriendRequest";
@@ -20,6 +19,7 @@ import Record from "./pages/Record";
 import SignUp from "./pages/SignUp";
 import Spalsh from "./pages/Spalsh";
 import WritePost from "./pages/WritePost";
+import FriendProfile from "./pages/FriendProfile";
 
 const Router = () => {
   return (
@@ -39,7 +39,7 @@ const Router = () => {
         <Route path="/myProfile" element={<MyProfile />}></Route>
         <Route path="/record" element={<Record />}></Route>
         <Route path="/lookDog" element={<LookDog />}></Route>
-        <Route path="/dogProfile" element={<DogProfile />}></Route>
+        <Route path="/friendProfile" element={<FriendProfile />}></Route>
         <Route path="/comunity" element={<Comunity />}></Route>
         <Route path="/comunity/post" element={<WritePost />}></Route>
         <Route path="/comunity/:boardId" element={<Post />}></Route>
