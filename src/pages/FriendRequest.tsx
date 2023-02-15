@@ -3,7 +3,11 @@ import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { friendRequestList, FriendRequestListInterface } from "../api/user";
+import {
+  friendRequestAccept,
+  friendRequestList,
+  FriendRequestListInterface,
+} from "../api/user";
 import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
@@ -64,7 +68,14 @@ const FriendRequest = () => {
     () => friendRequestList(accessToken)
   );
 
-  console.log(data);
+  const requestAccept = async (friendId: number) => {
+    console.log("ck", friendId);
+    const res = await friendRequestAccept(friendId, accessToken);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("수락되었습니다.");
+    }
+  };
 
   return (
     <div className="bg-gray-200 pt-16 flex justify-center px-40 h-screen overflow-y-scroll">
@@ -146,7 +157,10 @@ const FriendRequest = () => {
               )}
               <div className="ml-6 text-xl font-semibold">{r.nickName}</div>
             </div>
-            <div className="w-1/5 mr-3 bg-pet_pink h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer">
+            <div
+              onClick={() => requestAccept(r.friendId)}
+              className="w-1/5 mr-3 bg-pet_pink h-9 rounded-lg text-white flex justify-center items-center text-sm font-semibold cursor-pointer"
+            >
               수락
             </div>
           </div>

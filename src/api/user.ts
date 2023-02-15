@@ -185,3 +185,19 @@ export const friendRequestList = async (accessToken: string) => {
     console.log(err);
   }
 };
+
+export const friendRequestAccept = async (
+  friendId: number,
+  accessToken: string
+) => {
+  console.log(friendId);
+  try {
+    return await api.patch(`/friend/confirmed/${friendId}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
