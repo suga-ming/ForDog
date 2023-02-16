@@ -157,9 +157,15 @@ export const deleteUser = async (accessToken: string) => {
   }
 };
 
-export const userRandom = async () => {
+export const userRandom = async (accessToken: string) => {
   try {
-    return await api.get("/user").then((res) => res?.data.data);
+    return await api
+      .get("/user", {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
@@ -179,10 +185,14 @@ export const myProfile = async (accessToken: string) => {
   }
 };
 
-export const friendProfile = async (userId: number) => {
+export const friendProfile = async (userId: number, accessToken: string) => {
   try {
     return await api
-      .get(`/user/profile/friend/${userId}`)
+      .get(`/user/profile/friend/${userId}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
       .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);

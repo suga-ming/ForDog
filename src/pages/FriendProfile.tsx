@@ -30,10 +30,9 @@ const FriendProfile = () => {
 
   const { isLoading, data } = useQuery<FriendProfileInterface>(
     [`editComment`],
-    () => friendProfile(userId)
+    () => friendProfile(userId, accessToken)
   );
 
-  console.log("isLoading", isLoading);
   const requestFriend = async () => {
     console.log("확인");
     const res = await friendRequest(userId, accessToken);
