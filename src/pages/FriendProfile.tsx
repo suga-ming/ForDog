@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
+  friendDelete,
   friendProfile,
   FriendProfileInterface,
   friendRequest,
@@ -36,12 +37,21 @@ const FriendProfile = () => {
   console.log(data);
 
   const requestFriend = async () => {
-    console.log("확인");
     const res = await friendRequest(userId, accessToken);
-    console.log(res);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("친구 요청되었습니다.");
+    }
+  };
+
+  const deleteFriend = async () => {
+    if (window.confirm("친구를 끊으시겠습니까?")) {
+      const res = await friendDelete(userId, accessToken);
+      console.log("res", res);
+      const resultCode = res?.data.data.resultCode;
+      if (resultCode === 1) {
+        alert("삭제 되었습니다.");
+      }
     }
   };
 
@@ -71,7 +81,7 @@ const FriendProfile = () => {
                 {data?.data.nickName}
               </div>
 
-              {data?.data.friendStatus === -1 && (
+              {data?.data.friendStatus === 0 && (
                 <div
                   onClick={requestFriend}
                   className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer"
@@ -79,14 +89,14 @@ const FriendProfile = () => {
                   친구 추가
                 </div>
               )}
-              {data?.data.friendStatus === 0 && (
+              {data?.data.friendStatus === -1 && (
                 <div className="bg-gray-400 text-lg px-2 text-white font-semibold rounded-lg">
                   요청중
                 </div>
               )}
               {data?.data.friendStatus === 1 && (
                 <div
-                  onClick={requestFriend}
+                  onClick={deleteFriend}
                   className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer"
                 >
                   펫친

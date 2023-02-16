@@ -244,3 +244,15 @@ export const friendRequestAccept = async (
     console.log(err);
   }
 };
+
+export const friendDelete = async (friendId: number, accessToken: string) => {
+  try {
+    return await api.delete(`/friend/${friendId}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
