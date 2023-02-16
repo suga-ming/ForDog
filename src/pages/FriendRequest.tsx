@@ -77,8 +77,6 @@ const FriendRequest = () => {
     }
   };
 
-  console.log("ck", !data?.data.items);
-
   return (
     <div className="bg-gray-200 pt-16 flex justify-center px-40 h-screen overflow-y-scroll">
       <div className="w-5/1 mr-10">
@@ -139,7 +137,7 @@ const FriendRequest = () => {
           <div>is Loading...</div>
         ) : (
           <>
-            {!data?.data.items ? (
+            {!data?.data.items.length ? (
               <div className="flex justify-center items-center w-full mt-8 mb-5 px-8 h-64 bg-white text-lg font-semibold">
                 요청한 친구가 없습니다.
               </div>

@@ -156,6 +156,8 @@ const DogPage = () => {
     dogInfo(accessToken)
   );
 
+  console.log(data);
+
   // const petList = data?.data.items;
 
   const goEdit = (petId: number) => {
@@ -436,7 +438,7 @@ const DogPage = () => {
                 반려견 정보
               </Solid>
               <div className="overflow-y-scroll max-h-[500px]">
-                {modal ? (
+                {!data?.data.items.length ? (
                   <div className="w-full rounded-xl">
                     <div className="flex flex-col items-center">
                       <div className="pt-24 mb-5">
