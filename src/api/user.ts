@@ -52,6 +52,7 @@ export interface FriendProfileInterface {
     nickName: string;
     feedCount: number;
     friendCount: number;
+    friendStatus: number;
     image: string;
     myPets: [
       {

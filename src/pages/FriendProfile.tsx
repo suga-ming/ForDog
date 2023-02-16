@@ -33,6 +33,8 @@ const FriendProfile = () => {
     () => friendProfile(userId, accessToken)
   );
 
+  console.log(data);
+
   const requestFriend = async () => {
     console.log("확인");
     const res = await friendRequest(userId, accessToken);
@@ -68,12 +70,28 @@ const FriendProfile = () => {
               <div className="text-3xl font-semibold mr-5">
                 {data?.data.nickName}
               </div>
-              <div
-                onClick={requestFriend}
-                className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer"
-              >
-                친구 추가
-              </div>
+
+              {data?.data.friendStatus === -1 && (
+                <div
+                  onClick={requestFriend}
+                  className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer"
+                >
+                  친구 추가
+                </div>
+              )}
+              {data?.data.friendStatus === 0 && (
+                <div className="bg-gray-400 text-lg px-2 text-white font-semibold rounded-lg">
+                  요청중
+                </div>
+              )}
+              {data?.data.friendStatus === 1 && (
+                <div
+                  onClick={requestFriend}
+                  className="bg-pet_pink text-lg px-2 text-white font-semibold rounded-lg cursor-pointer"
+                >
+                  펫친
+                </div>
+              )}
             </div>
             <div className="flex justify-center">
               <div className="flex items-center px-5 py-3">
