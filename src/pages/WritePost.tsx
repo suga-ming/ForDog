@@ -132,7 +132,7 @@ const WritePost = () => {
             <Solid>
               <input
                 onChange={(e) => setTitle(e.target.value)}
-                className="py-2 pl-3 w-full text-lg font-semibold"
+                className="py-2 pl-3 w-full text-lg font-semibold focus:outline-none"
                 placeholder="제목을 입력해주세요"
               />
             </Solid>
@@ -141,7 +141,7 @@ const WritePost = () => {
             <textarea
               onChange={(e) => setContent(e.target.value)}
               placeholder="내용을 입력해주세요"
-              className="mb-3 w-full h-52 pl-3 py-3 bg-gray-100 rounded-lg resize-none"
+              className="mb-3 w-full h-52 pl-3 py-3 bg-gray-100 rounded-lg resize-none focus:outline-none"
             />
             <input
               className="hidden"
