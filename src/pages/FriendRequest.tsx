@@ -137,7 +137,7 @@ const FriendRequest = () => {
           <div>is Loading...</div>
         ) : (
           <>
-            {!data?.data.items.length ? (
+            {data?.data.items && !data?.data.items.length ? (
               <div className="flex justify-center items-center w-full mt-8 mb-5 px-8 h-64 bg-white text-lg font-semibold">
                 요청한 친구가 없습니다.
               </div>
