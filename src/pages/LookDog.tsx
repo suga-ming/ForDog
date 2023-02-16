@@ -1,8 +1,10 @@
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { RandomUserInterface, userRandom } from "../api/user";
 import dane from "../assets/단.png";
+import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`
   border: 1px solid rgba(237, 127, 148);
@@ -58,11 +60,12 @@ const Grid = styled.div`
 
 const LookDog = () => {
   const navigate = useNavigate();
+  const accessToken = useRecoilValue(isAccessToken);
   const goProfile = (userId: number) => {
     navigate("/friendProfile", { state: { userId: userId } });
   };
   const { isLoading, data } = useQuery<RandomUserInterface>([`random`], () =>
-    userRandom()
+    userRandom(accessToken)
   );
   console.log("data", data);
 
