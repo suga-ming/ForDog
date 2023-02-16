@@ -7,6 +7,7 @@ export interface DogResiterInterface {
   gender: string;
   birthDay: string;
   togetherDay: string;
+  represent?: boolean;
 }
 
 export interface DogInfoInterface {
@@ -111,6 +112,7 @@ export const editDog = async (
   formData.append("gender", body?.gender);
   formData.append("birthDay", body?.birthDay);
   formData.append("togetherDay", body?.togetherDay);
+  formData.append("represent", String(body?.represent));
   try {
     return await api.patch(`/pet/${petId}`, formData, {
       headers: {

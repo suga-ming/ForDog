@@ -64,10 +64,17 @@ const BottomSolid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
 `;
 
-const Solid = styled.span`
-  border: 1px solid rgb(209 213 219);
-  background-color: rgb(107 114 128);
-  color: white;
+const RepresentDog = styled.span<{ represent: boolean }>`
+  background-color: ${(props) =>
+    props.represent ? "rgba(237, 127, 148)" : "white"};
+  color: ${(props) => (props.represent ? "white" : "rgba(237, 127, 148)")};
+  border: ${(props) =>
+    props.represent ? "none" : "1px solid rgba(237, 127, 148)"};
+  border-radius: 20px;
+  padding: 8px 30px;
+`;
+
+const DeleteDog = styled.span`
   border-radius: 20px;
   padding: 8px 30px;
 `;
@@ -81,11 +88,10 @@ const DogEdit = ({ petId }: EditDogInterface) => {
   const [birthYear, setBirthYear] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [birthDay, setBirthDay] = useState("");
   const [togetherYear, setTogetherYear] = useState("");
   const [togetherMonth, setTogetherMonth] = useState("");
   const [togetherDate, setTogetherDate] = useState("");
-  const [togetherDay, setTogetherDay] = useState("");
+  const [represent, setRepresent] = useState(false);
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
   const [fileImage, setFileImage] = useState("");
@@ -114,8 +120,11 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       setTogetherYear(res?.data.togetherYear);
       setTogetherMonth(res?.data.togetherMonth);
       setTogetherDate(res?.data.togetherDate);
+      setRepresent(res?.data.represent);
     });
   }, []);
+
+  console.log(represent);
 
   const onDeletePet = async () => {
     const res = await deleteDog(accessToken, petId);
@@ -138,6 +147,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       gender: gender,
       birthDay: birthDates === "--" ? "" : birthDates,
       togetherDay: togetherDates === "--" ? "" : togetherDates,
+      represent: represent,
     };
 
     const res = await editDog(apiData, accessToken, petId);
@@ -148,8 +158,6 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       alert("수정이 완료되었습니다.");
     }
   };
-
-  console.log(name);
 
   return (
     <ModalArea className="absolute w-full h-screen">
@@ -371,12 +379,23 @@ const DogEdit = ({ petId }: EditDogInterface) => {
           </div>
         </div>
         <div className="flex justify-center">
-          <Solid
-            onClick={onDeletePet}
-            className="font-semibold mt-5 text-sm cursor-pointer"
-          >
-            반려견 삭제하기
-          </Solid>
+          <div className="flex justify-center">
+            <RepresentDog
+              represent={represent}
+              onClick={() => setRepresent(!represent)}
+              className="bg-pet_pink text-white font-semibold mt-5 text-sm cursor-pointer mr-3"
+            >
+              대표 강아지
+            </RepresentDog>
+          </div>
+          <div className="flex justify-center">
+            <DeleteDog
+              onClick={onDeletePet}
+              className="bg-gray-500 text-white font-semibold mt-5 text-sm cursor-pointer"
+            >
+              반려견 삭제하기
+            </DeleteDog>
+          </div>
         </div>
         <button
           onClick={onSubmit}
