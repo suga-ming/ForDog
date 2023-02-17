@@ -4,14 +4,30 @@ import { useQuery } from "react-query";
 import { myProfile, myprofileInterface } from "../api/user";
 import { useRecoilValue } from "recoil";
 import { isAccessToken } from "../store/recoil";
+import { feedList, FeedListInterface } from "../api/feed";
 
 const BoxDiv = styled.div`
-  width: 10%;
+  width: 100%;
   &::after {
     display: block;
     content: "";
     padding-bottom: 100%;
   }
+`;
+const BoxImg = styled.img`
+  width: 100%;
+  &::after {
+    display: block;
+    content: "";
+    padding-bottom: 100%;
+  }
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
+  row-gap: 30px;
 `;
 
 const MyProfile = () => {
@@ -22,7 +38,11 @@ const MyProfile = () => {
     () => myProfile(accessToken)
   );
 
-  console.log(data);
+  const { data: feedListData } = useQuery<FeedListInterface>([`feedList`], () =>
+    feedList(accessToken)
+  );
+
+  console.log("feedListData", feedListData?.data.items);
   return (
     <div className="pt-16 min-h-screen bg-gray-100">
       <div className="flex flex-col mt-10">
@@ -82,47 +102,32 @@ const MyProfile = () => {
             )}
           </div>
         </div>
-
-        {/* <div className="flex justify-center">
-      <svg
-        className="w-4 mr-2"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
-        <path
-          fill="rgba(237, 127, 148)"
-          d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"
-        />
-      </svg>
-      <div className="flex">
-        <div className="mr-1">단이:</div>
-        <div>토이푸들</div>
       </div>
-    </div> */}
-      </div>
-      {/* <div className="flex justify-center px-20">
-        <div className="w-56 h-56 bg-red-300 mr-5" />
-        <div className="w-56 h-56 bg-red-300 mr-5" />
-        <div className="w-56 h-56 bg-red-300" />
-      </div>
-      <div className="flex justify-center px-20 my-5">
-        <div className="w-56 h-56 bg-red-300 mr-5" />
-        <div className="w-56 h-56 bg-red-300 mr-5" />
-        <div className="w-56 h-56 bg-red-300" />
-      </div> */}
-      <div className="flex justify-center">
-        <div className="flex flex-col items-center justify-center mt-5 w-3/5 h-80">
-          <BoxDiv className="flex justify-center items-center border-solid border-2 border-black rounded-full">
-            <svg
-              className="w-1/2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
-            </svg>
-          </BoxDiv>
-          <div className="font-semibold mt-3 text-2xl">게시글 없음</div>
-        </div>
+      <div className="w-full flex justify-center mt-2">
+        <Grid className="w-3/5">
+          {!feedListData?.data.items.length ? (
+            <div className="flex justify-center">
+              <div className="flex flex-col items-center justify-center mt-5 w-3/5 h-80">
+                <BoxDiv className="flex justify-center items-center border-solid border-2 border-black rounded-full">
+                  <svg
+                    className="w-1/2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                  </svg>
+                </BoxDiv>
+                <div className="font-semibold mt-3 text-2xl">게시글 없음</div>
+              </div>
+            </div>
+          ) : (
+            <>
+              {feedListData?.data.items.map((i) => (
+                <BoxImg key={i.feedId} src={i.image} />
+              ))}
+            </>
+          )}
+        </Grid>
       </div>
     </div>
   );

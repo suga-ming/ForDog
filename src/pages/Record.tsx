@@ -145,15 +145,6 @@ const Record = () => {
             className="resize-none w-full h-60 p-4 border-b-2 border-gray-200 focus:outline-none"
           />
           <Solid className="flex w-full h-28 p-2 mb-7 border-b-2 border-gray-200">
-            {/* {hashTagArr.map((h) => (
-              <div>{h}</div>
-            ))}
-            <input
-              value={hashTag}
-              onChange={onTagChange}
-              placeholder="태그 입력"
-              className="pl-1 focus:outline-none"
-            /> */}
             <HashTag tag={tag} tags={tags} setTag={setTag} setTags={setTags} />
           </Solid>
           <div className="flex justify-center">

@@ -6,6 +6,18 @@ export interface FeedResiterInterface {
   feed: File[];
 }
 
+export interface FeedListInterface {
+  resultCode: number;
+  data: {
+    items: [
+      {
+        feedId: number;
+        image: string;
+      }
+    ];
+  };
+}
+
 export const feedResiter = async (
   body: FeedResiterInterface,
   accessToken: string
@@ -28,6 +40,20 @@ export const feedResiter = async (
         "x-access-auth": accessToken,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const feedList = async (accessToken: string) => {
+  try {
+    return await api
+      .get(`/feed/list`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
