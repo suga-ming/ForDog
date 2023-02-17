@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { feedResiter } from "../api/feed";
 import Carousel from "../components/Carousel";
-import { HashTag } from "../components/HastTag";
+import { HashTag } from "../components/HashTag";
 import { isAccessToken } from "../store/recoil";
 
 const BoxDiv = styled.div`
