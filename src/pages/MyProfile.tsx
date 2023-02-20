@@ -41,8 +41,6 @@ const MyProfile = () => {
   const { data: feedListData } = useQuery<FeedListInterface>([`feedList`], () =>
     feedList(accessToken)
   );
-
-  console.log("feedListData", feedListData?.data.items);
   return (
     <div className="pt-16 min-h-screen bg-gray-100">
       <div className="flex flex-col mt-10">

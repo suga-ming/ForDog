@@ -74,7 +74,7 @@ export const feedList = async (accessToken: string) => {
 export const friendFeedList = async (userId: number, accessToken: string) => {
   try {
     return await api
-      .get(`/feed/list${userId}`, {
+      .get(`/feed/friend/${userId}`, {
         headers: {
           "x-access-auth": accessToken,
         },
