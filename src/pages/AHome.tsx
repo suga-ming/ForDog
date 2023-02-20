@@ -60,49 +60,51 @@ const AHome = () => {
         </motion.div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
-        <div>
-          <PostIt
-            onClick={() => navigate("/myProfile")}
-            variants={boxVariants}
-            whileHover="hover"
-            whileTap="click"
+        <PostIt
+          transition={{ delay: 1, type: "tween" }}
+          initial={{ scale: 0, y: 300 }}
+          animate={{ scale: 1, y: 0 }}
+          onClick={() => navigate("/myProfile")}
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+        >
+          <svg
+            className="w-16 h-16 mb-3"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
           >
-            <svg
-              className="w-12 h-16 mb-3"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="white"
-                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
-              />
-            </svg>
-            <div className="text-white font-semibold">기록하기</div>
-          </PostIt>
-          <PostIt
-            transition={{ delay: 1, type: "tween" }}
-            initial={{ scale: 0, y: 300 }}
-            animate={{ scale: 1, y: 0 }}
-            onClick={() => navigate("/dog")}
-            variants={boxVariants}
-            whileHover="hover"
-            whileTap="click"
-          >
-            <svg
-              className="w-16 h-16 mb-3"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 576 512"
-            >
-              <path
-                fill="white"
-                d="M309.6 158.5L332.7 19.8C334.6 8.4 344.5 0 356.1 0c7.5 0 14.5 3.5 19 9.5L392 32h52.1c12.7 0 24.9 5.1 33.9 14.1L496 64h56c13.3 0 24 10.7 24 24v24c0 44.2-35.8 80-80 80H464 448 426.7l-5.1 30.5-112-64zM416 256.1L416 480c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V364.8c-24 12.3-51.2 19.2-80 19.2s-56-6.9-80-19.2V480c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V249.8c-28.8-10.9-51.4-35.3-59.2-66.5L1 167.8c-4.3-17.1 6.1-34.5 23.3-38.8s34.5 6.1 38.8 23.3l3.9 15.5C70.5 182 83.3 192 98 192h30 16H303.8L416 256.1zM464 80c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16z"
-              />
-            </svg>
-            <div className="text-white font-semibold">자랑하기</div>
-          </PostIt>
-        </div>
+            <path
+              fill="white"
+              d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
+            />
+          </svg>
+          <div className="text-white font-semibold">기록하기</div>
+        </PostIt>
         <PostIt
           transition={{ delay: 1.2, type: "tween" }}
+          initial={{ scale: 0, y: 300 }}
+          animate={{ scale: 1, y: 0 }}
+          onClick={() => navigate("/dog")}
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+        >
+          <svg
+            className="w-16 h-16 mb-3"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"
+          >
+            <path
+              fill="white"
+              d="M309.6 158.5L332.7 19.8C334.6 8.4 344.5 0 356.1 0c7.5 0 14.5 3.5 19 9.5L392 32h52.1c12.7 0 24.9 5.1 33.9 14.1L496 64h56c13.3 0 24 10.7 24 24v24c0 44.2-35.8 80-80 80H464 448 426.7l-5.1 30.5-112-64zM416 256.1L416 480c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V364.8c-24 12.3-51.2 19.2-80 19.2s-56-6.9-80-19.2V480c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V249.8c-28.8-10.9-51.4-35.3-59.2-66.5L1 167.8c-4.3-17.1 6.1-34.5 23.3-38.8s34.5 6.1 38.8 23.3l3.9 15.5C70.5 182 83.3 192 98 192h30 16H303.8L416 256.1zM464 80c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16z"
+            />
+          </svg>
+          <div className="text-white font-semibold">자랑하기</div>
+        </PostIt>
+
+        <PostIt
+          transition={{ delay: 1.4, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/comunity")}
@@ -123,7 +125,7 @@ const AHome = () => {
           <div className="text-white font-semibold">커뮤니티</div>
         </PostIt>
         <PostIt
-          transition={{ delay: 1.4, type: "tween" }}
+          transition={{ delay: 1.6, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/calender")}
