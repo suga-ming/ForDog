@@ -81,7 +81,7 @@ const Record = () => {
   return (
     <form
       onSubmit={onResiter}
-      className="pt-16 h-screen flex flex-col justify-center items-center bg-gray-100"
+      className="pt-8 h-screen flex flex-col justify-center items-center bg-gray-100"
     >
       <div className="text-2xl font-semibold mb-5">오늘 하루 기록하기</div>
       <div className="flex justify-center items-center w-3/5  bg-white rounded-lg">
