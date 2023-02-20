@@ -1,14 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  deleteDog,
-  dogEditInfo,
-  DogEditInterface,
-  DogResiterInterface,
-  editDog,
-} from "../api/dog";
+import { deleteDog, dogEditInfo, editDog } from "../api/dog";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import { EditDogInterface } from "./DogPage";
 
@@ -123,8 +116,6 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       setRepresent(res?.data.represent);
     });
   }, []);
-
-  console.log(represent);
 
   const onDeletePet = async () => {
     const res = await deleteDog(accessToken, petId);

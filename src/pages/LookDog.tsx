@@ -73,8 +73,8 @@ const LookDog = () => {
   console.log(items);
 
   return (
-    <div className="pt-16 bg-gray-100 min-h-screen flex flex-col items-center">
-      <div className="font-semibold text-2xl mt-8 mb-10">
+    <div className="pt-24 bg-gray-100 min-h-screen flex flex-col items-center">
+      <div className="font-semibold text-2xl mt-8 mb-8">
         다른 강아지 구경하기
       </div>
       {isLoading ? (
