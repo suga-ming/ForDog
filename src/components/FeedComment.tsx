@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { editFeedComment, feedCommentList } from "../api/feed";
 import { isAccessToken } from "../store/recoil";
 
@@ -11,6 +12,10 @@ export interface IComment {
   content: string;
 }
 
+const Solid3 = styled.textarea`
+  border: 1px solid rgb(209 213 219);
+`;
+
 const FeedComment = ({
   commentId,
   createdAt,
@@ -21,17 +26,20 @@ const FeedComment = ({
   const accessToken = useRecoilValue(isAccessToken);
   const [mineEdit, setMineEdit] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [comment, setComment] = useState(content);
   const onEditComment = async () => {
-    const res = await editFeedComment(commentId, accessToken);
+    const res = await editFeedComment(comment, commentId, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("수정되었습니다.");
+      setEdit(false);
     }
   };
   const onEdit = () => {
     setEdit(!edit);
     setMineEdit(false);
   };
+  console.log(edit);
 
   // const deleteFeed = async () => {
   //   const res = await feedDelete(feedId, accessToken);
@@ -40,6 +48,8 @@ const FeedComment = ({
   //     alert("삭제되었습니다.");
   //   }
   // };
+
+  console.log(comment);
   return (
     <div className="flex justify-between">
       <div className="flex items-center mb-4">
@@ -60,7 +70,23 @@ const FeedComment = ({
             <div className="text-base mr-2 font-semibold">{writer}</div>
             <div className="text-sm text-gray-500">{createdAt}</div>
           </div>
-          <div>{content}</div>
+          {edit ? (
+            <div className="w-full flex items-center mb-2">
+              <Solid3
+                className=" h-9 py-2 px-2 rounded-lg resize-none mr-3"
+                onChange={(e) => setComment(e.target.value)}
+                value={comment}
+              />
+              <div
+                onClick={onEditComment}
+                className="font-semibold px-2 py-1 bg-pet_pink text-white rounded-md text-sm cursor-pointer"
+              >
+                수정하기
+              </div>
+            </div>
+          ) : (
+            <div>{content}</div>
+          )}
         </div>
       </div>
       {mine ? (

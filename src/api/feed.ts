@@ -209,11 +209,15 @@ export const feedCommentList = async (feedID: number, accessToken: string) => {
   }
 };
 export const editFeedComment = async (
+  content: string,
   commentId: number,
   accessToken: string
 ) => {
+  const body = {
+    content: content,
+  };
   try {
-    return await api.patch(`/feed/comment/${commentId}`, {
+    return await api.patch(`/feed/comment/${commentId}`, body, {
       headers: {
         "x-access-auth": accessToken,
       },
