@@ -226,3 +226,17 @@ export const editFeedComment = async (
     console.log(err);
   }
 };
+export const deleteFeedComment = async (
+  commentId: number,
+  accessToken: string
+) => {
+  try {
+    return await api.delete(`/feed/comment/${commentId}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

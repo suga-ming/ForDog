@@ -119,8 +119,6 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
     feedCommentList(feedId, accessToken)
   );
 
-  console.log(data);
-
   return (
     <ModalArea
       onSubmit={onResiter}

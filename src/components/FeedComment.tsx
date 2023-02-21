@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { editFeedComment, feedCommentList } from "../api/feed";
+import {
+  deleteFeedComment,
+  editFeedComment,
+  feedCommentList,
+} from "../api/feed";
 import { isAccessToken } from "../store/recoil";
 
 export interface IComment {
@@ -39,17 +43,15 @@ const FeedComment = ({
     setEdit(!edit);
     setMineEdit(false);
   };
-  console.log(edit);
 
-  // const deleteFeed = async () => {
-  //   const res = await feedDelete(feedId, accessToken);
-  //   const resultCode = res?.data.data.resultCode;
-  //   if (resultCode === 1) {
-  //     alert("삭제되었습니다.");
-  //   }
-  // };
+  const deleteComment = async () => {
+    const res = await deleteFeedComment(commentId, accessToken);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("삭제되었습니다.");
+    }
+  };
 
-  console.log(comment);
   return (
     <div className="flex justify-between">
       <div className="flex items-center mb-4">
@@ -110,10 +112,7 @@ const FeedComment = ({
               >
                 수정
               </div>
-              <div
-                // onClick={deleteFeed}
-                className="px-2 py-1"
-              >
+              <div onClick={deleteComment} className="px-2 py-1">
                 삭제
               </div>
             </div>
