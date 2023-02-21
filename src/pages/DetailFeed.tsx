@@ -9,6 +9,7 @@ import {
   feedEdit,
   IFeedDetail,
   feedLike,
+  feedCommentRegister,
 } from "../api/feed";
 import { isAccessToken } from "../store/recoil";
 
@@ -26,7 +27,7 @@ const Solid = styled.div<{ edit: boolean }>`
     props.edit ? "1px white" : "2px solid rgb(229 231 235)"};
 `;
 
-const ModalArea = styled.div`
+const ModalArea = styled.form`
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1000;
 `;
@@ -52,11 +53,8 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
   const [hashtag, setHashtag] = useState<string[]>([]);
   const [likedCount, setLikedCount] = useState(0);
   const [createdAt, setCreatedAt] = useState("");
+  const [comment, setComment] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
-
-  //   const { isLoading, data } = useQuery<IFeedDetail>([`feedDetail`], () =>
-  //     feedDetail(feedId, accessToken)
-  //   );
 
   useEffect(() => {
     feedDetail(feedId, accessToken).then((res) => {
@@ -99,9 +97,22 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
     setFeedLiked(res?.data.liked);
     setLikedCount(res?.data.likedCount);
   };
+
+  const onResiter = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await feedCommentRegister(feedId, comment, accessToken);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("댓글이 작성되었습니다.");
+      setComment("");
+    }
+  };
+
+  console.log(comment);
+
   return (
     <ModalArea
-      //   onSubmit={onResiter}
+      onSubmit={onResiter}
       className="absolute w-full h-screen flex flex-col justify-center items-center"
     >
       <div className="flex justify-center items-center w-9/12  bg-white rounded-lg">
@@ -327,12 +338,14 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
               </div>
               <div className="flex w-full pl-6 py-4">
                 <input
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
                   className="w-4/5 focus:outline-none"
                   placeholder="댓글 달기"
                 />
-                <div className="w-1/5 text-center font-semibold text-pet_pink">
+                <button className="w-1/5 text-center font-semibold text-pet_pink">
                   입력
-                </div>
+                </button>
               </div>
             </div>
           )}

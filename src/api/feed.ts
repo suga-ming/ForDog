@@ -158,3 +158,24 @@ export const feedLike = async (feedID: number, accessToken: string) => {
     console.log(err);
   }
 };
+
+export const feedCommentRegister = async (
+  feedId: number,
+  content: string,
+  accessToken: string
+) => {
+  const body = {
+    feedId: feedId,
+    content: content,
+  };
+  console.log(body);
+  try {
+    return await api.post("/feed/comment", body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
