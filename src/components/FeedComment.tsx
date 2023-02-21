@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { feedCommentList } from "../api/feed";
+import { editFeedComment, feedCommentList } from "../api/feed";
 import { isAccessToken } from "../store/recoil";
 
 export interface IComment {
@@ -18,6 +18,15 @@ const FeedComment = ({
   content,
   writer,
 }: IComment) => {
+  const accessToken = useRecoilValue(isAccessToken);
+
+  const onEditComment = async () => {
+    const res = await editFeedComment(commentId, accessToken);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("수정되었습니다.");
+    }
+  };
   return (
     <div className="flex items-center mb-4">
       <div className="flex items-center justify-center w-10 h-10 rounded-full mr-3 bg-pet_pink">
