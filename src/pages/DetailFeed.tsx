@@ -1,13 +1,11 @@
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   feedDelete,
   feedDetail,
   feedEdit,
-  IFeedDetail,
   feedLike,
   feedCommentRegister,
   feedCommentList,
@@ -57,11 +55,8 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
   const [likedCount, setLikedCount] = useState(0);
   const [createdAt, setCreatedAt] = useState("");
   const [comment, setComment] = useState("");
-  const [writer, setWriter] = useState("");
-  const [commentContent, setCommentContent] = useState("");
-  const [commentMine, setCommentMine] = useState(false);
-  const [commentCreatedAt, setCommentCreatedAt] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
+  const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     feedDetail(feedId, accessToken).then((res) => {
@@ -118,6 +113,10 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
   const { isLoading, data } = useQuery<IFeedComment>([`CommetList`], () =>
     feedCommentList(feedId, accessToken)
   );
+
+  const onClick = () => {
+    ref.current?.focus();
+  };
 
   return (
     <ModalArea
@@ -277,7 +276,8 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
                     </svg>
                   )}
                   <Reverse
-                    className="w-7"
+                    onClick={onClick}
+                    className="w-7 cursor-pointer"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
                   >
@@ -294,6 +294,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
               </div>
               <div className="flex w-full pl-6 py-4">
                 <input
+                  ref={ref}
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   className="w-4/5 focus:outline-none"
