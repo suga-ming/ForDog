@@ -46,6 +46,21 @@ export interface IFeedDetail {
   };
 }
 
+export interface IFeedComment {
+  resultCode: number;
+  data: {
+    items: [
+      {
+        commentId: number;
+        writer: string;
+        content: string;
+        mine: boolean;
+        createdAt: string;
+      }
+    ];
+  };
+}
+
 export const feedResiter = async (
   body: FeedResiterInterface,
   accessToken: string
@@ -175,6 +190,20 @@ export const feedCommentRegister = async (
         "x-access-auth": accessToken,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const feedCommentList = async (feedID: number, accessToken: string) => {
+  try {
+    return await api
+      .get(`/feed/comment/${feedID}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
