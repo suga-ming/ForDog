@@ -144,3 +144,17 @@ export const feedDelete = async (feedID: number, accessToken: string) => {
     console.log(err);
   }
 };
+
+export const feedLike = async (feedID: number, accessToken: string) => {
+  try {
+    return await api
+      .get(`/feed/${feedID}/like`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};

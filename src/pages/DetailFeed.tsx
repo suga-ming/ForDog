@@ -3,7 +3,13 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { feedDelete, feedDetail, feedEdit, IFeedDetail } from "../api/feed";
+import {
+  feedDelete,
+  feedDetail,
+  feedEdit,
+  IFeedDetail,
+  feedLike,
+} from "../api/feed";
 import { isAccessToken } from "../store/recoil";
 
 const BoxImg = styled.img`
@@ -88,7 +94,11 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
     setMineEdit(false);
   };
 
-  console.log(mine);
+  const changeLiked = async () => {
+    const res = await feedLike(feedId, accessToken);
+    setFeedLiked(res?.data.liked);
+    setLikedCount(res?.data.likedCount);
+  };
   return (
     <ModalArea
       //   onSubmit={onResiter}
@@ -275,6 +285,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
                 <div className="flex items-center">
                   {feedLiked ? (
                     <svg
+                      onClick={changeLiked}
                       className="w-7 mr-3 cursor-pointer"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
@@ -286,6 +297,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
                     </svg>
                   ) : (
                     <svg
+                      onClick={changeLiked}
                       className="w-7 mr-3 cursor-pointer"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
