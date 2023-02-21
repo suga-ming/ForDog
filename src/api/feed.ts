@@ -30,11 +30,26 @@ export interface FriendFeedListInterface {
   };
 }
 
+export interface IFeedDetail {
+  resultCode: number;
+  data: {
+    feedId: number;
+    nickName: string;
+    image: [string];
+    mine: true;
+    feedLiked: true;
+    content: string;
+    hashtag: [string];
+    commentCount: number;
+    likedCount: number;
+    createdAt: string;
+  };
+}
+
 export const feedResiter = async (
   body: FeedResiterInterface,
   accessToken: string
 ) => {
-  console.log("body", body);
   const formData = new FormData();
   for (let i = 0; i < body?.feed.length; i++) {
     formData.append("feed", body?.feed[i]);
@@ -80,6 +95,51 @@ export const friendFeedList = async (userId: number, accessToken: string) => {
         },
       })
       .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const feedDetail = async (feedID: number, accessToken: string) => {
+  try {
+    return await api
+      .get(`/feed/${feedID}`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const feedEdit = async (
+  content: string,
+  feedID: number,
+  accessToken: string
+) => {
+  const body = {
+    content: content,
+  };
+  try {
+    return await api.patch(`/feed/${feedID}`, body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const feedDelete = async (feedID: number, accessToken: string) => {
+  try {
+    return await api.delete(`/feed/${feedID}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
   } catch (err) {
     console.log(err);
   }

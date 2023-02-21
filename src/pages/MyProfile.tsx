@@ -36,6 +36,7 @@ const Grid = styled.div`
 const MyProfile = () => {
   const accessToken = useRecoilValue(isAccessToken);
   const [detail, setDetail] = useState(false);
+  const [feedId, setFeedId] = useState(0);
 
   const { isLoading, data } = useQuery<myprofileInterface>(
     [`editComment`],
@@ -46,15 +47,18 @@ const MyProfile = () => {
     feedList(accessToken)
   );
 
+  const detailFeed = (Id: number) => {
+    setDetail(!detail);
+    setFeedId(Id);
+  };
+
   return (
     <>
       {detail ? (
         <div className="flex justify-center">
-          <DetailFeed detail={detail} setDetail={setDetail} />
+          <DetailFeed detail={detail} setDetail={setDetail} feedId={feedId} />
         </div>
-      ) : (
-        <div>오프</div>
-      )}
+      ) : null}
       <div className="pt-16 min-h-screen bg-gray-100 relative">
         <div className="flex flex-col mt-10">
           <div className="flex items-center justify-center mb-7">
@@ -135,7 +139,7 @@ const MyProfile = () => {
               {feedListData?.data.items.map((i) => (
                 <BoxImg
                   className="cursor-pointer"
-                  onClick={() => setDetail(!detail)}
+                  onClick={() => detailFeed(i.feedId)}
                   key={i.feedId}
                   src={i.image}
                 />
