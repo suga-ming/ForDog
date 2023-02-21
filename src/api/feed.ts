@@ -36,6 +36,7 @@ export interface IFeedDetail {
     feedId: number;
     nickName: string;
     image: [string];
+    profileImage: string;
     mine: true;
     feedLiked: true;
     content: string;
