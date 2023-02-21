@@ -241,6 +241,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
                       mine={i.mine}
                       writer={i.writer}
                       content={i.content}
+                      profileImage={i.profileImage}
                     />
                   ))}
               </div>

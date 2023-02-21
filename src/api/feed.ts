@@ -57,6 +57,7 @@ export interface IFeedComment {
         content: string;
         mine: boolean;
         createdAt: string;
+        profileImage: string;
       }
     ];
   };
