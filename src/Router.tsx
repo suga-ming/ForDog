@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, useMatch } from "react-router-dom";
 import Header from "./components/Header";
 import Post from "./components/Post";
 import AHome from "./pages/AHome";
-import Calender from "./pages/Calender";
+import Calendar from "./pages/Calendar";
 import Comunity from "./pages/Comunity";
 import DogPage from "./pages/DogPage";
 import EditPost from "./pages/EditPost";
@@ -48,7 +48,7 @@ const Router = () => {
           path="/comunity/editPost/:boardId"
           element={<EditPost />}
         ></Route>
-        <Route path="/calender" element={<Calender />}></Route>
+        <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/rank" element={<Rank />}></Route>
         <Route path="/ca" element={<Carousel />}></Route>
       </Routes>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { feedResiter } from "../api/feed";
-import Carousel from "../components/Carousel";
+// import Carousel from "../components/Carousel";
 import { HashTag } from "../components/HashTag";
 import { isAccessToken } from "../store/recoil";
 
