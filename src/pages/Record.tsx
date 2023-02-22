@@ -2,8 +2,14 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "./Swiper.css";
 import { feedResiter } from "../api/feed";
-// import Carousel from "../components/Carousel";
 import { HashTag } from "../components/HashTag";
 import { isAccessToken } from "../store/recoil";
 
@@ -16,12 +22,7 @@ const BoxDiv = styled.div`
   }
 `;
 const BoxImg = styled.img`
-  width: 60%;
-  &::after {
-    display: block;
-    content: "";
-    padding-bottom: 100%;
-  }
+  width: 100%;
 `;
 
 const Solid = styled.div`
@@ -84,7 +85,7 @@ const Record = () => {
       className="pt-8 h-screen flex flex-col justify-center items-center bg-gray-100"
     >
       <div className="text-2xl font-semibold mb-5">오늘 하루 기록하기</div>
-      <div className="flex justify-center items-center w-3/5  bg-white rounded-lg">
+      <div className="flex justify-center items-center w-3/5  bg-white rounded-lg relative">
         {!feed.length ? (
           <BoxDiv className="bg-gray-300 flex justify-center items-center rounded-tl-lg rounded-bl-lg">
             <input
@@ -115,13 +116,49 @@ const Record = () => {
             </div>
           </BoxDiv>
         ) : (
-          preview.map((img, id) => (
-            <BoxImg
-              src={img}
-              alt={`${img}-${id}`}
-              className="flex justify-center items-center rounded-tl-lg rounded-bl-lg"
-            ></BoxImg>
-          ))
+          <div className="w-3/5">
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={60}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+            >
+              {preview.map((img, id) => (
+                <SwiperSlide>
+                  <BoxImg
+                    src={img}
+                    alt={`${img}-${id}`}
+                    className="flex justify-center items-center rounded-tl-lg rounded-bl-lg"
+                  ></BoxImg>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <input
+              className="hidden"
+              type="file"
+              // multiple
+              accept="image/*"
+              ref={inputRef}
+              onChange={onChangeFile}
+            />
+            <div
+              onClick={() => inputRef.current?.click()}
+              className="flex justify-center items-center w-10 h-10 bg-gray-500 rounded-full absolute bottom-2 left-2 z-30"
+            >
+              <svg
+                className="w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill="white"
+                  d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48z"
+                />
+              </svg>
+            </div>
+          </div>
         )}
         <div className="w-2/5 h-full">
           <div className="flex p-4 items-center">
