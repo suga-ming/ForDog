@@ -8,6 +8,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
 
 const Calendar = () => {
+  const [date, setDate] = useState("");
+  const [name, setName] = useState("");
   const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
   const handleEvents = useCallback(
     (events: EventApi[]) => setCurrentEvents(events),
@@ -33,30 +35,29 @@ const Calendar = () => {
     }
   }, []);
 
-  const calendar = new Calendar(calendarEl, {
-    height: 650,
-  });
-
-  calendar.setOption("height", 700);
+  console.log("currentEvents", currentEvents);
 
   return (
-    <div className="pt-16">
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        selectable={true}
-        editable={true}
-        // initialEvents={INITIAL_EVENTS}
-        locales={allLocales}
-        locale="ko"
-        // eventsSet={handleEvents}
-        select={handleDateSelect}
-        eventClick={handleEventClick}
-        events={[
-          { title: "단이 미용", date: "2023-02-05" },
-          { title: "단이 병원", date: "2023-02-13" },
-        ]}
-      />
+    <div className="pt-24 flex shrink-0 justify-center">
+      <div className="w-3/5">
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
+          selectable={true}
+          editable={true}
+          // initialEvents={INITIAL_EVENTS}
+          locales={allLocales}
+          locale="ko"
+          // eventsSet={handleEvents}
+          select={handleDateSelect}
+          eventClick={handleEventClick}
+          events={[
+            { title: "단이 미용", date: "2023-02-05" },
+            { title: "단이 병원", date: "2023-02-13" },
+          ]}
+          height={650}
+        />
+      </div>
     </div>
   );
 };
