@@ -83,7 +83,7 @@ const Home = () => {
           <div className="text-white font-semibold">커뮤니티</div>
         </PostIt>
         <PostIt
-          onClick={() => navigate("/calender")}
+          onClick={() => navigate("/calendar")}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
