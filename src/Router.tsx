@@ -20,7 +20,6 @@ import SignUp from "./pages/SignUp";
 import Spalsh from "./pages/Spalsh";
 import WritePost from "./pages/WritePost";
 import FriendProfile from "./pages/FriendProfile";
-import Carousel from "./components/Carousel";
 
 const Router = () => {
   return (
@@ -50,7 +49,6 @@ const Router = () => {
         ></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/rank" element={<Rank />}></Route>
-        <Route path="/ca" element={<Carousel />}></Route>
       </Routes>
     </BrowserRouter>
   );
