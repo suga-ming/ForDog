@@ -2,6 +2,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import "./Carousel.css";
+import dane from "../assets/단.png";
 
 const Carousel = () => {
   const settings = {
@@ -21,11 +23,10 @@ const Carousel = () => {
     }
   `;
   return (
-    <div className="pt-20">
-      <div>dd</div>
+    <div className="pt-20 flex flex-col">
       <div className="">
         <Slider {...settings}>
-          <div className="bg-gray-300 w-20 h-20 flex justify-center items-center rounded-tl-lg rounded-bl-lg">
+          {/* <div className="bg-gray-300 w-20 h-20 flex justify-center items-center rounded-tl-lg rounded-bl-lg">
             <div className="flex flex-col items-center">
               <svg
                 className="w-1/4 mb-2"
@@ -41,6 +42,9 @@ const Carousel = () => {
                 사진 선택
               </div>
             </div>
+          </div> */}
+          <div>
+            <img src={dane} className="" />
           </div>
           <div>
             <h3 className="w-10 h-10 bg-red-300">2</h3>
