@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -7,6 +7,7 @@ import {
   friendRequestAccept,
   friendRequestList,
   FriendRequestListInterface,
+  userInfo,
 } from "../api/user";
 import { isAccessToken } from "../store/recoil";
 
@@ -43,15 +44,8 @@ const Bold = styled.div<{ isActive: boolean }>`
 
 const FriendRequest = () => {
   const navigate = useNavigate();
-  const [infoEdit, setInfoEdit] = useState(false);
   const [name, setName] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
-  //   const isLoginReset = useResetRecoilState(isLogin);
-  //   const isAccessTokenReset = useResetRecoilState(isAccessToken);
-  //   const isRefreshTokenReset = useResetRecoilState(isRefreshToken);
   const myPageMatch = useMatch("/friendPage");
   const goMyPage = () => {
     navigate("/myPage");
@@ -63,13 +57,22 @@ const FriendRequest = () => {
     navigate("/friendPage");
   };
 
+  if (accessToken !== "") {
+    userInfo(accessToken).then((res) => {
+      const resultCode = res?.data?.data.resultCode;
+      if (resultCode == 1) {
+        const data = res?.data?.data?.data;
+        setName(data?.name);
+      }
+    });
+  }
+
   const { isLoading, data } = useQuery<FriendRequestListInterface>(
     [`editComment`],
     () => friendRequestList(accessToken)
   );
 
   const requestAccept = async (friendId: number) => {
-    console.log("ck", friendId);
     const res = await friendRequestAccept(friendId, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
@@ -94,7 +97,7 @@ const FriendRequest = () => {
           <div className="text-white">
             <div className="font-semibold mb-1">안녕하세요.</div>
             <div className="flex">
-              <div className="font-bold">김보영</div>
+              <div className="font-bold">{name}</div>
               <div className="font-medium">님</div>
             </div>
           </div>
