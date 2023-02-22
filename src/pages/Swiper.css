@@ -1,0 +1,27 @@
+.swiper-button-next {
+  background: url(../assets/arrow.png) no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: 100% auto;
+  background-position: center;
+}
+
+.swiper-button-prev {
+  transform: scaleX(-1);
+  background: url(../assets/arrow.png) no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  width: 30px;
+  height: 30px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+  /* width: 8px; */
+  /* height: 8px; */
+}
+
+.swiper-pagination-bullet-active {
+  background: rgba(237, 127, 148);
+}

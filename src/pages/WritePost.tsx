@@ -171,7 +171,6 @@ const WritePost = () => {
             {preview.map((image, id) => (
               <>
                 <ImgBox src={image} alt={`${image}-${id}`} />
-                {/* <div onClick={() => handleDeleteImage(id)}>x</div> */}
               </>
             ))}
           </div>
