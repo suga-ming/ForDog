@@ -13,14 +13,15 @@ import {
 } from "../api/feed";
 import FeedComment from "../components/FeedComment";
 import { isAccessToken } from "../store/recoil";
+import { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const BoxImg = styled.img`
-  width: 60%;
-  &::after {
-    display: block;
-    content: "";
-    padding-bottom: 100%;
-  }
+  width: 100%;
 `;
 
 const Solid = styled.div<{ edit: boolean }>`
@@ -125,16 +126,29 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
       onSubmit={onResiter}
       className="absolute w-full h-screen flex flex-col justify-center items-center"
     >
-      <div className="flex justify-center items-center w-9/12  bg-white rounded-lg">
-        {image &&
-          image.map((img, id) => (
-            <BoxImg
-              src={img}
-              alt={`${img}-${id}`}
-              className="flex justify-center items-center rounded-tl-lg rounded-bl-lg"
-            ></BoxImg>
-          ))}
-        <div className="w-2/5 h-full flex flex-col justify-between">
+      <div className="flex justify-between items-center w-9/12  bg-white rounded-lg">
+        <div className="w-3/5">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            spaceBetween={60}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+            {image &&
+              image.map((img, id) => (
+                <SwiperSlide>
+                  <BoxImg
+                    src={img}
+                    alt={`${img}-${id}`}
+                    className="flex justify-center items-center rounded-tl-lg rounded-bl-lg"
+                  ></BoxImg>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+        <div className="w-4/5 h-full flex flex-col justify-between">
           <div>
             <Solid
               edit={edit}
