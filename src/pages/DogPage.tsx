@@ -10,6 +10,7 @@ import {
   dogResiter,
   DogResiterInterface,
 } from "../api/dog";
+import { userInfo } from "../api/user";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import DogEdit from "./DogEdit";
 import DogList from "./DogList";
@@ -86,6 +87,7 @@ const DogPage = () => {
   const [modal, setModal] = useState(false);
   // const [editModal, setEditModal] = useState(false);
   const [file, setFile] = useState("");
+  const [userName, setUserName] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [breed, setBreed] = useState("");
@@ -113,6 +115,16 @@ const DogPage = () => {
   const goFriend = () => {
     navigate("/friendPage");
   };
+
+  if (accessToken !== "") {
+    userInfo(accessToken).then((res) => {
+      const resultCode = res?.data?.data.resultCode;
+      if (resultCode == 1) {
+        const data = res?.data?.data?.data;
+        setUserName(data?.name);
+      }
+    });
+  }
 
   const onChangeBreed = (value: string) => {
     if (value === "") {
@@ -155,10 +167,6 @@ const DogPage = () => {
   const { isLoading, data } = useQuery<DogInfoInterface>([`info`], () =>
     dogInfo(accessToken)
   );
-
-  console.log(data);
-
-  // const petList = data?.data.items;
 
   const goEdit = (petId: number) => {
     setEditModal(true);
@@ -389,7 +397,7 @@ const DogPage = () => {
                 <div className="text-white">
                   <div className="font-semibold mb-1">안녕하세요.</div>
                   <div className="flex">
-                    <div className="font-bold">김보영</div>
+                    <div className="font-bold">{userName}</div>
                     <div className="font-medium">님</div>
                   </div>
                 </div>
