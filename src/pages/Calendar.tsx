@@ -2,15 +2,17 @@ import "./Calendar.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import allLocales from "@fullcalendar/core/locales-all";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DateSelectArg, EventApi, EventClickArg } from "@fullcalendar/core";
 import interactionPlugin from "@fullcalendar/interaction";
+import { ITodoRegister, todoRegister } from "../api/calendar";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
 
 const Calendar = () => {
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
   const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
+
   const handleEvents = useCallback(
     (events: EventApi[]) => setCurrentEvents(events),
     []
@@ -27,14 +29,29 @@ const Calendar = () => {
         end: selectInfo.endStr,
         allDay: selectInfo.allDay,
       });
+      console.log(selectInfo.startStr);
+      console.log(title);
+      setDate(selectInfo.startStr);
+      setName(title);
+      // makeEvents(name, date);
     }
+    console.log("date", date);
+    console.log("name", name);
   }, []);
+
+  console.log(currentEvents[0]._def.title);
+
+  // const makeEvents = async (name: string, date: string) => {
+  //   const res = await todoRegister(name, date);
+  //   const resultCode = res?.data.data.resultCode;
+  //   if (resultCode === 1) {
+  //   }
+  // };
   const handleEventClick = useCallback((clickInfo: EventClickArg) => {
     if (window.confirm(`${clickInfo.event.title}를 삭제하시겠습니까?`)) {
       clickInfo.event.remove();
     }
   }, []);
-
   console.log("currentEvents", currentEvents);
 
   return (
@@ -48,13 +65,13 @@ const Calendar = () => {
           // initialEvents={INITIAL_EVENTS}
           locales={allLocales}
           locale="ko"
-          // eventsSet={handleEvents}
+          eventsSet={handleEvents}
           select={handleDateSelect}
           eventClick={handleEventClick}
-          events={[
-            { title: "단이 미용", date: "2023-02-05" },
-            { title: "단이 병원", date: "2023-02-13" },
-          ]}
+          // events={[
+          //   { title: "단이 미용", date: "2023-02-05" },
+          //   { title: "단이 병원", date: "2023-02-13" },
+          // ]}
           height={650}
         />
       </div>
