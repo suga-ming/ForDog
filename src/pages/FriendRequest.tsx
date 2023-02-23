@@ -72,6 +72,8 @@ const FriendRequest = () => {
     () => friendRequestList(accessToken)
   );
 
+  console.log(data?.data.items.length);
+
   const requestAccept = async (friendId: number) => {
     const res = await friendRequestAccept(friendId, accessToken);
     const resultCode = res?.data.data.resultCode;
@@ -123,12 +125,15 @@ const FriendRequest = () => {
           </Solid>
           <div
             onClick={goFriend}
-            className="py-4 flex justify-between px-5 cursor-pointer"
+            className="py-4 flex justify-between px-5 cursor-pointer relative"
           >
             <Bold isActive={myPageMatch !== null}>친구 요청</Bold>
             <Down xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </Down>
+            <div className="absolute left-[90px] bg-pet_pink w-5 h-5 text-center rounded-full text-sm text-white font-semibold">
+              {data?.data.items.length}
+            </div>
           </div>
         </div>
       </div>
