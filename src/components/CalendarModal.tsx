@@ -1,0 +1,154 @@
+import { SetStateAction, useState } from "react";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import { editTodo, IEditTodo } from "../api/calendar";
+import { isAccessToken } from "../store/recoil";
+
+const ModalArea = styled.form`
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+`;
+
+const Modal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+`;
+
+const BottomSolid = styled.div`
+  border-bottom: 1px solid rgb(209 213 219);
+`;
+
+const EditContent = styled.span`
+  background-color: rgba(237, 127, 148);
+  color: white;
+  border-radius: 20px;
+  padding: 8px 30px;
+`;
+
+const DeleteCalendar = styled.span`
+  border-radius: 20px;
+  padding: 8px 30px;
+`;
+
+export interface IModal {
+  content: string;
+  date: string;
+  todoId: number;
+  status: string;
+  edit: boolean;
+  setEdit: (value: SetStateAction<boolean>) => void;
+  modal: boolean;
+  setModal: (value: SetStateAction<boolean>) => void;
+}
+
+const CalendarModal = ({
+  content,
+  date,
+  todoId,
+  status,
+  edit,
+  setEdit,
+  modal,
+  setModal,
+}: IModal) => {
+  const [title, setTitle] = useState(content);
+  const [editStatus, setEditStatus] = useState(status);
+  const accessToken = useRecoilValue(isAccessToken);
+
+  const onSubmit = async () => {
+    const res = await editTodo(title, accessToken, todoId);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("수정되었습니다");
+      setEdit(!edit);
+      setModal(!modal);
+    }
+  };
+  return (
+    <div>
+      <div className="flex flex-col justify-center items-center py-8">
+        <div className="flex flex-col items-start">
+          <div className="flex">
+            <svg
+              className="w-3 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill="rgba(237, 127, 148)"
+                d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"
+              />
+            </svg>
+            <div className="mr-10">일정 이름</div>
+            {edit ? (
+              <input
+                className="w-20 h-5 focus:outline-none"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            ) : (
+              <div>{title}</div>
+            )}
+          </div>
+          <div className="flex mt-6">
+            <svg
+              className="w-3 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill="rgba(237, 127, 148)"
+                d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"
+              />
+            </svg>
+            <div className="mr-10">일정 종류</div>
+            <select
+              name="status"
+              className="pr-2 w-20 h-5"
+              value={editStatus}
+              onChange={(e) => setEditStatus(e.target.value)}
+            >
+              <option className="text-gray-300" value="">
+                --선택--
+              </option>
+              <option value="to do">to do</option>
+              <option value="doing">doing</option>
+              <option value="done">done</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center mb-8">
+        <div className="flex justify-center">
+          <EditContent
+            onClick={() => setEdit(true)}
+            className="bg-pet_pink text-white font-semibold text-sm cursor-pointer mr-3"
+          >
+            일정 수정
+          </EditContent>
+        </div>
+        <div className="flex justify-center">
+          <DeleteCalendar
+            //   onClick={onDeletePet}
+            className="bg-gray-500 text-white font-semibold text-sm cursor-pointer"
+          >
+            일정 삭제
+          </DeleteCalendar>
+        </div>
+      </div>
+      {edit ? (
+        <div
+          onClick={onSubmit}
+          className="w-full mt-7 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-5 cursor-pointer"
+        >
+          반려견 수정하기
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export default CalendarModal;
