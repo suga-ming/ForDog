@@ -16,9 +16,11 @@ const Calendar = () => {
   const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
   const accessToken = useRecoilValue(isAccessToken);
 
-  // useEffect(() => {
-  //   todoList(feedId, accessToken).then((res) => {
-  // }},[])
+  useEffect(() => {
+    todoList(accessToken).then((res) => {
+      console.log(res);
+    });
+  }, []);
 
   const handleEvents = useCallback(
     (events: EventApi[]) => setCurrentEvents(events),
@@ -36,36 +38,7 @@ const Calendar = () => {
       });
     }
   };
-  // const handleDateSelect = useCallback((selectInfo: DateSelectArg) => {
-  //   let title = prompt("일정을 추가하시겠습니까?")?.trim();
-  //   let calendarApi = selectInfo.view.calendar;
-  //   calendarApi.unselect();
-  //   if (title) {
-  //     calendarApi.addEvent({
-  //       // id: createEventId(),
-  //       title,
-  //       start: selectInfo.startStr,
-  //       end: selectInfo.endStr,
-  //       allDay: selectInfo.allDay,
-  //     });
-  //     console.log(selectInfo.startStr);
-  //     console.log(title);
-  //     setDate(selectInfo.startStr);
-  //     setName(title);
-  //     // makeEvents(name, date);
-  //   }
-  //   console.log("date", date);
-  //   console.log("name", name);
-  // }, []);
 
-  // console.log(currentEvents[0]._def.title);
-
-  // const makeEvents = async (name: string, date: string) => {
-  //   const res = await todoRegister(name, date);
-  //   const resultCode = res?.data.data.resultCode;
-  //   if (resultCode === 1) {
-  //   }
-  // };
   const handleEventClick = useCallback((clickInfo: EventClickArg) => {
     if (window.confirm(`${clickInfo.event.title}를 삭제하시겠습니까?`)) {
       clickInfo.event.remove();

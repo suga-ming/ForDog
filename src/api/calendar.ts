@@ -25,9 +25,15 @@ export const todoRegister = async (
   }
 };
 
-export const todoList = async (body: ITodoRegister) => {
+export const todoList = async (accessToken: string) => {
   try {
-    return await api.post("/todo/date", body);
+    return await api
+      .get(`/todo`, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      })
+      .then((res) => res?.data.data);
   } catch (err) {
     console.log(err);
   }
