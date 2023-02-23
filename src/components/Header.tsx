@@ -55,7 +55,6 @@ const Header = () => {
 
   if (accessToken !== "") {
     myProfile(accessToken).then((res) => {
-      console.log("res", res);
       const resultCode = res?.resultCode;
       if (resultCode === 1) {
         const data = res?.data;
@@ -64,7 +63,6 @@ const Header = () => {
       }
     });
   }
-  console.log("name", name);
   return (
     <>
       {login ? (
