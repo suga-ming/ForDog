@@ -5,14 +5,21 @@ export interface ITodoRegister {
   name: string;
 }
 
-export const todoRegister = async (name: string, date: string) => {
-  console.log(name, date);
+export const todoRegister = async (
+  accessToken: string,
+  content: string,
+  date: string
+) => {
   const body = {
     date: date,
-    content: name,
+    content: content,
   };
   try {
-    return await api.post("/todo", body);
+    return await api.post("/todo", body, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
   } catch (err) {
     console.log(err);
   }

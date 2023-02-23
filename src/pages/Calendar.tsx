@@ -5,41 +5,60 @@ import allLocales from "@fullcalendar/core/locales-all";
 import { useCallback, useEffect, useState } from "react";
 import { DateSelectArg, EventApi, EventClickArg } from "@fullcalendar/core";
 import interactionPlugin from "@fullcalendar/interaction";
-import { ITodoRegister, todoRegister } from "../api/calendar";
+import { ITodoRegister, todoList, todoRegister } from "../api/calendar";
+import { useRecoilValue } from "recoil";
+import { isAccessToken } from "../store/recoil";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
 
 const Calendar = () => {
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
   const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
+  const accessToken = useRecoilValue(isAccessToken);
+
+  // useEffect(() => {
+  //   todoList(feedId, accessToken).then((res) => {
+  // }},[])
 
   const handleEvents = useCallback(
     (events: EventApi[]) => setCurrentEvents(events),
     []
   );
-  const handleDateSelect = useCallback((selectInfo: DateSelectArg) => {
+  const handleDateSelect = async (selectInfo: DateSelectArg) => {
     let title = prompt("일정을 추가하시겠습니까?")?.trim();
-    let calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect();
-    if (title) {
-      calendarApi.addEvent({
-        // id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
+    if (title && title !== "") {
+      const date = selectInfo.startStr;
+      await todoRegister(accessToken, title, date).then((res) => {
+        const resultCode = res?.data.data.resultCode;
+        if (resultCode === 1) {
+          alert("일정이 추가되었습니다.");
+        }
       });
-      console.log(selectInfo.startStr);
-      console.log(title);
-      setDate(selectInfo.startStr);
-      setName(title);
-      // makeEvents(name, date);
     }
-    console.log("date", date);
-    console.log("name", name);
-  }, []);
+  };
+  // const handleDateSelect = useCallback((selectInfo: DateSelectArg) => {
+  //   let title = prompt("일정을 추가하시겠습니까?")?.trim();
+  //   let calendarApi = selectInfo.view.calendar;
+  //   calendarApi.unselect();
+  //   if (title) {
+  //     calendarApi.addEvent({
+  //       // id: createEventId(),
+  //       title,
+  //       start: selectInfo.startStr,
+  //       end: selectInfo.endStr,
+  //       allDay: selectInfo.allDay,
+  //     });
+  //     console.log(selectInfo.startStr);
+  //     console.log(title);
+  //     setDate(selectInfo.startStr);
+  //     setName(title);
+  //     // makeEvents(name, date);
+  //   }
+  //   console.log("date", date);
+  //   console.log("name", name);
+  // }, []);
 
-  console.log(currentEvents[0]._def.title);
+  // console.log(currentEvents[0]._def.title);
 
   // const makeEvents = async (name: string, date: string) => {
   //   const res = await todoRegister(name, date);
