@@ -5,6 +5,13 @@ export interface ITodoRegister {
   name: string;
 }
 
+export interface ITodoList {
+  todoId: number;
+  content: string;
+  date: string;
+  status: string;
+}
+
 export const todoRegister = async (
   accessToken: string,
   content: string,

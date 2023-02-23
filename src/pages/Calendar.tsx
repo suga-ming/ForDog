@@ -5,27 +5,29 @@ import allLocales from "@fullcalendar/core/locales-all";
 import { useCallback, useEffect, useState } from "react";
 import { DateSelectArg, EventApi, EventClickArg } from "@fullcalendar/core";
 import interactionPlugin from "@fullcalendar/interaction";
-import { ITodoRegister, todoList, todoRegister } from "../api/calendar";
+import {
+  ITodoList,
+  ITodoRegister,
+  todoList,
+  todoRegister,
+} from "../api/calendar";
 import { useRecoilValue } from "recoil";
 import { isAccessToken } from "../store/recoil";
-// import { INITIAL_EVENTS, createEventId } from "./event-utils";
 
 const Calendar = () => {
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
-  const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
+  const [addEvent, setAddEvent] = useState(false);
+  const [todos, setTodos] = useState<ITodoList[]>([]);
   const accessToken = useRecoilValue(isAccessToken);
 
   useEffect(() => {
     todoList(accessToken).then((res) => {
-      console.log(res);
+      const data = res?.data.items;
+      setTodos(data);
     });
-  }, []);
+  }, [addEvent]);
 
-  const handleEvents = useCallback(
-    (events: EventApi[]) => setCurrentEvents(events),
-    []
-  );
   const handleDateSelect = async (selectInfo: DateSelectArg) => {
     let title = prompt("일정을 추가하시겠습니까?")?.trim();
     if (title && title !== "") {
@@ -34,6 +36,7 @@ const Calendar = () => {
         const resultCode = res?.data.data.resultCode;
         if (resultCode === 1) {
           alert("일정이 추가되었습니다.");
+          setAddEvent(!addEvent);
         }
       });
     }
@@ -44,7 +47,6 @@ const Calendar = () => {
       clickInfo.event.remove();
     }
   }, []);
-  console.log("currentEvents", currentEvents);
 
   return (
     <div className="pt-24 flex shrink-0 justify-center">
@@ -54,16 +56,13 @@ const Calendar = () => {
           initialView="dayGridMonth"
           selectable={true}
           editable={true}
-          // initialEvents={INITIAL_EVENTS}
           locales={allLocales}
           locale="ko"
-          eventsSet={handleEvents}
           select={handleDateSelect}
           eventClick={handleEventClick}
-          // events={[
-          //   { title: "단이 미용", date: "2023-02-05" },
-          //   { title: "단이 병원", date: "2023-02-13" },
-          // ]}
+          events={todos.map((t) => {
+            return { title: t.content, date: t.date };
+          })}
           height={650}
         />
       </div>
