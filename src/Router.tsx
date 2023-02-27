@@ -20,6 +20,7 @@ import SignUp from "./pages/SignUp";
 import Spalsh from "./pages/Spalsh";
 import WritePost from "./pages/WritePost";
 import FriendProfile from "./pages/FriendProfile";
+import EditMypage from "./pages/EditMypage";
 
 const Router = () => {
   return (
@@ -33,8 +34,8 @@ const Router = () => {
         <Route path="/signUp/email" element={<Email />}></Route>
         <Route path="/signUp/kakao" element={<Kakao />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/myPage" element={<MyPage />}></Route>
-        <Route path="/dogPage" element={<DogPage />}></Route>
+        <Route path="/myPage/*" element={<MyPage />}></Route>
+        <Route path="/mypage/dogPage" element={<DogPage />}></Route>
         <Route path="/friendPage" element={<FriendRequest />}></Route>
         <Route path="/myProfile" element={<MyProfile />}></Route>
         <Route path="/record" element={<Record />}></Route>
