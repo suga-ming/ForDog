@@ -10,7 +10,11 @@ import {
   dogResiter,
   DogResiterInterface,
 } from "../api/dog";
-import { userInfo } from "../api/user";
+import {
+  friendRequestList,
+  FriendRequestListInterface,
+  userInfo,
+} from "../api/user";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import DogEdit from "./DogEdit";
 import DogList from "./DogList";
@@ -83,7 +87,7 @@ export interface EditDogInterface {
 const DogPage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
-  const dogPageMatch = useMatch("/dogPage");
+  const dogPageMatch = useMatch("/myPage/dogPage");
   const [modal, setModal] = useState(false);
   // const [editModal, setEditModal] = useState(false);
   const [file, setFile] = useState("");
@@ -106,14 +110,14 @@ const DogPage = () => {
   const [fileImage, setFileImage] = useState("");
 
   const goMyPage = () => {
-    navigate("/myPage");
+    navigate("/myPage/editMyPage");
   };
   const goDogPage = () => {
-    navigate("/dogPage");
+    navigate("/myPage/dogPage");
   };
 
   const goFriend = () => {
-    navigate("/friendPage");
+    navigate("/myPage/friendPage");
   };
 
   if (accessToken !== "") {
@@ -166,6 +170,11 @@ const DogPage = () => {
 
   const { isLoading, data } = useQuery<DogInfoInterface>([`info`], () =>
     dogInfo(accessToken)
+  );
+
+  const { data: requestList } = useQuery<FriendRequestListInterface>(
+    [`editComment`],
+    () => friendRequestList(accessToken)
   );
 
   const goEdit = (petId: number) => {
@@ -429,7 +438,7 @@ const DogPage = () => {
                 </Solid>
                 <div
                   onClick={goFriend}
-                  className="py-4 flex justify-between px-5 cursor-pointer"
+                  className="relative py-4 flex justify-between px-5 cursor-pointer"
                 >
                   <div>친구 요청</div>
                   <Down
@@ -438,6 +447,9 @@ const DogPage = () => {
                   >
                     <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                   </Down>
+                  <div className="absolute left-[90px] bg-pet_pink w-4 h-4 text-center rounded-full text-xs text-white font-semibold">
+                    {requestList?.data.items && requestList?.data.items.length}
+                  </div>
                 </div>
               </div>
             </div>
