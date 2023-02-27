@@ -1,4 +1,4 @@
-export const breed = [
+export const breedList = [
   "푸들",
   "말티즈",
   "웰시코기",
@@ -13,4 +13,4 @@ export const breed = [
   "퍼그",
 ];
 
-breed.sort();
+breedList.sort();

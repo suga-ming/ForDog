@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { deleteDog, dogEditInfo, editDog } from "../api/dog";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import { EditDogInterface } from "./DogPage";
+import { breedList } from "../constant/breed";
 
 const ModalArea = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -116,6 +117,8 @@ const DogEdit = ({ petId }: EditDogInterface) => {
       setRepresent(res?.data.represent);
     });
   }, []);
+
+  console.log("breed", breed);
 
   const onDeletePet = async () => {
     const res = await deleteDog(accessToken, petId);
@@ -276,11 +279,9 @@ const DogEdit = ({ petId }: EditDogInterface) => {
                 <option className="text-gray-300" value="">
                   --선택--
                 </option>
-                <option value="푸들">푸들</option>
-                <option value="말티즈">말티즈</option>
-                <option value="웰시코기">웰시코기</option>
-                <option value="포메라니안">포메라니안</option>
-                <option value="시츄">시츄</option>
+                {breedList.map((b) => (
+                  <option value={b}>{b}</option>
+                ))}
               </select>
             </div>
             <div className="flex items-center py-2">
