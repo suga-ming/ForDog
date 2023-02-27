@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  checkLikedInterface,
-  postInfoInterface,
-  postLiked,
-} from "../api/comunity";
+import { postInfoInterface, postLiked } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 const PostArea = styled.div`
-  /* border: 1px solid gray; */
   border-radius: 10px;
-  /* width: 50%; */
   margin-bottom: 20px;
   background-color: white;
   box-shadow: 2px 2px 2px rgb(209 213 219);
@@ -105,7 +98,7 @@ const Board = ({
         </div>
         <div>{content}</div>
         {image ? (
-          <img className="w-full h-32 mt-5 mb-8" src={image}></img>
+          <img className="w-full h-32 mt-5 mb-8" src={image} alt={image}></img>
         ) : null}
         <div className="flex mt-4">
           <div className="flex mr-3 mb-6">
