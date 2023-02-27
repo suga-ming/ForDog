@@ -38,7 +38,7 @@ const Header = () => {
     setModal(false);
   };
   const goMyPage = () => {
-    navigate("/myPage");
+    navigate("/myPage/editMyPage");
     setModal(false);
   };
   const goLogOut = () => {
