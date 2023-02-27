@@ -57,10 +57,8 @@ const Post = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const accessToken = useRecoilValue(isAccessToken);
-
   const liked = location.state as { liked: boolean };
   const likedCount = location.state as { likedCount: number };
-
   const [like, setLike] = useState<boolean>(liked?.liked);
   const [likeCount, setLikeCount] = useState<number>(likedCount?.likedCount);
   const [comment, setComment] = useState("");
@@ -71,10 +69,8 @@ const Post = () => {
   const changeLiked = async () => {
     // ! 좋아요 누르는 api 선언
     const res = await postLiked(Id, accessToken);
-    console.log(res);
     setLike(res?.data.liked);
     setLikeCount(res?.data.likedCount);
-    console.log(like);
   };
 
   const goComunity = () => {
@@ -128,7 +124,7 @@ const Post = () => {
             >
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </svg>
-            <div className="font-semibold">{data?.data.type}</div>
+            <div className="font-semibold">{data?.data && data?.data.type}</div>
           </div>
           <PostArea>
             <div className="max-h-[550px] overflow-y-scroll">
@@ -182,7 +178,7 @@ const Post = () => {
 
                 {data?.data.images
                   ? data?.data.images.map((img) => (
-                      <img src={img} className="w-96 h-96" />
+                      <img src={img} alt={img} className="w-96 h-96" />
                     ))
                   : null}
                 <div className="flex justify-between items-center mt-8 mb-6">
