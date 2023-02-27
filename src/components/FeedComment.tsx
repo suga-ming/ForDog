@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  deleteFeedComment,
-  editFeedComment,
-  feedCommentList,
-} from "../api/feed";
+import { deleteFeedComment, editFeedComment } from "../api/feed";
 import { isAccessToken } from "../store/recoil";
 
 export interface IComment {
@@ -60,6 +56,7 @@ const FeedComment = ({
         {profileImage && profileImage ? (
           <img
             src={profileImage}
+            alt={profileImage}
             className="flex items-center justify-center w-10 h-10 rounded-full mr-3 bg-pet_pink"
           ></img>
         ) : (
