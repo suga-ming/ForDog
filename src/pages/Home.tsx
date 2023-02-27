@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div className="h-screen bg-white flex flex-col justify-end items-center">
       <div className="flex flex-col justify-center items-center">
-        <img src={logo} className="w-32 h-32 mb-5" />
+        <img src={logo} alt={logo} className="w-32 h-32 mb-5" />
         <div className="font-bold text-3xl mb-3 text-black">For Dog</div>
         <div className="text-black font-semibold">
           오직 강아지를 위한 필요한것들이 다 모여있다!
