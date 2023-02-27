@@ -47,7 +47,7 @@ const Calendar = () => {
       const data = res?.data.items;
       setTodos(data);
     });
-  }, [addEvent, edit]);
+  }, [addEvent, edit, modal]);
 
   const handleDateSelect = async (selectInfo: DateSelectArg) => {
     let title = prompt("일정을 추가하시겠습니까?")?.trim();
@@ -62,12 +62,6 @@ const Calendar = () => {
       });
     }
   };
-
-  // const handleEventClick = useCallback((clickInfo: EventClickArg) => {
-  //   if (window.confirm(`${clickInfo.event.title}를 삭제하시겠습니까?`)) {
-  //     clickInfo.event.remove();
-  //   }
-  // }, []);
 
   const handleEventClick = async (clickInfo: EventClickArg) => {
     setModal(!modal);
@@ -89,7 +83,6 @@ const Calendar = () => {
   return (
     <div>
       {modal ? (
-        // <CalendarModal modal={modal} setModal={setModal} todoList={todoList} />
         <ModalArea className="absolute w-full h-screen">
           <Modal className="bg-white w-1/3 rounded-lg">
             <BottomSolid className="flex justify-between items-center w-full py-4 px-7">

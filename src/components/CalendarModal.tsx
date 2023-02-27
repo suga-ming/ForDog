@@ -1,13 +1,8 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { editTodo, IEditTodo } from "../api/calendar";
+import { deleteTodo, editTodo } from "../api/calendar";
 import { isAccessToken } from "../store/recoil";
-
-const ModalArea = styled.form`
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-`;
 
 const Modal = styled.div`
   position: absolute;
@@ -15,10 +10,6 @@ const Modal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-`;
-
-const BottomSolid = styled.div`
-  border-bottom: 1px solid rgb(209 213 219);
 `;
 
 const EditContent = styled.span`
@@ -58,13 +49,26 @@ const CalendarModal = ({
   const [editStatus, setEditStatus] = useState(status);
   const accessToken = useRecoilValue(isAccessToken);
 
-  const onSubmit = async () => {
+  useEffect(() => {
+    setTitle(title);
+  }, [title]);
+
+  const onEdit = async () => {
     const res = await editTodo(title, accessToken, todoId);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("수정되었습니다");
       setEdit(!edit);
       setModal(!modal);
+    }
+  };
+
+  const onDelete = async () => {
+    const res = await deleteTodo(accessToken, todoId);
+    const resultCode = res?.data.data.resultCode;
+    if (resultCode === 1) {
+      alert("삭제되었습니다");
+      setModal(false);
     }
   };
   return (
@@ -122,31 +126,34 @@ const CalendarModal = ({
         </div>
       </div>
       <div className="flex justify-center mb-8">
-        <div className="flex justify-center">
-          <EditContent
-            onClick={() => setEdit(true)}
-            className="bg-pet_pink text-white font-semibold text-sm cursor-pointer mr-3"
-          >
-            일정 수정
-          </EditContent>
-        </div>
+        {edit ? (
+          <div className="flex justify-center">
+            <EditContent
+              onClick={onEdit}
+              className="bg-pet_pink text-white font-semibold text-sm cursor-pointer mr-3"
+            >
+              수정하기
+            </EditContent>
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <EditContent
+              onClick={() => setEdit(true)}
+              className="bg-pet_pink text-white font-semibold text-sm cursor-pointer mr-3"
+            >
+              일정 수정
+            </EditContent>
+          </div>
+        )}
         <div className="flex justify-center">
           <DeleteCalendar
-            //   onClick={onDeletePet}
+            onClick={onDelete}
             className="bg-gray-500 text-white font-semibold text-sm cursor-pointer"
           >
             일정 삭제
           </DeleteCalendar>
         </div>
       </div>
-      {edit ? (
-        <div
-          onClick={onSubmit}
-          className="w-full mt-7 bg-pet_pink h-11 rounded-b-lg text-white flex justify-center items-center font-semibold py-5 cursor-pointer"
-        >
-          반려견 수정하기
-        </div>
-      ) : null}
     </div>
   );
 };

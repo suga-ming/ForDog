@@ -85,3 +85,15 @@ export const editTodo = async (
     console.log(err);
   }
 };
+
+export const deleteTodo = async (accessToken: string, todoId: number) => {
+  try {
+    return await api.delete(`/todo/${todoId}`, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
