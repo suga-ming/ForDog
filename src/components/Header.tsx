@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
-import dane from "../assets/단.png";
 import { useState } from "react";
 import styled from "styled-components";
-import { myProfile, userInfo } from "../api/user";
+import { myProfile } from "../api/user";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(156 163 175);
@@ -16,7 +15,7 @@ const Solid2 = styled.div`
 
 const Header = () => {
   const navigate = useNavigate();
-  const [login, setLogin] = useRecoilState(isLogin);
+  const [login] = useRecoilState(isLogin);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -95,6 +94,7 @@ const Header = () => {
               {image ? (
                 <img
                   src={image}
+                  alt={image}
                   onClick={goMyProfile}
                   className="w-10 rounded-full cursor-pointer"
                 />
