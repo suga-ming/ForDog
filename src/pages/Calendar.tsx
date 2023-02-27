@@ -2,7 +2,7 @@ import "./Calendar.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import allLocales from "@fullcalendar/core/locales-all";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DateSelectArg, EventClickArg } from "@fullcalendar/core";
 import interactionPlugin from "@fullcalendar/interaction";
 import {
