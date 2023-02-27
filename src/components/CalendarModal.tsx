@@ -49,10 +49,6 @@ const CalendarModal = ({
   const [editStatus, setEditStatus] = useState(status);
   const accessToken = useRecoilValue(isAccessToken);
 
-  useEffect(() => {
-    setTitle(title);
-  }, [title]);
-
   const onEdit = async () => {
     const res = await editTodo(title, accessToken, todoId);
     const resultCode = res?.data.data.resultCode;
