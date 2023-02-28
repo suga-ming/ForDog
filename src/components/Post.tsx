@@ -178,7 +178,12 @@ const Post = () => {
 
                 {data?.data.images
                   ? data?.data.images.map((img) => (
-                      <img src={img} alt={img} className="w-96 h-96" />
+                      <img
+                        src={img}
+                        alt={img}
+                        key={img}
+                        className="w-96 h-96"
+                      />
                     ))
                   : null}
                 <div className="flex justify-between items-center mt-8 mb-6">
