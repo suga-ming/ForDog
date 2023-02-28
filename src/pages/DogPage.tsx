@@ -1,15 +1,9 @@
-import axios from "axios";
 import { useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  dogInfo,
-  DogInfoInterface,
-  dogResiter,
-  DogResiterInterface,
-} from "../api/dog";
+import { dogInfo, DogInfoInterface, dogResiter } from "../api/dog";
 import {
   friendRequestList,
   FriendRequestListInterface,
@@ -48,11 +42,11 @@ const Modal = styled.div`
 
 const MaleBox = styled.div<{ gender: string }>`
   border: ${(props) =>
-    props.gender == "male"
+    props.gender === "male"
       ? "1px solid rgba(237, 127, 148)"
       : "1px solid rgb(209 213 219)"};
   color: ${(props) =>
-    props.gender == "male" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
+    props.gender === "male" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
   padding: 5px 20px;
   border-radius: 5px;
   width: 90px;
@@ -61,11 +55,11 @@ const MaleBox = styled.div<{ gender: string }>`
 
 const FemaleBox = styled.div<{ gender: string }>`
   border: ${(props) =>
-    props.gender == "female"
+    props.gender === "female"
       ? "1px solid rgba(237, 127, 148)"
       : "1px solid rgb(209 213 219)"};
   color: ${(props) =>
-    props.gender == "female" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
+    props.gender === "female" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
   padding: 5px 20px;
   border-radius: 5px;
   width: 90px;
@@ -99,12 +93,9 @@ const DogPage = () => {
   const [birthYear, setBirthYear] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [birthDay, setBirthDay] = useState("");
   const [togetherYear, setTogetherYear] = useState("");
   const [togetherMonth, setTogetherMonth] = useState("");
   const [togetherDate, setTogetherDate] = useState("");
-  const [togetherDay, setTogetherDay] = useState("");
-  const [editTogetherDay, setEditTogetherDay] = useState(0);
   const accessToken = useRecoilValue(isAccessToken);
   const [editModal, setEditModal] = useRecoilState(isEditModal);
   const [petId, setPetId] = useState(0);
@@ -124,7 +115,7 @@ const DogPage = () => {
   if (accessToken !== "") {
     userInfo(accessToken).then((res) => {
       const resultCode = res?.data?.data.resultCode;
-      if (resultCode == 1) {
+      if (resultCode === 1) {
         const data = res?.data?.data?.data;
         setUserName(data?.name);
       }
@@ -157,13 +148,13 @@ const DogPage = () => {
       name: name,
       breed: breed,
       gender: gender,
-      birthDay: birthDates == "--" ? "" : birthDates,
-      togetherDay: togetherDates == "--" ? "" : togetherDates,
+      birthDay: birthDates === "--" ? "" : birthDates,
+      togetherDay: togetherDates === "--" ? "" : togetherDates,
     };
 
     const res = await dogResiter(apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
-    if (resultCode == 1) {
+    if (resultCode === 1) {
       setModal(!modal);
       alert("펫이 등록되었습니다.");
     }
@@ -188,8 +179,6 @@ const DogPage = () => {
     setFileImage("");
     setGender("");
   };
-
-  console.log("리스트", breedList);
 
   return (
     <>
@@ -221,6 +210,7 @@ const DogPage = () => {
                   {fileImage ? (
                     <img
                       src={fileImage}
+                      alt={fileImage}
                       className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full"
                       onClick={() => inputRef.current?.click()}
                     />
