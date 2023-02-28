@@ -114,7 +114,6 @@ const Post = () => {
         <div>is Loading...</div>
       ) : (
         <div className="flex flex-col items-center pt-16 h-screen bg-gray-100">
-          {" "}
           <div className="flex items-center w-1/2 text-sm bg-white py-3 rounded-xl mt-5 mb-5">
             <svg
               onClick={goComunity}
@@ -219,19 +218,18 @@ const Post = () => {
                     {data?.data.commentCount}
                   </div>
                 </Solid>
-                {editCommentData
-                  ? editCommentData.data.items.map((item) => (
-                      <PostComment
-                        key={item.commentId}
-                        commentId={item.commentId}
-                        writer={item.writer}
-                        content={item.content}
-                        mine={item.mine}
-                        createdAt={item.createdAt}
-                        reply={item.reply}
-                      />
-                    ))
-                  : null}
+                {editCommentData &&
+                  editCommentData.data.items.map((item) => (
+                    <PostComment
+                      key={item.commentId}
+                      commentId={item.commentId}
+                      writer={item.writer}
+                      content={item.content}
+                      mine={item.mine}
+                      createdAt={item.createdAt}
+                      reply={item.reply}
+                    />
+                  ))}
               </div>
             </div>
             <Solid3 className="flex justify-between w-full py-3 px-7">
@@ -248,7 +246,7 @@ const Post = () => {
                 입력
               </div>
             </Solid3>
-          </PostArea>{" "}
+          </PostArea>
         </div>
       )}
     </>
