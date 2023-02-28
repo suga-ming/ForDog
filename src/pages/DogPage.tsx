@@ -470,7 +470,10 @@ const DogPage = () => {
                       <div>loading...</div>
                     ) : (
                       data?.data.items.map((item) => (
-                        <div onClick={() => goEdit(item?.myPetId)}>
+                        <div
+                          onClick={() => goEdit(item?.myPetId)}
+                          key={item?.myPetId}
+                        >
                           <DogList
                             key={item?.myPetId}
                             myPetId={item?.myPetId}
