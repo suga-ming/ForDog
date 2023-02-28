@@ -51,7 +51,6 @@ export interface editPostInterface {
   title: string;
   type: string;
   content: string;
-  deleteImages: File[];
   board: File[];
 }
 
@@ -167,7 +166,6 @@ export const postEdit = async (
   body: editPostInterface,
   accessToken: string
 ) => {
-  console.log(body);
   const formData = new FormData();
   for (let i = 0; i < body?.board.length; i++) {
     formData.append("board", body?.board[i]);
@@ -175,19 +173,16 @@ export const postEdit = async (
   formData.append("type", body?.type);
   formData.append("title", body?.title);
   formData.append("content", body?.content);
-  for (let i = 0; i < body?.deleteImages.length; i++) {
-    formData.append("deleteImages", body?.deleteImages[i]);
-  }
-  for (const value of formData.values()) console.log(value);
-  try {
-    return await api.patch(`/board/${boardId}`, formData, {
-      headers: {
-        "x-access-auth": accessToken,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  for (const value of formData.values())
+    try {
+      return await api.patch(`/board/${boardId}`, formData, {
+        headers: {
+          "x-access-auth": accessToken,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
 };
 
 export const postDelete = async (Id: number, accessToken: string) => {
