@@ -21,11 +21,11 @@ const Modal = styled.div`
 
 const MaleBox = styled.div<{ gender: string }>`
   border: ${(props) =>
-    props.gender == "male"
+    props.gender === "male"
       ? "1px solid rgba(237, 127, 148)"
       : "1px solid rgb(209 213 219)"};
   color: ${(props) =>
-    props.gender == "male" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
+    props.gender === "male" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
   padding: 5px 20px;
   border-radius: 5px;
   width: 90px;
@@ -34,11 +34,11 @@ const MaleBox = styled.div<{ gender: string }>`
 
 const FemaleBox = styled.div<{ gender: string }>`
   border: ${(props) =>
-    props.gender == "female"
+    props.gender === "female"
       ? "1px solid rgba(237, 127, 148)"
       : "1px solid rgb(209 213 219)"};
   color: ${(props) =>
-    props.gender == "female" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
+    props.gender === "female" ? "rgba(237, 127, 148)" : "rgb(209 213 219)"};
   padding: 5px 20px;
   border-radius: 5px;
   width: 90px;
@@ -118,12 +118,10 @@ const DogEdit = ({ petId }: EditDogInterface) => {
     });
   }, []);
 
-  console.log("breed", breed);
-
   const onDeletePet = async () => {
     const res = await deleteDog(accessToken, petId);
     const resultCode = res?.data.data.resultCode;
-    if (resultCode == 1) {
+    if (resultCode === 1) {
       alert("펫이 삭제되었습니다.");
       setEditModal(false);
     }
@@ -146,7 +144,6 @@ const DogEdit = ({ petId }: EditDogInterface) => {
 
     const res = await editDog(apiData, accessToken, petId);
     const resultCode = res?.data.data.resultCode;
-    console.log(res);
     if (resultCode === 1) {
       setEditModal(!editModal);
       alert("수정이 완료되었습니다.");
@@ -178,12 +175,14 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               {fileImage ? (
                 <img
                   src={fileImage}
+                  alt={fileImage}
                   className="w-[80px] h-[80px] rounded-full"
                   onClick={() => inputRef.current?.click()}
                 />
               ) : (
                 <img
                   src={fileImage}
+                  alt={fileImage}
                   className="w-[80px] h-[80px] rounded-full"
                   onClick={() => inputRef.current?.click()}
                 />
@@ -206,6 +205,7 @@ const DogEdit = ({ petId }: EditDogInterface) => {
               {fileImage ? (
                 <img
                   src={fileImage}
+                  alt={fileImage}
                   className="flex relative items-center justify-center w-[80px] h-[80px] mb-6 rounded-full"
                   onClick={() => inputRef.current?.click()}
                 />
