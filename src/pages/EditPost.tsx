@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { comunityResiter, postDetailInfo, postEdit } from "../api/comunity";
+import { postDetailInfo, postEdit } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 
 const PostArea = styled.div`
@@ -11,7 +11,6 @@ const PostArea = styled.div`
   border-radius: 10px;
   width: 50%;
   background-color: white;
-  /* box-shadow: 2px 2px 2px rgb(209 213 219); */
 `;
 
 const Solid = styled.div`
@@ -38,10 +37,8 @@ const ImgBox = styled.img`
 
 const EditPost = () => {
   const [type, setType] = useState("");
-  const [postId, setPostId] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [deleteImg, setDeleteImg] = useState<File[]>([]);
   const [board, setBoard] = useState<File[]>([]);
   const [preview, setPreview] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -70,7 +67,6 @@ const EditPost = () => {
       setContent(res?.data.content);
       setBoard(res?.data.images);
       setPreview(res?.data.images);
-      console.log(board);
     });
   }, []);
 
@@ -101,10 +97,8 @@ const EditPost = () => {
       title: title,
       content: content,
       board: board,
-      deleteImages: deleteImg,
     };
     const res = await postEdit(Id, apiData, accessToken);
-    console.log(res);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("게시글이 수정되었습니다.");

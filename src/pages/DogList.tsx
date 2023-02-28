@@ -25,7 +25,6 @@ const DogList = ({
   birthDay,
   togetherDay,
   imagePath,
-  myPetId,
 }: DogInfoProps) => {
   return (
     <div>

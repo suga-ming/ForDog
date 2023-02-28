@@ -12,25 +12,10 @@ const PostIt = styled(motion.div)`
   padding: 40px 50px 160px 50px;
 `;
 
-const postitVariants = {
-  initial: {
-    y: 0,
-    scale: 0,
-  },
-  visible: {
-    y: 300,
-    scale: 1,
-    transition: {
-      delay: 1,
-      type: "tween",
-    },
-  },
-};
-
 const AHome = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    let timer = setTimeout(() => {
+    setTimeout(() => {
       navigate("/home");
     }, 2000);
   });
@@ -41,7 +26,7 @@ const AHome = () => {
   return (
     <div className="h-screen bg-white flex flex-col justify-end items-center">
       <div className="flex flex-col justify-center items-center">
-        <img src={logo} className="w-32 h-32 mb-5" />
+        <img src={logo} alt={logo} className="w-32 h-32 mb-5" />
         <motion.div
           transition={{ delay: 0.2 }}
           initial={{ scale: 0 }}

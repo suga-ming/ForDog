@@ -10,6 +10,7 @@ const PostArea = styled.div`
   margin-bottom: 20px;
   background-color: white;
   box-shadow: 2px 2px 2px rgb(209 213 219);
+  padding-top: 5px;
 `;
 
 const Solid = styled.div`
@@ -66,7 +67,6 @@ const Board = ({
   const changeLiked = async () => {
     // ! 좋아요 누르는 api 선언
     const res = await postLiked(boardId, accessToken);
-    console.log(res);
     setLike(res?.data.liked);
     setLikeCount(res?.data.likedCount);
     console.log(like);

@@ -280,7 +280,9 @@ const DogEdit = ({ petId }: EditDogInterface) => {
                   --선택--
                 </option>
                 {breedList.map((b) => (
-                  <option value={b}>{b}</option>
+                  <option key={b} value={b}>
+                    {b}
+                  </option>
                 ))}
               </select>
             </div>

@@ -173,16 +173,15 @@ export const postEdit = async (
   formData.append("type", body?.type);
   formData.append("title", body?.title);
   formData.append("content", body?.content);
-  for (const value of formData.values())
-    try {
-      return await api.patch(`/board/${boardId}`, formData, {
-        headers: {
-          "x-access-auth": accessToken,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  try {
+    return await api.patch(`/board/${boardId}`, formData, {
+      headers: {
+        "x-access-auth": accessToken,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const postDelete = async (Id: number, accessToken: string) => {

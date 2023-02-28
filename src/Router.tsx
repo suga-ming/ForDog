@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useMatch } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Post from "./components/Post";
 import AHome from "./pages/AHome";
@@ -17,17 +17,14 @@ import MyProfile from "./pages/MyProfile";
 import Rank from "./pages/Rank";
 import Record from "./pages/Record";
 import SignUp from "./pages/SignUp";
-import Spalsh from "./pages/Spalsh";
 import WritePost from "./pages/WritePost";
 import FriendProfile from "./pages/FriendProfile";
-import EditMypage from "./pages/EditMypage";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Spalsh />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/aHome" element={<AHome />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>

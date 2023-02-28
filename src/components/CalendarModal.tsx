@@ -1,16 +1,8 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { deleteTodo, editTodo } from "../api/calendar";
 import { isAccessToken } from "../store/recoil";
-
-const Modal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-`;
 
 const EditContent = styled.span`
   background-color: rgba(237, 127, 148);

@@ -1,13 +1,7 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  commentReply,
-  deleteComment,
-  editComment,
-  replyDataInterface,
-} from "../api/comunity";
+import { commentReply, deleteComment, editComment } from "../api/comunity";
 import { isAccessToken } from "../store/recoil";
 import ReplyComment from "./ReplyComment";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
@@ -10,7 +10,6 @@ import {
   userInfoEdit,
 } from "../api/user";
 import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
-import MyPage from "./MyPage";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
