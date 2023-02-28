@@ -96,7 +96,6 @@ const Post = () => {
 
   const resisterComment = async () => {
     const res = await postComment(Id, comment, accessToken);
-    console.log(res);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
       alert("댓글이 작성되었습니다.");
@@ -108,6 +107,9 @@ const Post = () => {
     [`editComment`],
     () => editList(Id, accessToken)
   );
+
+  console.log("editCommentData", editCommentData);
+  console.log("boardId", boardId);
   return (
     <>
       {isLoading ? (
@@ -212,7 +214,7 @@ const Post = () => {
                     {data?.data.commentCount}
                   </div>
                 </Solid>
-                {editCommentData &&
+                {editCommentData?.data.items &&
                   editCommentData.data.items.map((item) => (
                     <PostComment
                       key={item.commentId}
