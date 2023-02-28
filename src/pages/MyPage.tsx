@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { Link, Route, Routes, useMatch, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  friendRequestList,
-  FriendRequestListInterface,
-  userInfo,
-} from "../api/user";
+import { friendRequestList, FriendRequestListInterface } from "../api/friend";
+import { userInfo } from "../api/user";
 import { isAccessToken } from "../store/recoil";
 import EditMypage from "./EditMypage";
 import FriendRequest from "./FriendRequest";
@@ -26,25 +23,11 @@ const Bold = styled.div<{ isActive: boolean }>`
 `;
 
 const MyPage = () => {
-  const navigate = useNavigate();
-  const [infoEdit, setInfoEdit] = useState(false);
   const [name, setName] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
   const myPageMatch = useMatch("/myPage/editMyPage");
   const dogPageMatch = useMatch("/myPage/dogPage");
   const friendPageMatch = useMatch("/myPage/friendPage");
-  const goMyPage = () => {
-    navigate("/myPage");
-  };
-  const goDogPage = () => {
-    navigate("/dogPage");
-  };
-  const goFriend = () => {
-    navigate("/friendPage");
-  };
 
   if (accessToken !== "") {
     userInfo(accessToken).then((res) => {
@@ -52,16 +35,12 @@ const MyPage = () => {
       if (resultCode === 1) {
         const data = res?.data?.data?.data;
         setName(data?.name);
-        setNickName(data?.nickName);
-        setEmail(data?.email);
-        setPhone(data?.phone);
       }
     });
   }
 
-  const { isLoading, data } = useQuery<FriendRequestListInterface>(
-    [`editComment`],
-    () => friendRequestList(accessToken)
+  const { data } = useQuery<FriendRequestListInterface>([`editComment`], () =>
+    friendRequestList(accessToken)
   );
 
   return (

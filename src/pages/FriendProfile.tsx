@@ -9,7 +9,8 @@ import {
   friendProfile,
   FriendProfileInterface,
   friendRequest,
-} from "../api/user";
+} from "../api/friend";
+import {} from "../api/user";
 import { isAccessToken } from "../store/recoil";
 import DetailFeed from "./DetailFeed";
 
