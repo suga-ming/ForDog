@@ -4,6 +4,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { emailSignIn, SignInInterface } from "../api/user";
 import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
+import Swal from "sweetalert2";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(203 213 225);
@@ -26,11 +27,20 @@ const Login = () => {
         email: "",
         password: "",
       });
-      alert("로그인 성공");
+      // alert("로그인 성공");
       setLogin(true);
       setAccesstoken(res?.data.data.data.accessToken);
       setRefreshtoken(res?.data.data.data.refreshToken);
       navigate("/home");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인 성공",
+        showConfirmButton: false,
+        timer: 1500,
+        width: "30%",
+      });
     } else if (resultCode === 1102) alert("존재하지 않는 계정입니다");
     else if (resultCode === 1103) {
       alert("비밀번호가 틀렸습니다");
