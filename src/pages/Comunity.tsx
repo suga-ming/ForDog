@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { postInfo, postInfoInterface } from "../api/comunity";
 import Board from "../components/Board";
 import { isAccessToken, isType } from "../store/recoil";
-import WritePost from "./WritePost";
 
 const BoderBox1 = styled.div<{ type: string }>`
   box-shadow: 2px 2px 2px rgb(209 213 219);
@@ -66,10 +65,8 @@ const BoderBox3 = styled.div<{ type: string }>`
 `;
 
 const Comunity = () => {
-  // const [type, setType] = useState("일상생활");
   const [limit, setLimit] = useState(4);
   const [data, setData] = useState([]);
-  const [like, setLike] = useState(false);
   const [maxResult, setMaxResult] = useState(0);
   const accessToken = useRecoilValue(isAccessToken);
   const [type, setType] = useRecoilState(isType);
@@ -84,8 +81,7 @@ const Comunity = () => {
       const resultCode = res?.data.data.resultCode;
       const data = res?.data.data.data.items;
       const count = res?.data.data.data.count;
-      console.log("data", data);
-      if (resultCode == 1) {
+      if (resultCode === 1) {
         setLimit(4);
         setData(data);
         setMaxResult(count);
@@ -98,7 +94,7 @@ const Comunity = () => {
       const resultCode = res?.data.data.resultCode;
       const data = res?.data.data.data.items;
       const count = res?.data.data.data.count;
-      if (resultCode == 1) {
+      if (resultCode === 1) {
         setData(data);
         setMaxResult(count);
       }
@@ -121,7 +117,7 @@ const Comunity = () => {
       <div className="flex flex-col items-center w-full relative">
         <div className="flex flex-col w-1/2 relative">
           {data?.map((data: postInfoInterface) => (
-            <>
+            <div key={data.boardId}>
               <Board
                 key={data?.boardId}
                 boardId={data?.boardId}
@@ -134,7 +130,7 @@ const Comunity = () => {
                 commentCount={data?.commentCount}
                 createdAt={data?.createdAt}
               />
-            </>
+            </div>
           ))}
 
           <div className="flex justify-center w-full mt-3 mb-5">
