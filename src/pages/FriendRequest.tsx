@@ -5,7 +5,8 @@ import {
   friendRequestAccept,
   friendRequestList,
   FriendRequestListInterface,
-} from "../api/user";
+} from "../api/friend";
+import {} from "../api/user";
 import { isAccessToken } from "../store/recoil";
 
 const Solid = styled.div`

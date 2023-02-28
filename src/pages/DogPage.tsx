@@ -4,15 +4,12 @@ import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dogInfo, DogInfoInterface, dogResiter } from "../api/dog";
-import {
-  friendRequestList,
-  FriendRequestListInterface,
-  userInfo,
-} from "../api/user";
+import { userInfo } from "../api/user";
 import { isAccessToken, isEditModal } from "../store/recoil";
 import DogEdit from "./DogEdit";
 import DogList from "./DogList";
 import { breedList } from "../constant/breed";
+import { friendRequestList, FriendRequestListInterface } from "../api/friend";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -84,7 +81,6 @@ const DogPage = () => {
   const navigate = useNavigate();
   const dogPageMatch = useMatch("/myPage/dogPage");
   const [modal, setModal] = useState(false);
-  // const [editModal, setEditModal] = useState(false);
   const [file, setFile] = useState("");
   const [userName, setUserName] = useState("");
   const [name, setName] = useState("");
