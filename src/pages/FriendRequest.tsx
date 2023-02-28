@@ -1,13 +1,10 @@
-import { useState } from "react";
 import { useQuery } from "react-query";
-import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   friendRequestAccept,
   friendRequestList,
   FriendRequestListInterface,
-  userInfo,
 } from "../api/user";
 import { isAccessToken } from "../store/recoil";
 
@@ -33,46 +30,13 @@ const BoxDiv = styled.div`
   }
 `;
 
-const Down = styled.svg`
-  width: 12px;
-  transform: rotate(270deg);
-`;
-
-const Bold = styled.div<{ isActive: boolean }>`
-  font-weight: ${(props) => (props.isActive ? "600" : "300")};
-`;
-
 const FriendRequest = () => {
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
   const accessToken = useRecoilValue(isAccessToken);
-  const myPageMatch = useMatch("/friendPage");
-  const goMyPage = () => {
-    navigate("/myPage");
-  };
-  const goDogPage = () => {
-    navigate("/dogPage");
-  };
-  const goFriend = () => {
-    navigate("/friendPage");
-  };
-
-  if (accessToken !== "") {
-    userInfo(accessToken).then((res) => {
-      const resultCode = res?.data?.data.resultCode;
-      if (resultCode === 1) {
-        const data = res?.data?.data?.data;
-        setName(data?.name);
-      }
-    });
-  }
 
   const { isLoading, data } = useQuery<FriendRequestListInterface>(
     [`editComment`],
     () => friendRequestList(accessToken)
   );
-
-  console.log(data?.data.items.length);
 
   const requestAccept = async (friendId: number) => {
     const res = await friendRequestAccept(friendId, accessToken);
@@ -100,7 +64,10 @@ const FriendRequest = () => {
               <>
                 {data?.data.items &&
                   data?.data.items.map((r) => (
-                    <div className="flex justify-between items-center w-full mt-8 mb-5 px-8">
+                    <div
+                      className="flex justify-between items-center w-full mt-8 mb-5 px-8"
+                      key={r.friendId}
+                    >
                       <div className="w-1/2 flex items-center">
                         {r.image ? (
                           <BoxImg
