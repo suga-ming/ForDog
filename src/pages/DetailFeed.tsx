@@ -114,7 +114,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
     }
   };
 
-  const { isLoading, data } = useQuery<IFeedComment>([`CommetList`], () =>
+  const { data } = useQuery<IFeedComment>([`CommetList`], () =>
     feedCommentList(feedId, accessToken)
   );
 
@@ -139,7 +139,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
           >
             {image &&
               image.map((img, id) => (
-                <SwiperSlide>
+                <SwiperSlide key={id}>
                   <BoxImg
                     src={img}
                     alt={`${img}-${id}`}
@@ -160,6 +160,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
                   {profileImage && profileImage ? (
                     <img
                       src={profileImage}
+                      alt={profileImage}
                       className="flex items-center justify-center w-8 h-8 rounded-full mr-2"
                     ></img>
                   ) : (
