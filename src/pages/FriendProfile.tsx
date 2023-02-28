@@ -10,7 +10,6 @@ import {
   FriendProfileInterface,
   friendRequest,
 } from "../api/user";
-import dane from "../assets/단.png";
 import { isAccessToken } from "../store/recoil";
 import DetailFeed from "./DetailFeed";
 
@@ -78,8 +77,6 @@ const FriendProfile = () => {
     setFeedId(Id);
   };
 
-  console.log("feedListData", feedListData);
-
   return (
     <>
       {detail ? (
@@ -91,7 +88,11 @@ const FriendProfile = () => {
         <div className="flex flex-col mt-10">
           <div className="flex items-center justify-center mb-7">
             {data?.data.image ? (
-              <img src={data?.data.image} className="w-36 h-36 rounded-full" />
+              <img
+                src={data?.data.image}
+                alt={data?.data.image}
+                className="w-36 h-36 rounded-full"
+              />
             ) : (
               <div className="flex justify-center items-center w-36 h-36 rounded-full bg-pet_pink">
                 <svg
@@ -150,7 +151,10 @@ const FriendProfile = () => {
                 <>
                   {data?.data.myPets &&
                     data?.data.myPets.map((p) => (
-                      <div className="flex justify-center mb-1 px-5 text-sm">
+                      <div
+                        className="flex justify-center mb-1 px-5 text-sm"
+                        key={p.myPetId}
+                      >
                         <svg
                           className="w-3 mr-1"
                           xmlns="http://www.w3.org/2000/svg"
