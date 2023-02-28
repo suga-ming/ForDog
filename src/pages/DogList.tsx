@@ -1,9 +1,4 @@
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { dogInfo, DogInfoInterface } from "../api/dog";
-import { isAccessToken, isEditModal } from "../store/recoil";
-import DogEdit from "./DogEdit";
 
 const Middle = styled.div`
   position: absolute;
@@ -32,19 +27,14 @@ const DogList = ({
   imagePath,
   myPetId,
 }: DogInfoProps) => {
-  // const [editModal, setEditModal] = useState(false);
-  const [editModal, setEditModal] = useRecoilState(isEditModal);
-
   return (
     <div>
-      <div
-        // onClick={() => setEditModal(true)}
-        className="w-full top-0 h-fit rounded-xl py-6 px-8 flex items-center justify-between cursor-pointer"
-      >
+      <div className="w-full top-0 h-fit rounded-xl py-6 px-8 flex items-center justify-between cursor-pointer">
         <div className="flex">
           {imagePath ? (
             <img
               src={imagePath}
+              alt={imagePath}
               className="flex items-center justify-center w-20 h-20 rounded-full mr-5"
             ></img>
           ) : (
@@ -65,7 +55,7 @@ const DogList = ({
             <div className="flex items-center mb-px">
               <div className="mr-1 text-xl font-semibold">{name}</div>
               <div className="font-medium text-xl">
-                {gender == "female" ? "공주" : "왕자"}
+                {gender === "female" ? "공주" : "왕자"}
               </div>
             </div>
             <div className="text-sm font-medium">{breed}</div>
@@ -73,7 +63,6 @@ const DogList = ({
           </div>
         </div>
         <div className="flex flex-col items-center">
-          {/* <div className="font-semibold">함께한지</div> */}
           <div className="flex relative">
             <svg
               className="w-20"
