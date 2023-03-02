@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Post from "./components/Post";
 import AHome from "./pages/AHome";
@@ -20,8 +20,17 @@ import SignUp from "./pages/SignUp";
 import WritePost from "./pages/WritePost";
 import FriendProfile from "./pages/FriendProfile";
 import Spalsh from "./pages/Splash";
+import { useRecoilState } from "recoil";
+import { isLogin } from "./store/recoil";
 
 const Router = () => {
+  const [login] = useRecoilState(isLogin);
+  const PrivateRecord = () => {
+    return login ? <Record /> : <Navigate to="/login" />;
+  };
+  const PrivateMyPage = () => {
+    return login ? <MyPage /> : <Navigate to="/login" />;
+  };
   return (
     <BrowserRouter>
       <Header />
@@ -37,7 +46,7 @@ const Router = () => {
         <Route path="/mypage/dogPage" element={<DogPage />}></Route>
         <Route path="/friendPage" element={<FriendRequest />}></Route>
         <Route path="/myProfile" element={<MyProfile />}></Route>
-        <Route path="/record" element={<Record />}></Route>
+        <Route path="/record" element={<PrivateRecord />}></Route>
         <Route path="/lookDog" element={<LookDog />}></Route>
         <Route path="/friendProfile" element={<FriendProfile />}></Route>
         <Route path="/comunity" element={<Comunity />}></Route>

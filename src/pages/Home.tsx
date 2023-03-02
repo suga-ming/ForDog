@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import { isLogin } from "../store/recoil";
+import Swal from "sweetalert2";
 
 const PostIt = styled(motion.div)`
   display: flex;
@@ -14,9 +17,55 @@ const PostIt = styled(motion.div)`
 
 const Home = () => {
   const navigate = useNavigate();
+  const [login] = useRecoilState(isLogin);
   const boxVariants = {
     hover: { scale: 1.2 },
     click: { opacity: 0.8 },
+  };
+  const goRecord = () => {
+    login
+      ? navigate("/record")
+      : Swal.fire({
+          position: "center",
+          icon: "warning",
+          iconColor: "rgba(237, 127, 148)",
+          title: "로그인",
+          text: "로그인이 필요한 서비스입니다.",
+          showCancelButton: true,
+          showConfirmButton: true,
+          cancelButtonColor: "rgb(148 163 184)",
+          cancelButtonText: "취소",
+          confirmButtonText: "로그인",
+          confirmButtonColor: "rgba(237, 127, 148)",
+          width: "30%",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/login");
+          }
+        });
+  };
+
+  const goCalendar = () => {
+    login
+      ? navigate("/calendar")
+      : Swal.fire({
+          position: "center",
+          icon: "warning",
+          iconColor: "rgba(237, 127, 148)",
+          title: "로그인",
+          text: "로그인이 필요한 서비스입니다.",
+          showCancelButton: true,
+          showConfirmButton: true,
+          cancelButtonColor: "rgb(148 163 184)",
+          cancelButtonText: "취소",
+          confirmButtonText: "로그인",
+          confirmButtonColor: "rgba(237, 127, 148)",
+          width: "30%",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/login");
+          }
+        });
   };
   return (
     <div className="h-screen bg-white flex flex-col justify-end items-center">
@@ -29,7 +78,7 @@ const Home = () => {
       </div>
       <div className="flex justify-around w-3/5 mt-20">
         <PostIt
-          onClick={() => navigate("/record")}
+          onClick={goRecord}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
@@ -83,7 +132,7 @@ const Home = () => {
           <div className="text-white font-semibold">커뮤니티</div>
         </PostIt>
         <PostIt
-          onClick={() => navigate("/calendar")}
+          onClick={goCalendar}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
@@ -100,24 +149,6 @@ const Home = () => {
           </svg>
           <div className="text-white font-semibold">캘린더</div>
         </PostIt>
-        {/* <PostIt
-          onClick={() => navigate("/rank")}
-          variants={boxVariants}
-          whileHover="hover"
-          whileTap="click"
-        >
-          <svg
-            className="w-16 h-16 mb-3"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
-          >
-            <path
-              fill="white"
-              d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z"
-            />
-          </svg>
-          <div className="text-white font-semibold">챌린지</div>
-        </PostIt> */}
       </div>
     </div>
   );
