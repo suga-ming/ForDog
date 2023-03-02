@@ -8,30 +8,19 @@ export interface ISignUp {
   phone: string;
 }
 
-export interface SignInInterface {
+export interface ISignIn {
   email: string;
   password: string;
 }
 
-export interface UserInfoInterface {
-  resultCode: number;
-  data: {
-    email: string;
-    name: string;
-    phone: string;
-    nickName: string;
-    registType: string;
-  };
-}
-
-export interface InfoEditInterface {
+export interface IInfoEdit {
   password: string;
   name: string;
   nickName: string;
   phone: string;
 }
 
-export interface RandomUserInterface {
+export interface IRandomUser {
   resultCode: number;
   data: {
     items: [
@@ -45,7 +34,7 @@ export interface RandomUserInterface {
   };
 }
 
-export interface myprofileInterface {
+export interface IMyprofile {
   resultCode: number;
   data: {
     userId: number;
@@ -79,7 +68,7 @@ export const emailSignUp = async (body: ISignUp) => {
   }
 };
 
-export const emailSignIn = async (body: SignInInterface) => {
+export const emailSignIn = async (body: ISignIn) => {
   try {
     return await api.post("/auth/email/signIn", body);
   } catch (err) {
@@ -99,10 +88,7 @@ export const userInfo = async (accessToken: string) => {
   }
 };
 
-export const userInfoEdit = async (
-  body: InfoEditInterface,
-  accessToken: string
-) => {
+export const userInfoEdit = async (body: IInfoEdit, accessToken: string) => {
   try {
     return await api.patch("/user/update", body, {
       headers: {
