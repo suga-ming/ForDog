@@ -7,8 +7,8 @@ import { friendFeedList, IFeedList } from "../api/feed";
 import {
   friendDelete,
   friendProfile,
-  FriendProfileInterface,
   friendRequest,
+  IFriendProfile,
 } from "../api/friend";
 import {} from "../api/user";
 import { isAccessToken } from "../store/recoil";
@@ -49,9 +49,8 @@ const FriendProfile = () => {
   const [login] = useRecoilState(isLogin);
   const navigate = useNavigate();
 
-  const { isLoading, data } = useQuery<FriendProfileInterface>(
-    [`editComment`],
-    () => friendProfile(userId, accessToken)
+  const { isLoading, data } = useQuery<IFriendProfile>([`editComment`], () =>
+    friendProfile(userId, accessToken)
   );
 
   const requestFriend = async () => {

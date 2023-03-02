@@ -1,6 +1,6 @@
 import { api } from "./axios";
 
-export interface FriendProfileInterface {
+export interface IFriendProfile {
   resultCode: number;
   data: {
     userId: number;
@@ -19,7 +19,7 @@ export interface FriendProfileInterface {
   };
 }
 
-export interface FriendRequestListInterface {
+export interface IFriendRequestList {
   resultCode: number;
   data: {
     items: [

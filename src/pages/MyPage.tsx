@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Link, Route, Routes, useMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { friendRequestList, FriendRequestListInterface } from "../api/friend";
+import { friendRequestList, IFriendRequestList } from "../api/friend";
 import { userInfo } from "../api/user";
 import { isAccessToken } from "../store/recoil";
 import EditMypage from "./EditMypage";
@@ -39,7 +39,7 @@ const MyPage = () => {
     });
   }
 
-  const { data } = useQuery<FriendRequestListInterface>([`editComment`], () =>
+  const { data } = useQuery<IFriendRequestList>([`editComment`], () =>
     friendRequestList(accessToken)
   );
 

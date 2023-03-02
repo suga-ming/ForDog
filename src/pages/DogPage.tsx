@@ -9,7 +9,7 @@ import { isAccessToken, isEditModal } from "../store/recoil";
 import DogEdit from "./DogEdit";
 import DogList from "./DogList";
 import { breedList } from "../constant/breed";
-import { friendRequestList, FriendRequestListInterface } from "../api/friend";
+import { friendRequestList, IFriendRequestList } from "../api/friend";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -160,7 +160,7 @@ const DogPage = () => {
     dogInfo(accessToken)
   );
 
-  const { data: requestList } = useQuery<FriendRequestListInterface>(
+  const { data: requestList } = useQuery<IFriendRequestList>(
     [`editComment`],
     () => friendRequestList(accessToken)
   );

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {
   friendRequestAccept,
   friendRequestList,
-  FriendRequestListInterface,
+  IFriendRequestList,
 } from "../api/friend";
 import {} from "../api/user";
 import { isAccessToken } from "../store/recoil";
@@ -35,7 +35,7 @@ const BoxDiv = styled.div`
 const FriendRequest = () => {
   const accessToken = useRecoilValue(isAccessToken);
 
-  const { isLoading, data } = useQuery<FriendRequestListInterface>(
+  const { isLoading, data } = useQuery<IFriendRequestList>(
     [`editComment`],
     () => friendRequestList(accessToken)
   );
