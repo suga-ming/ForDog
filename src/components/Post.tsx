@@ -4,12 +4,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
-  commentEditInterface,
   editList,
+  ICommentEdit,
+  IPostDetailInfo,
   postComment,
   postDelete,
   postDetailInfo,
-  postDetailInfoInterface,
   postLiked,
 } from "../api/comunity";
 import { isAccessToken, isLogin } from "../store/recoil";
@@ -23,7 +23,6 @@ const PostArea = styled.div`
   width: 50%;
   margin-bottom: 20px;
   background-color: white;
-  /* box-shadow: 2px 2px 2px rgb(209 213 219); */
 `;
 
 const Solid = styled.div`
@@ -100,7 +99,7 @@ const Post = () => {
     navigate("/comunity");
   };
 
-  const { isLoading, data } = useQuery<postDetailInfoInterface>([`info`], () =>
+  const { isLoading, data } = useQuery<IPostDetailInfo>([`info`], () =>
     postDetailInfo(Id, accessToken)
   );
 
@@ -156,7 +155,7 @@ const Post = () => {
     }
   };
 
-  const { data: editCommentData } = useQuery<commentEditInterface>(
+  const { data: editCommentData } = useQuery<ICommentEdit>(
     [`editComment`],
     () => editList(Id, accessToken)
   );
