@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   commentEditInterface,
@@ -12,8 +12,9 @@ import {
   postDetailInfoInterface,
   postLiked,
 } from "../api/comunity";
-import { isAccessToken } from "../store/recoil";
+import { isAccessToken, isLogin } from "../store/recoil";
 import PostComment from "./PostComment";
+import Swal from "sweetalert2";
 
 const PostArea = styled.div`
   display: flex;
@@ -62,15 +63,37 @@ const Post = () => {
   const [like, setLike] = useState<boolean>(liked?.liked);
   const [likeCount, setLikeCount] = useState<number>(likedCount?.likedCount);
   const [comment, setComment] = useState("");
+  const [login] = useRecoilState(isLogin);
 
   let { boardId } = useParams();
   const Id = Number(boardId);
 
   const changeLiked = async () => {
+    if (login) {
+      const res = await postLiked(Id, accessToken);
+      setLike(res?.data.liked);
+      setLikeCount(res?.data.likedCount);
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인",
+        text: "로그인이 필요한 서비스입니다.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: "rgb(148 163 184)",
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
     // ! 좋아요 누르는 api 선언
-    const res = await postLiked(Id, accessToken);
-    setLike(res?.data.liked);
-    setLikeCount(res?.data.likedCount);
   };
 
   const goComunity = () => {
@@ -89,17 +112,47 @@ const Post = () => {
     const res = await postDelete(Id, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
-      alert("게시글이 삭제되었습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        iconColor: "rgba(237, 127, 148)",
+        text: "게시글이 삭제되었습니다.",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      });
       navigate("/comunity");
     }
   };
 
   const resisterComment = async () => {
-    const res = await postComment(Id, comment, accessToken);
-    const resultCode = res?.data.data.resultCode;
-    if (resultCode === 1) {
-      alert("댓글이 작성되었습니다.");
-      setComment("");
+    if (login) {
+      const res = await postComment(Id, comment, accessToken);
+      const resultCode = res?.data.data.resultCode;
+      if (resultCode === 1) {
+        alert("댓글이 작성되었습니다.");
+        setComment("");
+      }
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인",
+        text: "로그인이 필요한 서비스입니다.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: "rgb(148 163 184)",
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
     }
   };
 
@@ -108,8 +161,6 @@ const Post = () => {
     () => editList(Id, accessToken)
   );
 
-  console.log("editCommentData", editCommentData);
-  console.log("boardId", boardId);
   return (
     <>
       {isLoading ? (
