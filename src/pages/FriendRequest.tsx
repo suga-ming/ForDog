@@ -8,6 +8,7 @@ import {
 } from "../api/friend";
 import {} from "../api/user";
 import { isAccessToken } from "../store/recoil";
+import Swal from "sweetalert2";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -49,7 +50,7 @@ const FriendRequest = () => {
 
   return (
     <div className="w-full bg-gray-200 flex justify-center h-screen overflow-y-scroll">
-      <div className="bg-white rounded-xl my-8 h-fit">
+      <div className="w-full bg-white rounded-xl my-8 h-fit">
         <Solid className="font-semibold text-xl pb-5 pl-7 py-5">
           친구 요청
         </Solid>
@@ -58,7 +59,7 @@ const FriendRequest = () => {
         ) : (
           <>
             {data?.data.items && !data?.data.items.length ? (
-              <div className="flex justify-center items-center w-full mt-8 mb-5 px-8 h-64 bg-white text-lg font-semibold">
+              <div className="flex justify-center items-center w-full mt-8 mb-5 h-64 bg-white text-lg font-semibold">
                 요청한 친구가 없습니다.
               </div>
             ) : (
