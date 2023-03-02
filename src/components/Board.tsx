@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { postInfoInterface, postLiked } from "../api/comunity";
-import { isAccessToken } from "../store/recoil";
+import { isAccessToken, isLogin } from "../store/recoil";
+import Swal from "sweetalert2";
 
 const PostArea = styled.div`
   border-radius: 10px;
@@ -57,6 +58,7 @@ const Board = ({
   const accessToken = useRecoilValue(isAccessToken);
   const [like, setLike] = useState<boolean>(liked);
   const [likeCount, setLikeCount] = useState<number>(likedCount);
+  const [login] = useRecoilState(isLogin);
 
   const goPost = () => {
     navigate(`/comunity/${boardId}`, {
@@ -66,10 +68,30 @@ const Board = ({
 
   const changeLiked = async () => {
     // ! 좋아요 누르는 api 선언
-    const res = await postLiked(boardId, accessToken);
-    setLike(res?.data.liked);
-    setLikeCount(res?.data.likedCount);
-    console.log(like);
+    if (login) {
+      const res = await postLiked(boardId, accessToken);
+      setLike(res?.data.liked);
+      setLikeCount(res?.data.likedCount);
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인",
+        text: "로그인이 필요한 서비스입니다.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: "rgb(148 163 184)",
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
   };
 
   return (
