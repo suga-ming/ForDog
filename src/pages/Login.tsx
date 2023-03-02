@@ -27,7 +27,6 @@ const Login = () => {
         email: "",
         password: "",
       });
-      // alert("로그인 성공");
       setLogin(true);
       setAccesstoken(res?.data.data.data.accessToken);
       setRefreshtoken(res?.data.data.data.refreshToken);
@@ -37,17 +36,52 @@ const Login = () => {
         icon: "success",
         iconColor: "rgba(237, 127, 148)",
         title: "로그인 성공",
-        showConfirmButton: false,
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
         timer: 1500,
         width: "30%",
       });
-    } else if (resultCode === 1102) alert("존재하지 않는 계정입니다");
-    else if (resultCode === 1103) {
-      alert("비밀번호가 틀렸습니다");
+    } else if (resultCode === 1102) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        text: "존재하지 않는 계정입니다",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        timer: 1500,
+        width: "30%",
+      });
+    } else if (resultCode === 1103) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        text: "비밀번호가 틀렸습니다",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        timer: 1500,
+        width: "30%",
+      });
       reset({
         password: "",
       });
-    } else if (resultCode === 1101) alert("로그인에 실패하셨습니다");
+    } else if (resultCode === 1101) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        text: "로그인에 실패하셨습니다",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        timer: 1500,
+        width: "30%",
+      });
+    }
   };
   return (
     <div>
