@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { friendFeedList, FriendFeedListInterface } from "../api/feed";
 import {
@@ -13,6 +13,8 @@ import {
 import {} from "../api/user";
 import { isAccessToken } from "../store/recoil";
 import DetailFeed from "./DetailFeed";
+import { isLogin } from "../store/recoil";
+import Swal from "sweetalert2";
 
 const BoxDiv = styled.div`
   width: 100%;
@@ -44,6 +46,8 @@ const FriendProfile = () => {
   const accessToken = useRecoilValue(isAccessToken);
   const [detail, setDetail] = useState(false);
   const [feedId, setFeedId] = useState(0);
+  const [login] = useRecoilState(isLogin);
+  const navigate = useNavigate();
 
   const { isLoading, data } = useQuery<FriendProfileInterface>(
     [`editComment`],
@@ -51,10 +55,31 @@ const FriendProfile = () => {
   );
 
   const requestFriend = async () => {
-    const res = await friendRequest(userId, accessToken);
-    const resultCode = res?.data.data.resultCode;
-    if (resultCode === 1) {
-      alert("친구 요청되었습니다.");
+    if (login) {
+      const res = await friendRequest(userId, accessToken);
+      const resultCode = res?.data.data.resultCode;
+      if (resultCode === 1) {
+        alert("친구 요청되었습니다.");
+      }
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인",
+        text: "로그인이 필요한 서비스입니다.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: "rgb(148 163 184)",
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
     }
   };
 
