@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { postInfoInterface, postLiked } from "../api/comunity";
+import { IPostInfo, postLiked } from "../api/comunity";
 import { isAccessToken, isLogin } from "../store/recoil";
 import Swal from "sweetalert2";
 
@@ -53,7 +53,7 @@ const Board = ({
   liked,
   likedCount,
   commentCount,
-}: postInfoInterface) => {
+}: IPostInfo) => {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(isAccessToken);
   const [like, setLike] = useState<boolean>(liked);
