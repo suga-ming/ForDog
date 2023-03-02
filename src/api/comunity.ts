@@ -1,18 +1,18 @@
 import { api } from "./axios";
 
-export interface boardResiter {
+export interface BoardResiter {
   type: string;
   title: string;
   content: string;
   board: File[];
 }
 
-export interface postInfoProps {
+export interface PostInfoProps {
   type: string;
   limit: number;
 }
 
-export interface postInfoInterface {
+export interface IPostInfo {
   boardId: number;
   writer: string;
   image: string;
@@ -24,7 +24,7 @@ export interface postInfoInterface {
   commentCount: number;
 }
 
-export interface postDetailInfoInterface {
+export interface IPostDetailInfo {
   resultCode: number;
   data: {
     boardId: number;
@@ -40,26 +40,26 @@ export interface postDetailInfoInterface {
     mine: boolean;
   };
 }
-export interface checkLikedInterface {
+export interface ICheckLiked {
   resultCode: number;
   data: {
     liked: boolean;
   };
 }
 
-export interface editPostInterface {
+export interface IEditPost {
   title: string;
   type: string;
   content: string;
   board: File[];
 }
 
-export interface commentProps {
+export interface CommentProps {
   Id: number;
   comment: string;
 }
 
-export interface commentEditInterface {
+export interface ICommentEdit {
   resultCode: number;
   data: {
     items: [
@@ -83,7 +83,7 @@ export interface commentEditInterface {
   };
 }
 
-export interface replyDataInterface {
+export interface IReplyData {
   items: [
     {
       replyId: number;
@@ -96,12 +96,11 @@ export interface replyDataInterface {
 }
 
 export const comunityResiter = async (
-  body: boardResiter,
+  body: BoardResiter,
   accessToken: string
 ) => {
   console.log(body);
   const formData = new FormData();
-  // body?.board.forEach((image) => formData.append("board", image));
   for (let i = 0; i < body?.board.length; i++) {
     formData.append("board", body?.board[i]);
   }
@@ -121,7 +120,7 @@ export const comunityResiter = async (
   }
 };
 
-export const postInfo = async (body: postInfoProps, accessToken: string) => {
+export const postInfo = async (body: PostInfoProps, accessToken: string) => {
   try {
     return await api.post("/board/list", body, {
       headers: {
@@ -163,7 +162,7 @@ export const postLiked = async (Id: number, accessToken: string) => {
 
 export const postEdit = async (
   boardId: number,
-  body: editPostInterface,
+  body: IEditPost,
   accessToken: string
 ) => {
   const formData = new FormData();
