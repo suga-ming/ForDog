@@ -4,7 +4,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { postInfo, postInfoInterface } from "../api/comunity";
 import Board from "../components/Board";
-import { isAccessToken, isType } from "../store/recoil";
+import { isAccessToken, isLogin, isType } from "../store/recoil";
+import Swal from "sweetalert2";
 
 const BoderBox1 = styled.div<{ type: string }>`
   box-shadow: 2px 2px 2px rgb(209 213 219);
@@ -70,10 +71,29 @@ const Comunity = () => {
   const [maxResult, setMaxResult] = useState(0);
   const accessToken = useRecoilValue(isAccessToken);
   const [type, setType] = useRecoilState(isType);
-
+  const [login] = useRecoilState(isLogin);
   const navigate = useNavigate();
   const goPost = () => {
-    navigate("/comunity/post");
+    login
+      ? navigate("/comunity/post")
+      : Swal.fire({
+          position: "center",
+          icon: "warning",
+          iconColor: "rgba(237, 127, 148)",
+          title: "로그인",
+          text: "로그인이 필요한 서비스입니다.",
+          showCancelButton: true,
+          showConfirmButton: true,
+          cancelButtonColor: "rgb(148 163 184)",
+          cancelButtonText: "취소",
+          confirmButtonText: "로그인",
+          confirmButtonColor: "rgba(237, 127, 148)",
+          width: "30%",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/login");
+          }
+        });
   };
 
   useEffect(() => {
@@ -132,7 +152,6 @@ const Comunity = () => {
               />
             </div>
           ))}
-
           <div className="flex justify-center w-full mt-3 mb-5">
             {maxResult >= limit ? (
               <div
