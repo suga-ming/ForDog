@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { postInfo, postInfoInterface } from "../api/comunity";
+import { IPostInfo, postInfo } from "../api/comunity";
 import Board from "../components/Board";
 import { isAccessToken, isLogin, isType } from "../store/recoil";
 import Swal from "sweetalert2";
@@ -136,7 +136,7 @@ const Comunity = () => {
       </div>
       <div className="flex flex-col items-center w-full relative">
         <div className="flex flex-col w-1/2 relative">
-          {data?.map((data: postInfoInterface) => (
+          {data?.map((data: IPostInfo) => (
             <div key={data.boardId}>
               <Board
                 key={data?.boardId}
