@@ -1,6 +1,6 @@
 import { api } from "./axios";
 
-export interface SignUpInterface {
+export interface ISignUp {
   email: string;
   password: string;
   name: string;
@@ -71,7 +71,7 @@ export const kakaoSignIn = async () => {
   }
 };
 
-export const emailSignUp = async (body: SignUpInterface) => {
+export const emailSignUp = async (body: ISignUp) => {
   try {
     return await api.post("/user/signUp/email", body);
   } catch (err) {

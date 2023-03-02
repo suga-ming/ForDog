@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { emailSignIn, SignInInterface } from "../api/user";
+import { emailSignIn, ISignIn } from "../api/user";
 import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
 import Swal from "sweetalert2";
 
@@ -18,8 +18,8 @@ const Login = () => {
   const goSignUp = () => {
     navigate("/signUp");
   };
-  const { register, handleSubmit, reset } = useForm<SignInInterface>();
-  const onSubmit = async (data: SignInInterface) => {
+  const { register, handleSubmit, reset } = useForm<ISignIn>();
+  const onSubmit = async (data: ISignIn) => {
     const res = await emailSignIn(data);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {

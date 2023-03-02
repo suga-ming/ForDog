@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { emailSignUp, SignUpInterface } from "../api/user";
+import { emailSignUp, ISignUp } from "../api/user";
+import Swal from "sweetalert2";
 
 const Input = styled.input`
   border: 1px solid gray;
@@ -21,8 +22,8 @@ const Email = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<SignUpInterface>();
-  const onSubmit = async (data: SignUpInterface) => {
+  } = useForm<ISignUp>();
+  const onSubmit = async (data: ISignUp) => {
     const res = await emailSignUp(data);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
@@ -33,10 +34,42 @@ const Email = () => {
         phone: "",
         nickName: "",
       });
-      alert("회원가입 성공");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        iconColor: "rgba(237, 127, 148)",
+        title: "회원가입 성공",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      });
       navigate("/login");
-    } else if (resultCode === 1001) alert("존재하는 계정입니다");
-    else if (resultCode === 1101) alert("회원가입을 실패했습니다");
+    } else if (resultCode === 1001) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        text: "존재하는 계정입니다",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        timer: 1500,
+        width: "30%",
+      });
+    } else if (resultCode === 1101) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        text: "회원가입을 실패했습니다",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        timer: 1500,
+        width: "30%",
+      });
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { myProfile, myprofileInterface } from "../api/user";
+import { IMyprofile, myProfile } from "../api/user";
 import { useRecoilValue } from "recoil";
 import { isAccessToken } from "../store/recoil";
 import { feedList, IFeedList } from "../api/feed";
@@ -36,9 +36,8 @@ const MyProfile = () => {
   const [detail, setDetail] = useState(false);
   const [feedId, setFeedId] = useState(0);
 
-  const { isLoading, data } = useQuery<myprofileInterface>(
-    [`editComment`],
-    () => myProfile(accessToken)
+  const { isLoading, data } = useQuery<IMyprofile>([`editComment`], () =>
+    myProfile(accessToken)
   );
 
   const { data: feedListData } = useQuery<IFeedList>([`feedList`], () =>

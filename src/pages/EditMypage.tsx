@@ -3,12 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  deleteUser,
-  InfoEditInterface,
-  userInfo,
-  userInfoEdit,
-} from "../api/user";
+import { deleteUser, IInfoEdit, userInfo, userInfoEdit } from "../api/user";
 import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
 
 const Solid = styled.div`
@@ -48,8 +43,8 @@ const EditMypage = () => {
     });
   }
 
-  const { register, handleSubmit, reset } = useForm<InfoEditInterface>();
-  const onSubmit = async (data: InfoEditInterface) => {
+  const { register, handleSubmit, reset } = useForm<IInfoEdit>();
+  const onSubmit = async (data: IInfoEdit) => {
     const res = await userInfoEdit(data, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
