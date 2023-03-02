@@ -19,7 +19,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import "./Swiper.css";
+import "../assets/css/swiper.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 

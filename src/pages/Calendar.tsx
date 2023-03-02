@@ -1,4 +1,4 @@
-import "../assets/css/Calendar.css";
+import "../assets/css/calendar.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import allLocales from "@fullcalendar/core/locales-all";
