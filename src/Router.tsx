@@ -19,12 +19,14 @@ import Record from "./pages/Record";
 import SignUp from "./pages/SignUp";
 import WritePost from "./pages/WritePost";
 import FriendProfile from "./pages/FriendProfile";
+import Spalsh from "./pages/Splash";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/" element={<Spalsh />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/aHome" element={<AHome />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
