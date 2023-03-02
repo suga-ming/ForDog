@@ -1,12 +1,12 @@
 import { api } from "./axios";
 
-export interface FeedResiterInterface {
+export interface IFeedResiter {
   content: string;
   hashtag: string[];
   feed: File[];
 }
 
-export interface FeedListInterface {
+export interface IFeedList {
   resultCode: number;
   data: {
     items: [
@@ -18,7 +18,7 @@ export interface FeedListInterface {
   };
 }
 
-export interface FriendFeedListInterface {
+export interface IFeedList {
   resultCode: number;
   data: {
     items: [
@@ -63,10 +63,7 @@ export interface IFeedComment {
   };
 }
 
-export const feedResiter = async (
-  body: FeedResiterInterface,
-  accessToken: string
-) => {
+export const feedResiter = async (body: IFeedResiter, accessToken: string) => {
   const formData = new FormData();
   for (let i = 0; i < body?.feed.length; i++) {
     formData.append("feed", body?.feed[i]);

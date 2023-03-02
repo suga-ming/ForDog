@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { friendFeedList, FriendFeedListInterface } from "../api/feed";
+import { friendFeedList, IFeedList } from "../api/feed";
 import {
   friendDelete,
   friendProfile,
@@ -93,9 +93,8 @@ const FriendProfile = () => {
     }
   };
 
-  const { data: feedListData } = useQuery<FriendFeedListInterface>(
-    [`feedList`],
-    () => friendFeedList(userId, accessToken)
+  const { data: feedListData } = useQuery<IFeedList>([`feedList`], () =>
+    friendFeedList(userId, accessToken)
   );
 
   const detailFeed = (Id: number) => {

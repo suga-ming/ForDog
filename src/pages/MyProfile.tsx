@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { myProfile, myprofileInterface } from "../api/user";
 import { useRecoilValue } from "recoil";
 import { isAccessToken } from "../store/recoil";
-import { feedList, FeedListInterface } from "../api/feed";
+import { feedList, IFeedList } from "../api/feed";
 import { useState } from "react";
 import DetailFeed from "./DetailFeed";
 
@@ -41,7 +41,7 @@ const MyProfile = () => {
     () => myProfile(accessToken)
   );
 
-  const { data: feedListData } = useQuery<FeedListInterface>([`feedList`], () =>
+  const { data: feedListData } = useQuery<IFeedList>([`feedList`], () =>
     feedList(accessToken)
   );
 
