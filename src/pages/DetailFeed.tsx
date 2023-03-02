@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   feedDelete,
@@ -12,7 +12,7 @@ import {
   IFeedComment,
 } from "../api/feed";
 import FeedComment from "../components/FeedComment";
-import { isAccessToken } from "../store/recoil";
+import { isAccessToken, isLogin } from "../store/recoil";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -20,6 +20,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./Swiper.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const BoxImg = styled.img`
   width: 100%;
@@ -58,6 +60,8 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
   const [likedCount, setLikedCount] = useState(0);
   const [createdAt, setCreatedAt] = useState("");
   const [comment, setComment] = useState("");
+  const [login] = useRecoilState(isLogin);
+  const navigate = useNavigate();
   const accessToken = useRecoilValue(isAccessToken);
   const ref = useRef<HTMLInputElement>(null);
 
@@ -99,18 +103,59 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
   };
 
   const changeLiked = async () => {
-    const res = await feedLike(feedId, accessToken);
-    setFeedLiked(res?.data.liked);
-    setLikedCount(res?.data.likedCount);
+    if (login) {
+      const res = await feedLike(feedId, accessToken);
+      setFeedLiked(res?.data.liked);
+      setLikedCount(res?.data.likedCount);
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인",
+        text: "로그인이 필요한 서비스입니다.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: "rgb(148 163 184)",
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
   };
 
-  const onResiter = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res = await feedCommentRegister(feedId, comment, accessToken);
-    const resultCode = res?.data.data.resultCode;
-    if (resultCode === 1) {
-      alert("댓글이 작성되었습니다.");
-      setComment("");
+  const onResiter = async () => {
+    if (login) {
+      const res = await feedCommentRegister(feedId, comment, accessToken);
+      const resultCode = res?.data.data.resultCode;
+      if (resultCode === 1) {
+        alert("댓글이 작성되었습니다.");
+        setComment("");
+      }
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        title: "로그인",
+        text: "로그인이 필요한 서비스입니다.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: "rgb(148 163 184)",
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
     }
   };
 
@@ -123,10 +168,7 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
   };
 
   return (
-    <ModalArea
-      onSubmit={onResiter}
-      className="absolute w-full h-screen flex flex-col justify-center items-center"
-    >
+    <ModalArea className="absolute w-full h-screen flex flex-col justify-center items-center">
       <div className="flex justify-between items-center w-9/12  bg-white rounded-lg">
         <div className="w-3/5">
           <Swiper
@@ -326,9 +368,12 @@ const DetailFeed = ({ detail, setDetail, feedId }: IDeailFeed) => {
                   className="w-4/5 focus:outline-none"
                   placeholder="댓글 달기"
                 />
-                <button className="w-1/5 text-center font-semibold text-pet_pink">
+                <div
+                  onClick={onResiter}
+                  className="w-1/5 text-center font-semibold text-pet_pink cursor-pointer"
+                >
                   입력
-                </button>
+                </div>
               </div>
             </div>
           )}
