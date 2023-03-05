@@ -1,5 +1,5 @@
 .swiper-button-next {
-  background: url(../arrow.png) no-repeat;
+  background: url(../images/arrow.png) no-repeat;
   width: 30px;
   height: 30px;
   background-size: 100% auto;
@@ -8,7 +8,7 @@
 
 .swiper-button-prev {
   transform: scaleX(-1);
-  background: url(../arrow.png) no-repeat;
+  background: url(../images/arrow.png) no-repeat;
   background-size: 100% auto;
   background-position: center;
   width: 30px;
