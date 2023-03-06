@@ -2,8 +2,8 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { IRandomUser, userRandom } from "../api/user";
-import { isAccessToken } from "../store/recoil";
+import { IRandomUser, userRandom } from "../../api/user";
+import { isAccessToken } from "../../store/recoil";
 
 const Solid3 = styled.div`
   border-left: 1px solid rgb(156 163 175);
