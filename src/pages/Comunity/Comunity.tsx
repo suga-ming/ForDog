@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { IPostInfo, postInfo } from "../api/comunity";
-import Board from "../components/Board";
-import { isAccessToken, isLogin, isType } from "../store/recoil";
+import { IPostInfo, postInfo } from "../../api/comunity";
+import Board from "../../components/Board";
+import { isAccessToken, isLogin, isType } from "../../store/recoil";
 import Swal from "sweetalert2";
 
 const BoderBox1 = styled.div<{ type: string }>`
