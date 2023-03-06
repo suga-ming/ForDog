@@ -11,9 +11,9 @@ import {
   postDelete,
   postDetailInfo,
   postLiked,
-} from "../api/comunity";
-import { isAccessToken, isLogin } from "../store/recoil";
-import PostComment from "./PostComment";
+} from "../../api/comunity";
+import { isAccessToken, isLogin } from "../../store/recoil";
+import PostComment from "../../components/PostComment";
 import Swal from "sweetalert2";
 
 const PostArea = styled.div`
