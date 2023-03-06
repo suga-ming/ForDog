@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { postDetailInfo, postEdit } from "../api/comunity";
-import { isAccessToken } from "../store/recoil";
+import { postDetailInfo, postEdit } from "../../api/comunity";
+import { isAccessToken } from "../../store/recoil";
+import Swal from "sweetalert2";
 
 const PostArea = styled.div`
   display: flex;
@@ -101,7 +102,16 @@ const EditPost = () => {
     const res = await postEdit(Id, apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
-      alert("게시글이 수정되었습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        iconColor: "rgba(237, 127, 148)",
+        text: "게시글이 수정되었습니다.",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      });
       navigate(`/comunity/${Id}`);
     }
   };
