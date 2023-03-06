@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { comunityResiter } from "../api/comunity";
-import { isAccessToken } from "../store/recoil";
+import { comunityResiter } from "../../api/comunity";
+import { isAccessToken } from "../../store/recoil";
+import Swal from "sweetalert2";
 
 const PostArea = styled.div`
   display: flex;
@@ -89,14 +90,19 @@ const WritePost = () => {
     const res = await comunityResiter(apiData, accessToken);
     const resultCode = res?.data.data.resultCode;
     if (resultCode === 1) {
-      alert("게시글이 작성되었습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        iconColor: "rgba(237, 127, 148)",
+        text: "게시글이 작성되었습니다.",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        width: "30%",
+      });
       navigate("/comunity");
     }
   };
-
-  // const handleDeleteImage = (id) => {
-  //   setBoard(board.filter((_, index) => index !== id));
-  // };
 
   return (
     <form
