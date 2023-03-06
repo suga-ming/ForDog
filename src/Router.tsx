@@ -1,25 +1,24 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
-import Post from "./components/Post";
-import AHome from "./pages/AHome";
-import Calendar from "./pages/Calendar";
-import Comunity from "./pages/Comunity";
-import DogPage from "./pages/DogPage";
-import EditPost from "./pages/EditPost";
-import Email from "./pages/Email";
-import FriendRequest from "./pages/FriendRequest";
-import Home from "./pages/Home";
-import Kakao from "./pages/Kakao";
-import Login from "./pages/Login";
-import LookDog from "./pages/LookDog";
-import MyPage from "./pages/MyPage";
-import MyProfile from "./pages/MyProfile";
-import Rank from "./pages/Rank";
-import Record from "./pages/Record";
-import SignUp from "./pages/SignUp";
-import WritePost from "./pages/WritePost";
-import FriendProfile from "./pages/FriendProfile";
-import Spalsh from "./pages/Splash";
+import Post from "./pages/Comunity/Post";
+import AHome from "./pages/Home/AHome";
+import Calendar from "./pages/Calender/Calendar";
+import Comunity from "./pages/Comunity/Comunity";
+import DogPage from "./pages/MyPage/DogPage";
+import EditPost from "./pages/Comunity/EditPost";
+import Email from "./pages/Login/Email";
+import FriendRequest from "./pages/MyPage/FriendRequest";
+import Home from "./pages/Home/Home";
+import Kakao from "./pages/Login/Kakao";
+import Login from "./pages/Login/Login";
+import LookDog from "./pages/Look/LookDog";
+import MyPage from "./pages/MyPage/MyPage";
+import MyProfile from "./pages/MyPage/MyProfile";
+import Record from "./pages/Record/Record";
+import SignUp from "./pages/Login/SignUp";
+import WritePost from "./pages/Comunity/WritePost";
+import FriendProfile from "./pages/Look/FriendProfile";
+import Spalsh from "./pages/Home/Splash";
 import { useRecoilState } from "recoil";
 import { isLogin } from "./store/recoil";
 
@@ -40,7 +39,8 @@ const Router = () => {
         <Route path="/aHome" element={<AHome />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route path="/signUp/email" element={<Email />}></Route>
-        <Route path="/signUp/kakao" element={<Kakao />}></Route>
+        <Route path="/kakao/regist" element={<Kakao />}></Route>
+        {/* <Route path="/signUp/kakao" element={<Kakao />}></Route> */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/myPage/*" element={<MyPage />}></Route>
         <Route path="/mypage/dogPage" element={<DogPage />}></Route>
@@ -57,7 +57,6 @@ const Router = () => {
           element={<EditPost />}
         ></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
-        <Route path="/rank" element={<Rank />}></Route>
       </Routes>
     </BrowserRouter>
   );
