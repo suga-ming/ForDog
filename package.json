@@ -19,6 +19,7 @@
     "event-utils": "^2.1.0",
     "framer-motion": "^8.5.0",
     "node-sass": "^7.0.3",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-event-utils": "^1.0.1",
