@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ISignUp } from "../../api/user";
+import { IKakaoSignUp, ISignUp, kakaoSignUp } from "../../api/user";
+import queryParse from "query-string";
 
 const Input = styled.input`
   border: 1px solid gray;
@@ -17,14 +18,31 @@ const Input = styled.input`
 
 const Kakao = () => {
   const navigate = useNavigate();
+  const queryString = useLocation().search;
+
+  const [email, setEmail] = useState("");
+  const [accountId, setAccountId] = useState("");
+  useEffect(() => {
+    if (queryString) {
+      const queryObject: any = queryParse.parse(queryString);
+      setEmail(queryObject.email);
+      setAccountId(queryObject.accountId);
+    }
+  });
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<ISignUp>();
-  const onSubmit = async (data: ISignUp) => {
-    // const res = await emailSignUp(data);
+  const onSubmit = async (data: IKakaoSignUp) => {
+    const signUpBody = {
+      ...data,
+      email,
+      accountId,
+    };
+    const res = await kakaoSignUp(signUpBody);
+    console.log(res?.data);
     // const resultCode = res?.data.data.resultCode;
     // if (resultCode === 1) {
     //   reset({
@@ -91,40 +109,9 @@ const Kakao = () => {
             />
           </svg>
         </div>
-        <Input
-          {...register("email", {
-            required: "아이디를 입력해주세요",
-          })}
-          placeholder="ex) love1234@naver.com"
-        />
+        <Input value={email} disabled placeholder="ex) love1234@naver.com" />
         <span className="mt-1 ml-1 text-xs text-red-500">
           {errors?.email?.message}
-        </span>
-      </article>
-      <article className="flex flex-col w-72 mt-3">
-        <div className="flex items-center">
-          <label>비밀번호</label>
-          <svg
-            className="w-2 ml-1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-          >
-            <path
-              fill="rgba(237, 127, 148)"
-              d="M208 32c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V172.9l122-70.4c15.3-8.8 34.9-3.6 43.7 11.7l16 27.7c8.8 15.3 3.6 34.9-11.7 43.7L352 256l122 70.4c15.3 8.8 20.5 28.4 11.7 43.7l-16 27.7c-8.8 15.3-28.4 20.6-43.7 11.7L304 339.1V480c0 17.7-14.3 32-32 32H240c-17.7 0-32-14.3-32-32V339.1L86 409.6c-15.3 8.8-34.9 3.6-43.7-11.7l-16-27.7c-8.8-15.3-3.6-34.9 11.7-43.7L160 256 38 185.6c-15.3-8.8-20.5-28.4-11.7-43.7l16-27.7C51.1 98.8 70.7 93.6 86 102.4l122 70.4V32z"
-            />
-          </svg>
-        </div>
-        <Input
-          {...register("password", {
-            required: "비밀번호를 입력해주세요",
-            minLength: { value: 5, message: "5글자이상 입력해주세요" },
-          })}
-          type="password"
-          placeholder="비밀번호를 입력해주세요."
-        />
-        <span className="mt-1 ml-1 text-xs text-red-500">
-          {errors?.password?.message}
         </span>
       </article>
       <article className="flex flex-col w-72 mt-3">
