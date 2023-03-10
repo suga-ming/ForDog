@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { emailSignUp, ISignUp } from "../api/user";
+import { emailSignUp, ISignUp } from "../../api/user";
 import Swal from "sweetalert2";
 
 const Input = styled.input`
