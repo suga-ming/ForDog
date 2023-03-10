@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { deleteDog, dogEditInfo, editDog } from "../api/dog";
-import { isAccessToken, isEditModal } from "../store/recoil";
+import { deleteDog, dogEditInfo, editDog } from "../../api/dog";
+import { isAccessToken, isEditModal } from "../../store/recoil";
 import { EditDogInterface } from "./DogPage";
-import { breedList } from "../constant/breed";
+import { breedList } from "../../constant/breed";
+import Swal from "sweetalert2";
 
 const ModalArea = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -92,7 +93,17 @@ const DogEdit = ({ petId }: EditDogInterface) => {
 
   const onChangeBreed = (value: string) => {
     if (value === "") {
-      alert("견종을 선택해 주세요");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        iconColor: "rgba(237, 127, 148)",
+        text: "견종을 선택해 주세요",
+        showConfirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgba(237, 127, 148)",
+        timer: 1500,
+        width: "30%",
+      });
     } else {
       setBreed(value);
     }
