@@ -3,9 +3,9 @@ import { useQuery } from "react-query";
 import { Link, Route, Routes, useMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { friendRequestList, IFriendRequestList } from "../api/friend";
-import { userInfo } from "../api/user";
-import { isAccessToken } from "../store/recoil";
+import { friendRequestList, IFriendRequestList } from "../../api/friend";
+import { userInfo } from "../../api/user";
+import { isAccessToken } from "../../store/recoil";
 import EditMypage from "./EditMypage";
 import FriendRequest from "./FriendRequest";
 
