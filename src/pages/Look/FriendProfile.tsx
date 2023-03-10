@@ -3,17 +3,17 @@ import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { friendFeedList, IFeedList } from "../api/feed";
+import { friendFeedList, IFeedList } from "../../api/feed";
 import {
   friendDelete,
   friendProfile,
   friendRequest,
   IFriendProfile,
-} from "../api/friend";
-import {} from "../api/user";
-import { isAccessToken } from "../store/recoil";
-import DetailFeed from "./DetailFeed";
-import { isLogin } from "../store/recoil";
+} from "../../api/friend";
+import {} from "../../api/user";
+import { isAccessToken } from "../../store/recoil";
+import DetailFeed from "../../components/DetailFeed";
+import { isLogin } from "../../store/recoil";
 import Swal from "sweetalert2";
 
 const BoxDiv = styled.div`
