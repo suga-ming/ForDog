@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { kakaoSignIn } from "../api/user";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
   const goEmail = () => {
     navigate("/signUp/email");
+  };
+  const kakaoSignIn = () => {
+    window.location.href = `${process.env.REACT_APP_PUBLIC_BASE_URL}/v1/api/auth/kakao`;
   };
 
   return (
