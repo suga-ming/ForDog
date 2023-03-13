@@ -5,9 +5,9 @@ import {
   friendRequestAccept,
   friendRequestList,
   IFriendRequestList,
-} from "../api/friend";
-import {} from "../api/user";
-import { isAccessToken } from "../store/recoil";
+} from "../../api/friend";
+import {} from "../../api/user";
+import { isAccessToken } from "../../store/recoil";
 import Swal from "sweetalert2";
 
 const Solid = styled.div`
