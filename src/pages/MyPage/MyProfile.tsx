@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { IMyprofile, myProfile } from "../api/user";
+import { IMyprofile, myProfile } from "../../api/user";
 import { useRecoilValue } from "recoil";
-import { isAccessToken } from "../store/recoil";
-import { feedList, IFeedList } from "../api/feed";
+import { isAccessToken } from "../../store/recoil";
+import { feedList, IFeedList } from "../../api/feed";
 import { useState } from "react";
-import DetailFeed from "./DetailFeed";
+import DetailFeed from "../../components/DetailFeed";
 
 const BoxDiv = styled.div`
   width: 100%;
