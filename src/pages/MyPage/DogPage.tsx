@@ -3,13 +3,13 @@ import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { dogInfo, DogInfoInterface, dogResiter } from "../api/dog";
-import { userInfo } from "../api/user";
-import { isAccessToken, isEditModal } from "../store/recoil";
+import { dogInfo, DogInfoInterface, dogResiter } from "../../api/dog";
+import { userInfo } from "../../api/user";
+import { isAccessToken, isEditModal } from "../../store/recoil";
 import DogEdit from "./DogEdit";
 import DogList from "./DogList";
-import { breedList } from "../constant/breed";
-import { friendRequestList, IFriendRequestList } from "../api/friend";
+import { breedList } from "../../constant/breed";
+import { friendRequestList, IFriendRequestList } from "../../api/friend";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(209 213 219);
@@ -446,7 +446,7 @@ const DogPage = () => {
                 반려견 정보
               </Solid>
               <div className="overflow-y-scroll max-h-[500px]">
-                {!data?.data.items.length ? (
+                {data?.data.items && !data?.data.items.length ? (
                   <div className="w-full rounded-xl">
                     <div className="flex flex-col items-center">
                       <div className="pt-24 mb-5">
@@ -465,6 +465,7 @@ const DogPage = () => {
                     {isLoading ? (
                       <div>loading...</div>
                     ) : (
+                      data?.data.items &&
                       data?.data.items.map((item) => (
                         <div
                           onClick={() => goEdit(item?.myPetId)}
