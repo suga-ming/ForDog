@@ -11,7 +11,7 @@ import {
   feedCommentList,
   IFeedComment,
 } from "../api/feed";
-import FeedComment from "../components/FeedComment";
+import FeedComment from "./FeedComment";
 import { isAccessToken, isLogin } from "../store/recoil";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
