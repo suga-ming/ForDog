@@ -39,8 +39,7 @@ const Router = () => {
         <Route path="/aHome" element={<AHome />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route path="/signUp/email" element={<Email />}></Route>
-        <Route path="/kakao/regist" element={<Kakao />}></Route>
-        {/* <Route path="/signUp/kakao" element={<Kakao />}></Route> */}
+        <Route path="/signUp/kakao" element={<Kakao />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/myPage/*" element={<MyPage />}></Route>
         <Route path="/mypage/dogPage" element={<DogPage />}></Route>

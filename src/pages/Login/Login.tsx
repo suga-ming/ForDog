@@ -24,10 +24,11 @@ const Login = () => {
   useEffect(() => {
     if (queryString) {
       const queryObject: any = queryParse.parse(queryString);
-      if (queryObject.resultCode === 1) {
-        // TODO : 일반 이메일 로그인 처럼 액세스토큰, 리프레쉬 토큰 리코일에 저장하고 home으로  navigate해주기
-        navigate("/home");
-      }
+      setLogin(true);
+      setAccesstoken(queryObject.accessToken);
+      setRefreshtoken(queryObject.refreshToken);
+      console.log(queryObject);
+      navigate("/home");
     }
   });
   const { register, handleSubmit, reset } = useForm<ISignIn>();
@@ -140,7 +141,7 @@ const Login = () => {
         </div>
         <div
           onClick={kakaoSignIn}
-          className="w-full relative bg-yellow-300 max-w-[318px] h-11 rounded-lg text-black flex justify-center items-center font-semibold"
+          className="w-full relative bg-yellow-300 max-w-[318px] h-11 rounded-lg text-black flex justify-center items-center font-semibold cursor-pointer"
         >
           <div className="text-sm">카카오 로그인</div>
         </div>
