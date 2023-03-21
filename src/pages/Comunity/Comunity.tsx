@@ -149,6 +149,7 @@ const Comunity = () => {
                 likedCount={data?.likedCount}
                 commentCount={data?.commentCount}
                 createdAt={data?.createdAt}
+                profile={data?.profile}
               />
             </div>
           ))}

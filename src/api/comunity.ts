@@ -22,6 +22,7 @@ export interface IPostInfo {
   likedCount: number;
   createdAt: string;
   commentCount: number;
+  profile: string;
 }
 
 export interface IPostDetailInfo {
@@ -38,6 +39,7 @@ export interface IPostDetailInfo {
     createdAt: string;
     type: string;
     mine: boolean;
+    profile: string;
   };
 }
 export interface ICheckLiked {
@@ -66,12 +68,14 @@ export interface ICommentEdit {
       {
         commentId: number;
         writer: string;
+        profile: string;
         content: string;
         mine: true;
         reply: [
           {
             replyId: number;
             writer: string;
+            profile: string;
             content: string;
             mine: boolean;
             createdAt: string;
