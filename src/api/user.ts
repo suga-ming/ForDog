@@ -8,6 +8,14 @@ export interface ISignUp {
   phone: string;
 }
 
+export interface IKakaoSignUp {
+  email?: string;
+  name: string;
+  nickName: string;
+  phone: string;
+  accountId?: string;
+}
+
 export interface ISignIn {
   email: string;
   password: string;
@@ -63,6 +71,14 @@ export const kakaoSignIn = async () => {
 export const emailSignUp = async (body: ISignUp) => {
   try {
     return await api.post("/user/signUp/email", body);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const kakaoSignUp = async (body: IKakaoSignUp) => {
+  try {
+    return await api.post("/user/signUp/social", body);
   } catch (err) {
     console.log(err);
   }
