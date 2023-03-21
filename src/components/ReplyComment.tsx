@@ -22,6 +22,7 @@ interface replyProps {
   content: string;
   mine: boolean;
   createdAt: string;
+  profile: string;
 }
 
 const ReplyComment = ({
@@ -30,6 +31,7 @@ const ReplyComment = ({
   content,
   mine,
   createdAt,
+  profile,
 }: replyProps) => {
   const accessToken = useRecoilValue(isAccessToken);
   const [comment, setComment] = useState(content);
