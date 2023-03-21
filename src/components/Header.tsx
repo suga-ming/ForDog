@@ -4,6 +4,7 @@ import { isAccessToken, isLogin, isRefreshToken } from "../store/recoil";
 import { useState } from "react";
 import styled from "styled-components";
 import { myProfile } from "../api/user";
+import Swal from "sweetalert2";
 
 const Solid = styled.div`
   border-bottom: 1px solid rgb(156 163 175);
@@ -41,6 +42,16 @@ const Header = () => {
     setModal(false);
   };
   const goLogOut = () => {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      iconColor: "rgba(237, 127, 148)",
+      title: "로그아웃 성공",
+      showConfirmButton: true,
+      confirmButtonText: "확인",
+      confirmButtonColor: "rgba(237, 127, 148)",
+      width: "30%",
+    });
     setModal(false);
     isLoginReset();
     isAccessTokenReset();
@@ -69,12 +80,6 @@ const Header = () => {
           <div onClick={goHome} className="font-bold cursor-pointer">
             ForDog
           </div>
-          {/* <div className="flex font-semibold">
-            <div className="px-5">자랑하기</div>
-            <div className="px-5">커뮤니티</div>
-            <div className="px-5">캘린더</div>
-            <div className="px-5">랭킹</div>
-          </div> */}
           <div className="flex">
             <div className="relative flex items-center font-medium">
               <div
@@ -136,12 +141,6 @@ const Header = () => {
           <div onClick={goHome} className="font-bold cursor-pointer">
             ForDog
           </div>
-          {/* <div className="flex font-semibold">
-            <div className="px-5">자랑하기</div>
-            <div className="px-5">커뮤니티</div>
-            <div className="px-5">캘린더</div>
-            <div className="px-5">랭킹</div>
-          </div> */}
           <div className="flex">
             <div className="flex items-center font-medium">
               <div onClick={goLogin} className="cursor-pointer">
