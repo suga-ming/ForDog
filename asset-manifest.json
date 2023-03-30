@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ForDog/static/css/main.4dbd9e7b.css",
-    "main.js": "/ForDog/static/js/main.4a901498.js",
+    "main.js": "/ForDog/static/js/main.059b4c8e.js",
     "static/media/logo.png": "/ForDog/static/media/logo.74c600699e05266a5235.png",
     "static/media/arrow.png": "/ForDog/static/media/arrow.a160bd4a0f051b88f4d8.png",
     "index.html": "/ForDog/index.html",
     "main.4dbd9e7b.css.map": "/ForDog/static/css/main.4dbd9e7b.css.map",
-    "main.4a901498.js.map": "/ForDog/static/js/main.4a901498.js.map"
+    "main.059b4c8e.js.map": "/ForDog/static/js/main.059b4c8e.js.map"
   },
   "entrypoints": [
     "static/css/main.4dbd9e7b.css",
-    "static/js/main.4a901498.js"
+    "static/js/main.059b4c8e.js"
   ]
 }
