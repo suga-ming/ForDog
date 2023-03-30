@@ -31,7 +31,7 @@ const Router = () => {
     return login ? <MyPage /> : <Navigate to="/login" />;
   };
   return (
-    <BrowserRouter basename="ForDog">
+    <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Spalsh />}></Route>

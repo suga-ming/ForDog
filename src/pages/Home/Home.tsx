@@ -73,7 +73,7 @@ const Home = () => {
         <img src={logo} alt={logo} className="w-32 h-32 mb-5" />
         <div className="font-bold text-3xl mb-3 text-black">For Dog</div>
         <div className="text-black font-semibold">
-          오직 강아지를 위한 필요한것들이 다 모여있다!
+          오직 강아지를 위한 필요한것들이 다 모여있다!!
         </div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
