@@ -27,25 +27,25 @@ const AHome = () => {
     <div className="h-screen bg-white flex flex-col justify-end items-center">
       <div className="flex flex-col justify-center items-center">
         <img src={logo} alt={logo} className="w-32 h-32 mb-5" />
-        <motion.div
+        <PostIt
           transition={{ delay: 0.2 }}
           initial={{ scale: 0 }}
           animate={{ scale: 1, rotateZ: 360 }}
           className="font-bold text-3xl mb-3 text-black"
         >
           For Dog
-        </motion.div>
-        <motion.div
+        </PostIt>
+        <PostIt
           transition={{ delay: 0.4 }}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           className="text-black font-semibold"
         >
           오직 강아지를 위한 필요한것들이 다 모여있다!
-        </motion.div>
+        </PostIt>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
-        <motion.div
+        <PostIt
           transition={{ delay: 1, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
@@ -53,7 +53,6 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -66,8 +65,8 @@ const AHome = () => {
             />
           </svg>
           <div className="text-white font-semibold">기록하기</div>
-        </motion.div>
-        <motion.div
+        </PostIt>
+        <PostIt
           transition={{ delay: 1.2, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
@@ -75,7 +74,6 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -88,7 +86,7 @@ const AHome = () => {
             />
           </svg>
           <div className="text-white font-semibold">자랑하기</div>
-        </motion.div>
+        </PostIt>
         <motion.div
           transition={{ delay: 1.4, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
@@ -97,7 +95,6 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -119,7 +116,6 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-[60px] h-[60px] mb-3"

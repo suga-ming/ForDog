@@ -77,12 +77,11 @@ const Home = () => {
         </div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
-        <motion.div
+        <PostIt
           onClick={goRecord}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40 cursor-pointer"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -95,13 +94,12 @@ const Home = () => {
             />
           </svg>
           <div className="text-white font-semibold">기록하기</div>
-        </motion.div>
-        <motion.div
+        </PostIt>
+        <PostIt
           onClick={() => navigate("/lookDog")}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40 cursor-pointer"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -114,13 +112,12 @@ const Home = () => {
             />
           </svg>
           <div className="text-white font-semibold">자랑하기</div>
-        </motion.div>
-        <motion.div
+        </PostIt>
+        <PostIt
           onClick={() => navigate("/comunity")}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40 cursor-pointer"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -133,13 +130,12 @@ const Home = () => {
             />
           </svg>
           <div className="text-white font-semibold">커뮤니티</div>
-        </motion.div>
-        <motion.div
+        </PostIt>
+        <PostIt
           onClick={goCalendar}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
-          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40 cursor-pointer"
         >
           <svg
             className="w-[60px] h-[60px] mb-3"
@@ -152,7 +148,7 @@ const Home = () => {
             />
           </svg>
           <div className="text-white font-semibold">캘린더</div>
-        </motion.div>
+        </PostIt>
       </div>
     </div>
   );
