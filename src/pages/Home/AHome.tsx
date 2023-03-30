@@ -45,7 +45,7 @@ const AHome = () => {
         </motion.div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
-        <PostIt
+        <motion.div
           transition={{ delay: 1, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
@@ -53,6 +53,7 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
+          className="flex flex-column item-center bg-pink"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -65,7 +66,7 @@ const AHome = () => {
             />
           </svg>
           <div className="text-white font-semibold">기록하기</div>
-        </PostIt>
+        </motion.div>
         <PostIt
           transition={{ delay: 1.2, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
