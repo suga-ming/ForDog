@@ -73,15 +73,16 @@ const Home = () => {
         <img src={logo} alt={logo} className="w-32 h-32 mb-5" />
         <div className="font-bold text-3xl mb-3 text-black">For Dog</div>
         <div className="text-black font-semibold">
-          오직 강아지를 위한 필요한것들이 다 모여있다!
+          오직 강아지를 위한 필요한것들이 다 모여있다람쥐!
         </div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
-        <PostIt
+        <motion.div
           onClick={goRecord}
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
+          className="flex flex-column item-center bg-pet_pink px-[50px] pt-10 pb-40 cursor-pointer"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -94,7 +95,7 @@ const Home = () => {
             />
           </svg>
           <div className="text-white font-semibold">기록하기</div>
-        </PostIt>
+        </motion.div>
         <PostIt
           onClick={() => navigate("/lookDog")}
           variants={boxVariants}
