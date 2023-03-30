@@ -50,10 +50,10 @@ const AHome = () => {
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/myProfile")}
-          // variants={boxVariants}
-          // whileHover="hover"
-          // whileTap="click"
-          className="flex flex-column item-center bg-pet_pink"
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -67,7 +67,7 @@ const AHome = () => {
           </svg>
           <div className="text-white font-semibold">기록하기</div>
         </motion.div>
-        <PostIt
+        <motion.div
           transition={{ delay: 1.2, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
@@ -75,6 +75,7 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
+          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -87,9 +88,8 @@ const AHome = () => {
             />
           </svg>
           <div className="text-white font-semibold">자랑하기</div>
-        </PostIt>
-
-        <PostIt
+        </motion.div>
+        <motion.div
           transition={{ delay: 1.4, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
@@ -97,6 +97,7 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
+          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-16 h-16 mb-3"
@@ -109,8 +110,8 @@ const AHome = () => {
             />
           </svg>
           <div className="text-white font-semibold">커뮤니티</div>
-        </PostIt>
-        <PostIt
+        </motion.div>
+        <motion.div
           transition={{ delay: 1.6, type: "tween" }}
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
@@ -118,6 +119,7 @@ const AHome = () => {
           variants={boxVariants}
           whileHover="hover"
           whileTap="click"
+          className="flex flex-col items-center bg-pet_pink px-[50px] pt-10 pb-40"
         >
           <svg
             className="w-[60px] h-[60px] mb-3"
@@ -130,28 +132,7 @@ const AHome = () => {
             />
           </svg>
           <div className="text-white font-semibold">캘린더</div>
-        </PostIt>
-        {/* <PostIt
-          transition={{ delay: 1.6, type: "tween" }}
-          initial={{ scale: 0, y: 300 }}
-          animate={{ scale: 1, y: 0 }}
-          onClick={() => navigate("/rank")}
-          variants={boxVariants}
-          whileHover="hover"
-          whileTap="click"
-        >
-          <svg
-            className="w-16 h-16 mb-3"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
-          >
-            <path
-              fill="white"
-              d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z"
-            />
-          </svg>
-          <div className="text-white font-semibold">챌린지</div>
-        </PostIt> */}
+        </motion.div>
       </div>
     </div>
   );
