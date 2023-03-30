@@ -41,7 +41,7 @@ const AHome = () => {
           animate={{ scale: 1 }}
           className="text-black font-semibold"
         >
-          오직 강아지를 위한 필요한것들이 다 모여있다람쥐!
+          오직 강아지를 위한 필요한것들이 다 모여있다!
         </motion.div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
