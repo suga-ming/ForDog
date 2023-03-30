@@ -41,7 +41,7 @@ const AHome = () => {
           animate={{ scale: 1 }}
           className="text-black font-semibold"
         >
-          오직 강아지를 위한 필요한것들이 다 모여있다!
+          오직 강아지를 위한 필요한것들이 다 모여있다람쥐!
         </motion.div>
       </div>
       <div className="flex justify-around w-3/5 mt-20">
@@ -50,10 +50,10 @@ const AHome = () => {
           initial={{ scale: 0, y: 300 }}
           animate={{ scale: 1, y: 0 }}
           onClick={() => navigate("/myProfile")}
-          variants={boxVariants}
-          whileHover="hover"
-          whileTap="click"
-          className="flex flex-column item-center bg-pink"
+          // variants={boxVariants}
+          // whileHover="hover"
+          // whileTap="click"
+          className="flex flex-column item-center bg-pet_pink"
         >
           <svg
             className="w-16 h-16 mb-3"
