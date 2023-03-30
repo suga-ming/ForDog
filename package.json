@@ -18,6 +18,7 @@
     "css-loader": "^6.7.3",
     "event-utils": "^2.1.0",
     "framer-motion": "^8.5.0",
+    "gh-pages": "^5.0.0",
     "node-sass": "^7.0.3",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
@@ -41,9 +42,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && aws s3 sync ./build s3://my-fordog",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -69,5 +72,6 @@
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4"
-  }
+  },
+  "homepage": "https://suga-ming.github.io/ForDog"
 }
