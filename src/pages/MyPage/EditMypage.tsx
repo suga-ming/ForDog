@@ -69,7 +69,7 @@ const EditMypage = () => {
       isLoginReset();
       isAccessTokenReset();
       isRefreshTokenReset();
-      navigate("/home");
+      navigate("/");
     } else if (resultCode === 1031) {
       alert("탈퇴 실패");
     }
