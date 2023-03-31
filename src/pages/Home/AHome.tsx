@@ -16,7 +16,7 @@ const AHome = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate("/home");
+      navigate("/");
     }, 2000);
   });
   const boxVariants = {
