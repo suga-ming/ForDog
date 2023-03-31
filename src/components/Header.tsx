@@ -56,7 +56,7 @@ const Header = () => {
     isLoginReset();
     isAccessTokenReset();
     isRefreshTokenReset();
-    navigate("/home");
+    navigate("/");
   };
   const goMyProfile = () => {
     navigate("/myProfile");
