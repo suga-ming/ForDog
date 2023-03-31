@@ -33,13 +33,6 @@ const Solid4 = styled.div`
   border-bottom-right-radius: 8px;
 `;
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 20px;
-  row-gap: 40px;
-`;
-
 const LookDog = () => {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(isAccessToken);
@@ -58,7 +51,7 @@ const LookDog = () => {
       {isLoading ? (
         <div>is Loading...</div>
       ) : (
-        <Grid className="w-2/5 flex">
+        <div className="w-2/5 grid grid-cols-3 gap-x-5 gap-y-10">
           {data?.data.items.map((item) => (
             <div className="bg-white rounded-lg" key={item.userId}>
               {item?.image ? (
@@ -103,7 +96,7 @@ const LookDog = () => {
               </Solid4>
             </div>
           ))}
-        </Grid>
+        </div>
       )}
     </div>
   );
