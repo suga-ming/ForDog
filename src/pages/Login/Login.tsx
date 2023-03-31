@@ -28,7 +28,7 @@ const Login = () => {
       setAccesstoken(queryObject.accessToken);
       setRefreshtoken(queryObject.refreshToken);
       console.log(queryObject);
-      navigate("/home");
+      navigate("/");
     }
   });
   const { register, handleSubmit, reset } = useForm<ISignIn>();
@@ -44,7 +44,7 @@ const Login = () => {
       setLogin(true);
       setAccesstoken(res?.data.data.data.accessToken);
       setRefreshtoken(res?.data.data.data.refreshToken);
-      navigate("/home");
+      navigate("/");
       Swal.fire({
         position: "center",
         icon: "success",
