@@ -34,7 +34,7 @@ const Header = () => {
     setModal(false);
   };
   const goHome = () => {
-    navigate("/home");
+    navigate("/");
     setModal(false);
   };
   const goMyPage = () => {

@@ -34,9 +34,9 @@ const Router = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Spalsh />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/aHome" element={<AHome />}></Route>
+        {/* <Route path="/" element={<Spalsh />}></Route> */}
+        {/* <Route path="/" element={<AHome />}></Route> */}
+        <Route path="/" element={<Home />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route path="/signUp/email" element={<Email />}></Route>
         <Route path="/signUp/kakao" element={<Kakao />}></Route>
